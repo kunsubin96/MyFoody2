@@ -1,5 +1,8 @@
 package com.example.kunsubin.foody.WebService;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import com.example.kunsubin.foody.Object.ObjectInfoUser;
 import com.example.kunsubin.foody.Object.QuanHuyen;
 import com.example.kunsubin.foody.Object.TinhThanh;
@@ -107,6 +110,7 @@ public class WebService {
 
             kiemtra = Integer.parseInt(item.toString());
 
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (XmlPullParserException e) {
@@ -118,8 +122,9 @@ public class WebService {
 
     //getInfo user
     public ObjectInfoUser getInfoUser(String username) {
-        ObjectInfoUser user = new ObjectInfoUser();
-        user = null;
+        Log.d("username",username);
+        ObjectInfoUser user=null;
+
         SoapObject request = new SoapObject(StaticObject.NAME_SPACE, StaticObject.METHOD_GETUSER);
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.dotNet = true;
@@ -133,17 +138,23 @@ public class WebService {
         try {
             HttpsTransport.call(StaticObject.SOAP_ACTION_GETUSER, envelope);
             //getData
-            SoapObject data = (SoapObject) envelope.getResponse();
+            SoapObject data = (SoapObject) envelope.bodyIn;
 
-            user.setUsername(data.getProperty("Username").toString());
-            user.setUsername(data.getProperty("HoTen").toString());
-            user.setUsername(data.getProperty("DiaChi").toString());
-            user.setUsername(data.getProperty("SDT").toString());
-            user.setUsername(data.getProperty("Avatar").toString());
+            SoapObject item=(SoapObject)data.getProperty(0);
+            user= new ObjectInfoUser();
+            user.setUsername(item.getProperty("Username").toString());
+            user.setHoTen(item.getProperty("HoTen").toString());
+            user.setDiaChi(item.getProperty("DiaChi").toString());
+            user.setSDT(item.getProperty("SDT").toString());
+            user.setAvatar(item.getProperty("Avatar").toString());
+
 
         } catch (IOException e) {
             e.printStackTrace();
         } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }
+        catch (NullPointerException e){
             e.printStackTrace();
         }
         return user;

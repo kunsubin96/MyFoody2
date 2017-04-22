@@ -21,10 +21,13 @@ import com.example.kunsubin.foody.BussinessAccess.BussinessQuanHuyen;
 import com.example.kunsubin.foody.BussinessAccess.BussinessTinhThanh;
 import com.example.kunsubin.foody.Object.DanhMuc;
 import com.example.kunsubin.foody.Object.NhaHang;
+import com.example.kunsubin.foody.Object.ObjectInfoUser;
 import com.example.kunsubin.foody.Object.QuanHuyen;
 import com.example.kunsubin.foody.Object.StaticData;
 import com.example.kunsubin.foody.Object.TinhThanh;
 import com.example.kunsubin.foody.RecyclerView.MoreItemView;
+import com.example.kunsubin.foody.WebService.AsynCheckLogin;
+import com.example.kunsubin.foody.WebService.AsynGetInfoUser;
 import com.example.kunsubin.foody.WebService.AsynQuanHuyen;
 import com.example.kunsubin.foody.WebService.AsynTinhThanh;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
@@ -117,6 +120,7 @@ public class ODau extends android.support.v4.app.Fragment {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+
         //tạo các trạng thái ban đầu khi nhấn tab
         StaticData.setSelectedDanhMucODau(0);
         StaticData.setSelectedDiaDiemODau(-1);

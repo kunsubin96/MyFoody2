@@ -5,58 +5,60 @@ package com.example.kunsubin.foody.Object;
  */
 
 public class ObjectInfoUser {
-    public static String getUsername() {
+
+    public  byte[] hinh;
+
+    public String getUsername() {
         return Username;
     }
 
-    public static void setUsername(String username) {
+    public void setUsername(String username) {
         Username = username;
     }
 
-    public static String getAvatar() {
-        return Avatar;
-    }
-
-    public static void setAvatar(String avatar) {
-        Avatar = avatar;
-    }
-
-    public static String getSDT() {
-        return SDT;
-    }
-
-    public static void setSDT(String SDT) {
-        ObjectInfoUser.SDT = SDT;
-    }
-
-    public static String getDiaChi() {
-        return DiaChi;
-    }
-
-    public static void setDiaChi(String diaChi) {
-        DiaChi = diaChi;
-    }
-
-    public static String getHoTen() {
-        return HoTen;
-    }
-
-    public static void setHoTen(String hoTen) {
-        HoTen = hoTen;
-    }
-
-    public static byte[] getHinh() {
+    public byte[] getHinh() {
         return hinh;
     }
 
-    public static void setHinh(byte[] hinh) {
-        ObjectInfoUser.hinh = hinh;
+    public void setHinh(byte[] hinh) {
+        this.hinh = hinh;
     }
 
-    public static byte[] hinh;
-    public static String Username;
-    public static String HoTen;
-    public static String DiaChi;
-    public static String SDT;
-    public static String Avatar;
+    public String getHoTen() {
+        return HoTen;
+    }
+
+    public void setHoTen(String hoTen) {
+        HoTen = hoTen;
+    }
+
+    public String getDiaChi() {
+        return DiaChi;
+    }
+
+    public void setDiaChi(String diaChi) {
+        DiaChi = diaChi;
+    }
+
+    public String getSDT() {
+        return SDT;
+    }
+
+    public void setSDT(String SDT) {
+        this.SDT = SDT;
+    }
+
+    public String getAvatar() {
+        return Avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        Avatar = avatar;
+    }
+
+    public String Username;
+    public String HoTen;
+    public String DiaChi;
+    public String SDT;
+    public String Avatar;
 }
