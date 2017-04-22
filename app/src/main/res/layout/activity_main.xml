@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:weightSum="10.0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.kunsubin.foody.MainActivity">
+    <LinearLayout
+        android:id="@+id/tabBottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="10"
+        android:visibility="gone">
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/homeMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="10"
+        android:visibility="visible">
+        <include layout="@layout/home_main"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3.0px"
+        android:background="#55aaaaaa" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sizeBar"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:itemTextColor="@color/colorWhite"
+            app:itemBackground="@color/colorWhite"
+            android:visibility="visible"
+            app:menu="@menu/bottom_nav_items">
+
+        </com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx>
+        <TextView
+            android:id="@+id/btnHuy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/colorWhite"
+            android:gravity="center"
+            android:onClick="onClickHuy"
+            android:text="Hủy"
+            android:textColor="@color/textColorHuy"
+            android:visibility="gone" />
+    </LinearLayout>
+</LinearLayout>

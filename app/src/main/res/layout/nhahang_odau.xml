@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="7dp"
+    android:paddingBottom="7dp"
+    android:background="@color/nenKhungChinh"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/layout_parent_header_restaurant"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        android:paddingBottom="8.0dip"
+        android:paddingLeft="8.0dip"
+        android:paddingRight="8.0dip"
+        android:paddingTop="8.0dip">
+
+        <TextView
+            android:id="@+id/text_view_rate_arg_restaurant"
+            style="@style/componens_textView"
+            android:layout_width="30.0dip"
+            android:layout_height="30.0dip"
+            android:layout_gravity="center"
+            android:layout_marginTop="3.0dip"
+            android:background="@drawable/border_circle_rate"
+            android:gravity="center"
+            android:text="10.0"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/linear_layout_header_restaurant"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8.0dip"
+            android:layout_toRightOf="@+id/text_view_rate_arg_restaurant"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_view_name_restaurant"
+                style="@style/componens_textView"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Tiệm ABC"
+                android:textColor="@color/color_tittle_item_plus_menu"
+                android:textSize="@dimen/text_size_title"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/linear_layout_header_restaurant"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_view_address_restaurant"
+                    style="@style/componens_textView"
+                    android:layout_weight="1.0"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Quận 1, TpHCM"
+                    android:textColor="#ff888888"
+                    android:textSize="@dimen/text_size_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:id="@+id/image_view_how_far_restaurant"
+                    android:layout_width="10.0dip"
+                    android:layout_height="fill_parent"
+                    android:src="@drawable/icon_how_far"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/text_view_"
+                    style="@style/componens_textView"
+                    android:layout_marginLeft="1.0dip"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="5.3km"
+                    android:textColor="#ff888888"
+                    android:textSize="@dimen/text_size_small"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_main_img_restaurant"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/image_view_main_img_restaurant"
+                android:layout_width="match_parent"
+                android:layout_height="150.0dip"
+                android:layout_marginRight="1.0dip"
+                android:layout_weight="1.0"
+                android:background="@color/gray"
+                android:scaleType="centerCrop" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_sub_img_restaurant"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1.0dip"
+            android:layout_marginTop="1.0dip"
+            android:orientation="horizontal"
+>
+
+            <ImageView
+                android:id="@+id/image_view_sub_img_res_1"
+                android:layout_width="match_parent"
+                android:layout_height="60.0dip"
+                android:layout_marginRight="1.0dip"
+                android:layout_weight="1.0"
+                android:background="@color/gray"
+                android:scaleType="centerCrop"
+                android:visibility="visible"/>
+
+            <ImageView
+                android:id="@+id/image_view_sub_img_res_2"
+                android:layout_width="match_parent"
+                android:layout_height="60.0dip"
+                android:layout_marginRight="1.0dip"
+                android:layout_weight="1.0"
+                android:background="@color/gray"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/image_view_sub_img_res_3"
+                android:layout_width="match_parent"
+                android:layout_height="60.0dip"
+                android:layout_weight="1.0"
+                android:background="@color/gray"
+                android:scaleType="centerCrop" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linear_layout_parent_comment_res"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linear_layout_sub_comment_res_1"
+            style="@style/view_match_width"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0.0dip"
+            android:background="@color/home_new_list_view_line"
+            android:orientation="horizontal"
+            android:paddingBottom="2.0dip"
+            android:paddingLeft="8.0dip"
+            android:paddingRight="8.0dip"
+            android:paddingTop="10.0dip">
+
+            <ImageView
+                android:id="@+id/image_view_avatar_comment_1"
+                android:background="@drawable/border_circle"
+                android:layout_width="30dip"
+                android:layout_height="30dip" />
+
+            <LinearLayout
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0.0dip"
+                android:layout_weight="1.0"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    style="@style/view_match_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1.0dip"
+                    android:paddingRight="0.0dip">
+
+                    <TextView
+                        android:id="@+id/text_view_name_user_1"
+                        style="@style/textView_comment"
+                        android:layout_width="fill_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_weight="1.0"
+                        android:gravity="left"
+                        android:text="fsdfdsafsdfas "
+                        android:textColor="#ff333333"
+                        android:textSize="@dimen/text_size_small"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        style="@style/textView_comment"
+                        android:id="@+id/text_view_user_rate_1"
+                        android:layout_alignParentRight="true"
+                        android:text="8.0"
+                        android:textColor="@color/color_circle_rate"
+                        android:textSize="@dimen/text_size_small"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/text_view_comment_1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="Review contenttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt"
+                    android:textColor="#ff555555"
+                    android:textSize="@dimen/text_size_small" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_sub_comment_res_2"
+            style="@style/view_match_width"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0.0dip"
+            android:background="@color/home_new_list_view_line"
+            android:orientation="horizontal"
+            android:paddingBottom="2.0dip"
+            android:paddingLeft="8.0dip"
+            android:paddingRight="8.0dip"
+            android:paddingTop="10.0dip">
+
+            <ImageView
+                android:id="@+id/image_view_avatar_comment_2"
+                android:background="@drawable/border_circle"
+                android:layout_width="30dip"
+                android:layout_height="30dip" />
+
+            <LinearLayout
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0.0dip"
+                android:layout_weight="1.0"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    style="@style/view_match_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1.0dip"
+                    android:paddingRight="0.0dip">
+
+                    <TextView
+                        android:id="@+id/text_view_name_user_2"
+                        style="@style/textView_comment"
+                        android:layout_width="fill_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_weight="1.0"
+                        android:gravity="left"
+                        android:text="fsdfdsafsdfas "
+                        android:textColor="#ff333333"
+                        android:textSize="@dimen/text_size_small"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        style="@style/textView_comment"
+                        android:id="@+id/text_view_user_rate_2"
+                        android:layout_alignParentRight="true"
+                        android:text="8.0"
+                        android:textColor="@color/color_circle_rate"
+                        android:textSize="@dimen/text_size_small"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/text_view_comment_2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="Review contenttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt"
+                    android:textColor="#ff555555"
+                    android:textSize="@dimen/text_size_small" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+       
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative_layout_under_comment"
+        android:padding="5dp"
+        android:background="@color/colorWhite"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/linear_layout_num_of_review"
+            android:layout_marginLeft="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/icon_num_of_review"
+                android:layout_width="15dip"
+                android:layout_height="15dip" />
+            <TextView
+                android:id="@+id/text_view_num_of_review"
+                android:text="212"
+                android:textSize="11sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linear_layout_num_of_photo"
+            android:layout_marginLeft="70dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/icon_num_of_photo"
+                android:layout_width="15dip"
+                android:layout_height="15dip" />
+            <TextView
+                android:id="@+id/text_view_num_of_photo"
+                android:text="3.9k"
+                android:textSize="11sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/text_status_res"
+                android:text="Đang mở cửa"
+                android:textSize="11sp"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <TextView
+                android:id="@+id/image_status_res"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/border_circle_rate"
+                android:layout_width="10dip"
+                android:layout_height="10dip" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

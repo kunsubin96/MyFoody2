@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#CC0000</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="textColorBar">#ff666666</color>
+    <color name="color_background_bottom_menu">#F6F6F6</color>
+    <color name="nenKhungChinh">#edebeb</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="textColorHuy">#ff555555</color>
+    <color name="color_text_item_plus_menu">#ff343434</color>
+    <color name="black">#1e1e1e</color>
+    <color name="gray">#ff666666</color>
+    <color name="yellow">#d7c30e</color>
+    <color name="red">#bf0020</color>
+    <color name="blue">#0457c9</color>
+    <color name="micro_site_title_sub">#ff555555</color>
+    <color name="color_text_default_choose_province">#ff0063e9</color>
+    <color name="home_menu_background_color_pressed">#ffeeeeee</color>
+    <color name="demo">#918d8d</color>
+    <color name="color_circle_rate">#1DA41A</color>
+    <color name="color_tittle_item_plus_menu">#ff343434</color>
+    <color name="home_new_list_view_line">#20aaaaaa</color>
+</resources>

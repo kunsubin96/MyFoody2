@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:clickable="true"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45.0dip"
+            android:background="@drawable/list_item_selector"
+            android:orientation="horizontal"
+            android:padding="2.0dip"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="35.0dip"
+                android:layout_height="fill_parent"
+                android:paddingLeft="5.0dip"
+                android:src="@drawable/plus_menu_ic_ecoupon" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:padding="5.0dip"
+                android:text="Quét mã Coupon"
+                android:textColor="@color/color_text_item_plus_menu" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45.0dip"
+            android:background="@drawable/list_item_selector"
+            android:orientation="horizontal"
+            android:padding="2.0dip">
+
+            <ImageView
+                android:layout_width="35.0dip"
+                android:layout_height="fill_parent"
+                android:paddingLeft="5.0dip"
+                android:src="@drawable/plus_menu_ic_upload_image"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:padding="5.0dip"
+                android:text="Đăng ảnh"
+                android:textColor="@color/color_text_item_plus_menu" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45.0dip"
+            android:background="@drawable/list_item_selector"
+            android:orientation="horizontal"
+            android:padding="2.0dip">
+
+            <ImageView
+                android:layout_width="35.0dip"
+                android:layout_height="fill_parent"
+                android:paddingLeft="5.0dip"
+                android:src="@drawable/plus_menu_ic_checkin"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:padding="5.0dip"
+                android:text="Check-in"
+                android:textColor="@color/color_text_item_plus_menu"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45.0dip"
+            android:background="@drawable/list_item_selector"
+            android:orientation="horizontal"
+            android:padding="2.0dip">
+
+            <ImageView
+                android:layout_width="35.0dip"
+                android:layout_height="fill_parent"
+                android:paddingLeft="5.0dip"
+                android:src="@drawable/plus_menu_ic_review"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:padding="5.0dip"
+                android:text="Viết bình luận"
+                android:textColor="@color/color_text_item_plus_menu" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45.0dip"
+            android:background="@drawable/list_item_selector"
+            android:orientation="horizontal"
+            android:padding="2.0dip">
+
+            <ImageView
+                android:layout_width="35.0dip"
+                android:layout_height="fill_parent"
+                android:paddingLeft="5.0dip"
+                android:src="@drawable/plus_menu_ic_add_place" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:padding="5.0dip"
+                android:text="Thêm địa điểm"
+                android:textColor="@color/color_text_item_plus_menu" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

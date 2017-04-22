@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="3dp"
+        android:background="@drawable/border_more_item"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="5.0dip">
+
+        <ImageView
+            android:id="@+id/image_view_more_item_menu"
+            android:layout_width="40.0dip"
+            android:layout_height="40.0dip"
+            android:gravity="center"
+            android:padding="6.0dip"
+            android:src="@drawable/icon_bottom_menu_home" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/image_view_more_item_menu"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingRight="3.0dip">
+
+            <TextView
+                android:id="@+id/text_view_more_item_menu"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Nearby"
+                android:textColor="@color/micro_site_title_sub"
+                android:textSize="@dimen/text_size_more_item" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>
+
+

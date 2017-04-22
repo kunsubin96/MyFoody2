@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/choose_province"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/colorWhite">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/choose_provine_top_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="45.0dip"
+            android:background="#ffcc0000"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:id="@+id/back_button_choose_provine"
+                android:layout_width="50.0dip"
+                android:layout_height="fill_parent"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/list_item_selector"
+                android:onClick="onClickBack"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="50.0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1.0"
+                    android:padding="10.0dip"
+                    android:src="@drawable/icon_back" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/choose_provine_top_bar_title"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerInParent="true"
+                android:layout_toLeftOf="@+id/text_view_done_choose_provine"
+                android:layout_toRightOf="@+id/back_button_choose_provine"
+                android:ellipsize="end"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:text="@string/TITLE_CHOOSE_PROVINCE"
+                android:textColor="#ffffffff"
+                android:textSize="@dimen/text_size_big_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_view_done_choose_provine"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:background="@drawable/list_item_selector"
+                android:clickable="true"
+                android:gravity="center|right"
+                android:paddingLeft="15.0dip"
+                android:paddingRight="15.0dip"
+                android:text="@string/TEXT_ACTION_DONE"
+                android:onClick="onClickXong"
+                android:textColor="#ffffffff"
+                android:textSize="@dimen/text_size_big_title"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ListView
+                android:id="@+id/list_view_choose_province"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cacheColorHint="#00000000"
+                android:childDivider="#ffeeeeee"
+                android:clickable="false"
+                android:divider="#ffdddddd"
+                android:dividerHeight="1.0px"
+                android:indicatorLeft="@null"
+                />
+            <ListView
+                android:id="@+id/list_view_choose_province1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cacheColorHint="#00000000"
+                android:childDivider="#ffeeeeee"
+                android:clickable="false"
+                android:divider="#ffdddddd"
+                android:dividerHeight="1.0px"
+                android:indicatorLeft="@null">
+            </ListView>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>
+<!---->

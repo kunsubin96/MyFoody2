@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10.0">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sizeTopHeight"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:weightSum="16">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/list_item_selector"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:padding="5.0dip">
+
+            <ImageView
+                android:id="@+id/menu_foody"
+                android:layout_width="30.0dip"
+                android:layout_height="30.0dip"
+                android:layout_gravity="center"
+                android:onClick="onMenuFoodyClick"
+                android:padding="5.0dip"
+                android:src="@drawable/icon_foody_anuong" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_weight="16"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="1.26dp"
+                android:background="@drawable/border_top_menu"
+                >
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tab_parent_top_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_centerInParent="true"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabBackground="@drawable/top_menu_selector"
+                    app:tabSelectedTextColor="@color/black"
+                    app:tabTextColor="@color/colorWhite"
+                    app:tabTextAppearance="@style/MyCustomTabText"
+                    android:background="@color/colorWhite">
+                    <android.support.design.widget.TabItem
+                        android:id="@+id/tab_ODau"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/oDau"
+                        android:textSize="15sp"
+                        />
+                    <android.support.design.widget.TabItem
+                        android:id="@+id/tab_AnGi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/anGi"
+                        android:textSize="15sp"/>
+                </android.support.design.widget.TabLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="30.0dip"
+                android:layout_height="30.0dip"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginRight="5.0dip"
+                android:onClick="onClickPlus"
+                android:padding="9.0dip"
+                android:src="@drawable/ic_plus_action_white" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2.0px"
+        android:background="#55aaaaaa" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="10.0"
+        android:orientation="vertical">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </LinearLayout>
+</LinearLayout>

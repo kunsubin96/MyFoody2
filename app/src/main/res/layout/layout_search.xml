@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/nenKhungChinh"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:weightSum="16">
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:background="@drawable/border_search"
+           android:orientation="horizontal"
+           android:layout_margin="7dp"
+           android:weightSum="5">
+           <ImageView
+               android:layout_width="30dp"
+               android:layout_height="30dp"
+               android:layout_gravity="center"
+               android:tint="@color/gray"
+               android:src="@drawable/icon_bottom_menu_search"/>
+           <EditText
+               android:layout_width="wrap_content"
+               android:layout_height="match_parent"
+               android:layout_weight="5"
+               android:textSize="10dp"
+               android:background="@null"
+               />
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="match_parent"
+               android:layout_gravity="center"
+               android:gravity="center"
+               android:orientation="horizontal">
+               <ImageView
+                   android:layout_width="15dp"
+                   android:layout_height="15dp"
+                   android:layout_gravity="center"
+                   android:src="@drawable/ic_plus_action_white"
+                   android:tint="@color/black"
+                   android:visibility="gone"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="match_parent"
+                   android:text="@string/boSuuTap"
+                   android:layout_gravity="center"
+                   android:textColor="@color/black"
+                   android:textStyle="bold"
+                   android:gravity="center"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="match_parent"
+                   android:text="  tại  "
+                   android:layout_gravity="center"
+                   android:gravity="center"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="match_parent"
+                   android:text="@string/tinhThanh"
+                   android:layout_gravity="center"
+                   android:textColor="@color/black"
+                   android:textStyle="bold"
+                   android:gravity="center"/>
+           </LinearLayout>
+       </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2.0px"
+        android:background="#55aaaaaa" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sizeBar"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:background="@drawable/my_button_bg"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:text="Xem gần đây"
+                    android:textColor="@color/red"
+                    android:textSize="13.0sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:background="@drawable/my_button_bg"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:text="Đã tìm"
+                    android:textColor="@color/textColorBar"
+                    android:textSize="13.0sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/ic_view_error"
+                android:layout_marginBottom="10dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="Chưa có dữ liệu"
+                android:textColor="#918d8d"
+                android:textSize="20dp"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
