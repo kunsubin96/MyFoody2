@@ -23,7 +23,8 @@
         </activity>
         <activity android:name=".MenuFoody" />
         <activity android:name=".ChooseProvince" />
-        <activity android:name=".LoginUser"></activity>
+        <activity android:name=".LoginUser" />
+        <activity android:name=".ThietLapTaiKhoan"></activity>
     </application>
 
 </manifest>

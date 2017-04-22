@@ -44,20 +44,7 @@ public class LoginUser extends AppCompatActivity {
                 onBackPressed();
             }
         });
-      /*  String image="";
-        AsynGetImage asynGetImage=new AsynGetImage();
-        try {
-            image=asynGetImage.execute("df").get();
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        byte[] valueDecoded= Base64.decode(image);
-        Glide.with(getApplicationContext()).load(valueDecoded).into(imageView);*/
-       /* Bitmap bitmap = BitmapFactory.decodeByteArray(valueDecoded, 0, valueDecoded.length);
-        imageView.setImageBitmap(bitmap);*/
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

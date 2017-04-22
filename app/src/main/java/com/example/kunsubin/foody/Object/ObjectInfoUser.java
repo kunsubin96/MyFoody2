@@ -56,6 +56,15 @@ public class ObjectInfoUser {
         Avatar = avatar;
     }
 
+    public String getPassword() {
+        return Password;
+    }
+
+    public void setPassword(String password) {
+        Password = password;
+    }
+
+    public String Password;
     public String Username;
     public String HoTen;
     public String DiaChi;

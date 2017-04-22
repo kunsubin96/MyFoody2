@@ -141,6 +141,7 @@ public class WebService {
             SoapObject item=(SoapObject)data.getProperty(0);
             user= new ObjectInfoUser();
             user.setUsername(item.getProperty("Username").toString());
+            user.setPassword(item.getProperty("Password").toString());
             user.setHoTen(item.getProperty("HoTen").toString());
             user.setDiaChi(item.getProperty("DiaChi").toString());
             user.setSDT(item.getProperty("SDT").toString());
@@ -189,6 +190,40 @@ public class WebService {
         }
 
         return image;
+    }
+    //change password
+    public boolean changePassword(String username,String newPass) {
+        boolean resuft=false;
+        SoapObject request = new SoapObject(StaticObject.NAME_SPACE, StaticObject.METHOD_CHANGEPASS);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet = true;
+        request.addProperty("username", username);
+        request.addProperty("newPass", newPass);
+        envelope.setOutputSoapObject(request);
+
+        MarshalFloat marshalFloat = new MarshalFloat();
+        marshalFloat.register(envelope);
+
+        HttpTransportSE HttpsTransport = new HttpTransportSE(StaticObject.URL);
+
+        try {
+
+            HttpsTransport.call(StaticObject.SOAP_ACTION_CHANGEPASS, envelope);
+
+            SoapPrimitive item = (SoapPrimitive) envelope.getResponse();
+            String kq=item.toString();
+            resuft = Boolean.parseBoolean(kq);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
+        return resuft;
     }
 
 }

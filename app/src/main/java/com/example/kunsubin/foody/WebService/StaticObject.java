@@ -22,4 +22,8 @@ public class StaticObject {
     //getImage
     public static String METHOD_GETIMAGE="getImage";
     public static String SOAP_ACTION_GETIMAGE=NAME_SPACE+METHOD_GETIMAGE;
+
+    //changePass
+    public static String METHOD_CHANGEPASS="changePassword";
+    public static String SOAP_ACTION_CHANGEPASS=NAME_SPACE+METHOD_CHANGEPASS;
 }

@@ -93,6 +93,9 @@ public class User extends Fragment {
                 if(StaticData.getObjectInfoUser()==null){
                     Intent intent = new Intent(getContext(), LoginUser.class);
                     startActivityForResult(intent, 3);
+                }else{
+                    Intent intent = new Intent(getContext(), ThietLapTaiKhoan.class);
+                    startActivity(intent);
                 }
             }
         });
