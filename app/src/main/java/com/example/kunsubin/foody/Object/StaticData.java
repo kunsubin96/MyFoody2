@@ -57,5 +57,15 @@ public class StaticData {
 
     static int selectedDiaDiemAnGi;
 
+    public static ObjectInfoUser getObjectInfoUser() {
+        return objectInfoUser;
+    }
+
+    public static void setObjectInfoUser(ObjectInfoUser objectInfoUser) {
+        StaticData.objectInfoUser = objectInfoUser;
+    }
+
+    static ObjectInfoUser objectInfoUser;
+
 
 }

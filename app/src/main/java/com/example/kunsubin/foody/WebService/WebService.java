@@ -1,7 +1,6 @@
 package com.example.kunsubin.foody.WebService;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.kunsubin.foody.Object.ObjectInfoUser;
 import com.example.kunsubin.foody.Object.QuanHuyen;
@@ -18,7 +17,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * Created by kunsubin on 4/21/2017.
  */
@@ -159,4 +157,38 @@ public class WebService {
         }
         return user;
     }
+    //getImage
+    public String getImage(String filename) {
+       String image=null;
+        SoapObject request = new SoapObject(StaticObject.NAME_SPACE, StaticObject.METHOD_GETIMAGE);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet = true;
+        request.addProperty("filename", filename);
+        envelope.setOutputSoapObject(request);
+
+        MarshalFloat marshalFloat = new MarshalFloat();
+        marshalFloat.register(envelope);
+
+        HttpTransportSE HttpsTransport = new HttpTransportSE(StaticObject.URL);
+
+        try {
+
+            HttpsTransport.call(StaticObject.SOAP_ACTION_GETIMAGE, envelope);
+
+            SoapPrimitive item = (SoapPrimitive) envelope.getResponse();
+
+            image = item.toString();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
+        return image;
+    }
+
 }

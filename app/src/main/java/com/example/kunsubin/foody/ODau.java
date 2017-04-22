@@ -27,6 +27,7 @@ import com.example.kunsubin.foody.Object.StaticData;
 import com.example.kunsubin.foody.Object.TinhThanh;
 import com.example.kunsubin.foody.RecyclerView.MoreItemView;
 import com.example.kunsubin.foody.WebService.AsynCheckLogin;
+import com.example.kunsubin.foody.WebService.AsynGetImage;
 import com.example.kunsubin.foody.WebService.AsynGetInfoUser;
 import com.example.kunsubin.foody.WebService.AsynQuanHuyen;
 import com.example.kunsubin.foody.WebService.AsynTinhThanh;

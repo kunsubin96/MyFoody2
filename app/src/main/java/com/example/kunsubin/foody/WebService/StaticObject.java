@@ -19,4 +19,7 @@ public class StaticObject {
     //getInfo user
     public static String METHOD_GETUSER="getUser";
     public static String SOAP_ACTION_GETUSER=NAME_SPACE+METHOD_GETUSER;
+    //getImage
+    public static String METHOD_GETIMAGE="getImage";
+    public static String SOAP_ACTION_GETIMAGE=NAME_SPACE+METHOD_GETIMAGE;
 }
