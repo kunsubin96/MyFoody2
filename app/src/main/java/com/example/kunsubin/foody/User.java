@@ -84,6 +84,11 @@ public class User extends Fragment {
                 if(StaticData.getObjectInfoUser()==null){
                     Intent intent = new Intent(getContext(), LoginUser.class);
                     startActivityForResult(intent, 3);
+                }else{
+                    Intent intent = new Intent(getContext(), ThongTinLienHe.class);
+                    startActivityForResult(intent, 4);
+                   // textHoTen.setText(StaticData.getObjectInfoUser().getHoTen());
+
                 }
             }
         });
@@ -207,11 +212,21 @@ public class User extends Fragment {
             if (resultCode == Activity.RESULT_OK) {
                 ObjectInfoUser objectInfoUser= StaticData.getObjectInfoUser();
                 textHoTen.setText(objectInfoUser.getHoTen());
-                Glide.with(getContext()).load(objectInfoUser.getHinh()).into(avatarUser);
+                if(objectInfoUser.getHinh()!=null){
+                    Glide.with(getContext()).load(objectInfoUser.getHinh()).into(avatarUser);
+                }
                 textXemHoatDong.setVisibility(View.VISIBLE);
                 dangXuat.setVisibility(View.VISIBLE);
                // Toast.makeText(getContext(),objectInfoUser.getHoTen(),Toast.LENGTH_LONG).show();
 
+            }
+            if(requestCode==Activity.RESULT_CANCELED){
+
+            }
+        }
+        if(requestCode==4){
+            if (resultCode == Activity.RESULT_OK) {
+                textHoTen.setText(StaticData.getObjectInfoUser().getHoTen());
             }
             if(requestCode==Activity.RESULT_CANCELED){
 

@@ -64,10 +64,20 @@ public class ObjectInfoUser {
         Password = password;
     }
 
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+    }
+
+    public String Email;
     public String Password;
     public String Username;
     public String HoTen;
     public String DiaChi;
     public String SDT;
     public String Avatar;
+
 }

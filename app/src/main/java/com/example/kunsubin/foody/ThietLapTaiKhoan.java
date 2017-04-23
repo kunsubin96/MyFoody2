@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kunsubin.foody.Object.StaticData;
@@ -27,12 +28,14 @@ public class ThietLapTaiKhoan extends AppCompatActivity {
     Toolbar toolbarTaiKhoan;
     Toolbar toolbarMatKhau;
     Button btnLuuThayDoi;
+    TextView textViewEmailDangKy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thiet_lap_tai_khoan);
         init();
+        textViewEmailDangKy.setText("Email đăng ký: "+StaticData.getObjectInfoUser().getEmail());
         toolbarTaiKhoan.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,5 +114,6 @@ public class ThietLapTaiKhoan extends AppCompatActivity {
         toolbarTaiKhoan = (Toolbar) findViewById(R.id.toolbarTaiKhoan);
         toolbarMatKhau = (Toolbar) findViewById(R.id.toolbarMatKhau);
         btnLuuThayDoi = (Button) findViewById(R.id.btnLuuThayDoi);
+        textViewEmailDangKy=(TextView)findViewById(R.id.textViewEmailDangKy);
     }
 }

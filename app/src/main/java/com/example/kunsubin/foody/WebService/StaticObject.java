@@ -26,4 +26,10 @@ public class StaticObject {
     //changePass
     public static String METHOD_CHANGEPASS="changePassword";
     public static String SOAP_ACTION_CHANGEPASS=NAME_SPACE+METHOD_CHANGEPASS;
+    //changeProfile
+    public static String METHOD_CHANGEPROFILE="changeProfile";
+    public static String SOAP_ACTION_CHANGEPROFILE=NAME_SPACE+METHOD_CHANGEPROFILE;
+    //changeProfile
+    public static String METHOD_CREATEUSER="createUser";
+    public static String SOAP_ACTION_CREATEUSER=NAME_SPACE+METHOD_CREATEUSER;
 }

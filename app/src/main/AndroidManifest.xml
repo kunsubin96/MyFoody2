@@ -24,7 +24,9 @@
         <activity android:name=".MenuFoody" />
         <activity android:name=".ChooseProvince" />
         <activity android:name=".LoginUser" />
-        <activity android:name=".ThietLapTaiKhoan"></activity>
+        <activity android:name=".ThietLapTaiKhoan" />
+        <activity android:name=".ThongTinLienHe" />
+        <activity android:name=".DangKy"></activity>
     </application>
 
 </manifest>

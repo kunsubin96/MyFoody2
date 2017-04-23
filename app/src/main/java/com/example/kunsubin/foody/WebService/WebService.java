@@ -8,6 +8,7 @@ import com.example.kunsubin.foody.Object.TinhThanh;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.MarshalFloat;
+import org.ksoap2.serialization.NullSoapObject;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
@@ -146,7 +147,7 @@ public class WebService {
             user.setDiaChi(item.getProperty("DiaChi").toString());
             user.setSDT(item.getProperty("SDT").toString());
             user.setAvatar(item.getProperty("Avatar").toString());
-
+            user.setEmail(item.getProperty("Email").toString());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -225,5 +226,76 @@ public class WebService {
 
         return resuft;
     }
+    //changeProfile
+    public boolean changeProfile(String username,String hoten,String DiaChi,String SDT) {
+        boolean resuft=false;
+        SoapObject request = new SoapObject(StaticObject.NAME_SPACE, StaticObject.METHOD_CHANGEPROFILE);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet = true;
+        request.addProperty("username", username);
+        request.addProperty("hoten", hoten);
+        request.addProperty("diachi", DiaChi);
+        request.addProperty("SDT", SDT);
+        envelope.setOutputSoapObject(request);
 
+        MarshalFloat marshalFloat = new MarshalFloat();
+        marshalFloat.register(envelope);
+
+        HttpTransportSE HttpsTransport = new HttpTransportSE(StaticObject.URL);
+
+        try {
+
+            HttpsTransport.call(StaticObject.SOAP_ACTION_CHANGEPROFILE, envelope);
+
+            SoapPrimitive item = (SoapPrimitive) envelope.getResponse();
+            String kq=item.toString();
+            resuft = Boolean.parseBoolean(kq);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        return resuft;
+    }
+    //createUser
+    public boolean createUser(String username,String password,String hoten,String DiaChi,String SDT,String Email) {
+        boolean resuft=false;
+        SoapObject request = new SoapObject(StaticObject.NAME_SPACE, StaticObject.METHOD_CREATEUSER);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet = true;
+        request.addProperty("username", username);
+        request.addProperty("password", password);
+        request.addProperty("hoten", hoten);
+        request.addProperty("diachi", DiaChi);
+        request.addProperty("SDT", SDT);
+        request.addProperty("Email", Email);
+        envelope.setOutputSoapObject(request);
+
+        MarshalFloat marshalFloat = new MarshalFloat();
+        marshalFloat.register(envelope);
+
+        HttpTransportSE HttpsTransport = new HttpTransportSE(StaticObject.URL);
+
+        try {
+
+            HttpsTransport.call(StaticObject.SOAP_ACTION_CREATEUSER, envelope);
+
+            SoapPrimitive item = (SoapPrimitive) envelope.getResponse();
+            String kq=item.toString();
+            resuft = Boolean.parseBoolean(kq);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        return resuft;
+    }
 }
