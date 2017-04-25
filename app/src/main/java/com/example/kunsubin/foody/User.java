@@ -19,6 +19,8 @@ import com.bumptech.glide.Glide;
 import com.example.kunsubin.foody.Object.ObjectInfoUser;
 import com.example.kunsubin.foody.Object.StaticData;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 /**
  * Created by kunsubin on 4/7/2017.
@@ -26,7 +28,7 @@ import com.example.kunsubin.foody.Object.StaticData;
 //tab 5 bên bottom bar
 public class User extends Fragment {
     LinearLayout layOutDangNhap;
-    ImageView avatarUser;
+    CircleImageView avatarUser;
     TextView textHoTen;
     TextView textXemHoatDong;
     RelativeLayout thongTinLienHe;
@@ -45,7 +47,7 @@ public class User extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_user, container, false);
         layOutDangNhap=(LinearLayout)view.findViewById(R.id.layOutDangNhap);
-        avatarUser=(ImageView)view.findViewById(R.id.avatarUser);
+        avatarUser=(CircleImageView)view.findViewById(R.id.avatarUser);
         textHoTen=(TextView) view.findViewById(R.id.textHoTen);
         textXemHoatDong=(TextView)view.findViewById(R.id.textXemHoatDong);
         thongTinLienHe=(RelativeLayout)view.findViewById(R.id.thongTinLienHe);

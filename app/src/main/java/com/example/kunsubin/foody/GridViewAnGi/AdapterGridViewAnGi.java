@@ -15,6 +15,8 @@ import com.example.kunsubin.foody.R;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by kunsubin on 4/10/2017.
  */
@@ -57,7 +59,7 @@ public class AdapterGridViewAnGi extends BaseAdapter{
         TextView text_viewMonAn;
         TextView textViewNhaHang;
         TextView textViewDiaChi;
-        ImageView imageAvatar;
+        CircleImageView imageAvatar;
         TextView nameUser;
         TextView ngayDang;
         public Holder(View view){
@@ -65,7 +67,7 @@ public class AdapterGridViewAnGi extends BaseAdapter{
             this.text_viewMonAn=(TextView) view.findViewById(R.id.text_viewMonAn);
             this.textViewNhaHang=(TextView)view.findViewById(R.id.textViewNhaHang);
             this.textViewDiaChi=(TextView)view.findViewById(R.id.textViewDiaChi);
-            this.imageAvatar=(ImageView) view.findViewById(R.id.imageAvatar);
+            this.imageAvatar=(CircleImageView) view.findViewById(R.id.imageAvatar);
             this.nameUser=(TextView)view.findViewById(R.id.nameUser);
             this.ngayDang=(TextView)view.findViewById(R.id.ngayDang);
 

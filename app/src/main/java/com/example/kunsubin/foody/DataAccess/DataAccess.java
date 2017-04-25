@@ -25,7 +25,7 @@ public abstract class DataAccess {
     }
 
     /**
-     * Return a singleton instance of DatabaseAccess.
+     * Return border_change_pass singleton instance of DatabaseAccess.
      *
      * @param context the Context
      * @return the instance of DabaseAccess
@@ -51,6 +51,6 @@ public abstract class DataAccess {
     /**
      * Read all quotes from the database.
      *
-     * @return a List of quotes
+     * @return border_change_pass List of quotes
      */
 }

@@ -67,5 +67,42 @@ public class StaticData {
 
     static ObjectInfoUser objectInfoUser;
 
+    static int groupODau;
 
+    public static int getChildODau() {
+        return childODau;
+    }
+
+    public static void setChildODau(int childODau) {
+        StaticData.childODau = childODau;
+    }
+
+    public static int getGroupODau() {
+        return groupODau;
+    }
+
+    public static void setGroupODau(int groupODau) {
+        StaticData.groupODau = groupODau;
+    }
+
+    static int childODau;
+    static int groupAnGi;
+
+    public static int getChildAnGi() {
+        return childAnGi;
+    }
+
+    public static void setChildAnGi(int childAnGi) {
+        StaticData.childAnGi = childAnGi;
+    }
+
+    public static int getGroupAnGi() {
+        return groupAnGi;
+    }
+
+    public static void setGroupAnGi(int groupAnGi) {
+        StaticData.groupAnGi = groupAnGi;
+    }
+
+    static int childAnGi;
 }

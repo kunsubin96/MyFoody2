@@ -45,7 +45,7 @@ import me.relex.circleindicator.CircleIndicator;
  * Created by kunsubin on 3/29/2017.
  */
 
-public class AnGi extends android.support.v4.app.Fragment {
+public class AnGi extends android.support.v4.app.Fragment implements IChooseStreet{
     ListView listViewMoiNhatAnGi;
     HeaderGridView khungChinhAnGi;
     LinearLayout layOutMoiNhatAnGi;
@@ -126,6 +126,8 @@ public class AnGi extends android.support.v4.app.Fragment {
 
         StaticData.setSelectedDanhMucAnGi(0);
         StaticData.setSelectedDiaDiemAnGi(-1);
+        StaticData.setChildAnGi(-1);
+        StaticData.setGroupAnGi(-1);
         bussinessNhaHang =new BussinessNhaHang(context);
         //sự kiện khi nhấn tab thứ 1 bên chọn mới nhất
         layOutMoiNhatAnGi.setOnClickListener(new View.OnClickListener() {
@@ -581,19 +583,68 @@ public class AnGi extends android.support.v4.app.Fragment {
             }
         }
         listAdapterDiaDiemAnGi=new ExpandableListAdapterAnGi(mainActivity,listQuanHuyenTheoTinh,listDataChildAnGi,countDuong);
+        listAdapterDiaDiemAnGi.setChooseStreet(this);
         list_view_cityAnGi.setAdapter(listAdapterDiaDiemAnGi);
 
         list_view_cityAnGi.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+                TextView textView;
+                StaticData.setSelectedDiaDiemAnGi(i);
+                StaticData.setChildAnGi(-1);
+                StaticData.setGroupAnGi(-1);
+                textView=(TextView) view.findViewById(R.id.text_view_district_name);
+                textView.setTextColor(getResources().getColor(R.color.red));
+                //Toast.makeText(getContext(), "Group:" +String.valueOf(i),Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(), "Group:" +String.valueOf(expandableListView.ge()),Toast.LENGTH_LONG).show();
 
-                return false;
+                list_view_cityAnGi.expandGroup(i);
+                list_view_cityAnGi.collapseGroup(i);
+                //
+                textViewDiaDiemAnGi.setText(textView.getText());
+                textViewDiaDiemAnGi.setTextColor(getResources().getColor(R.color.red));
+                text_view_parent_districtAnGi.setTextColor(getResources().getColor(R.color.black));
+                //đóng listview khi chọn xong item
+                layOutDiaDiemAnGi.setBackgroundResource(R.drawable.my_button_bg);
+                listViewDiaDiemAnGi.setVisibility(View.GONE);
+                listViewMoiNhatAnGi.setVisibility(View.GONE);
+                listViewDanhMucAnGi.setVisibility(View.GONE);
+                khungChinhAnGi.setVisibility(View.VISIBLE);
+                btnHuy.setVisibility(View.GONE);
+                bottomNavigationViewEx.setVisibility(View.VISIBLE);
+                trangThaiMoiNhatAnGi=true;
+                trangThaiDanhMucAnGi=true;
+                trangThaiDiaDiemAnGi=true;
+                return true;
             }
         });
         list_view_cityAnGi.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+                TextView textView;
+                StaticData.setSelectedDiaDiemAnGi(-1);
+                StaticData.setChildAnGi(i1);
+                StaticData.setGroupAnGi(i);
 
+                textView=(TextView)view.findViewById(R.id.lblListItemODau);
+                textView.setTextColor(getResources().getColor(R.color.red));
+                list_view_cityAnGi.collapseGroup(i);
+                list_view_cityAnGi.expandGroup(i);
+                //
+                textViewDiaDiemAnGi.setText(textView.getText());
+                textViewDiaDiemAnGi.setTextColor(getResources().getColor(R.color.red));
+                text_view_parent_districtAnGi.setTextColor(getResources().getColor(R.color.black));
+                //đóng listview khi chọn xong item
+                layOutDiaDiemAnGi.setBackgroundResource(R.drawable.my_button_bg);
+                listViewDiaDiemAnGi.setVisibility(View.GONE);
+                listViewMoiNhatAnGi.setVisibility(View.GONE);
+                listViewDanhMucAnGi.setVisibility(View.GONE);
+                khungChinhAnGi.setVisibility(View.VISIBLE);
+                btnHuy.setVisibility(View.GONE);
+                bottomNavigationViewEx.setVisibility(View.VISIBLE);
+                trangThaiMoiNhatAnGi=true;
+                trangThaiDanhMucAnGi=true;
+                trangThaiDiaDiemAnGi=true;
                 return false;
             }
         });
@@ -664,5 +715,14 @@ public class AnGi extends android.support.v4.app.Fragment {
         mResources.add(R.drawable.auto3);
 
         return mResources;
+    }
+
+    @Override
+    public void onExpand(int groupPosition) {
+        if(this.list_view_cityAnGi.isGroupExpanded(groupPosition)){
+            this.list_view_cityAnGi.collapseGroup(groupPosition);
+        }else{
+            this.list_view_cityAnGi.expandGroup(groupPosition);
+        }
     }
 }

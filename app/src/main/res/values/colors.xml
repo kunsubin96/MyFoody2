@@ -5,7 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="textColorBar">#ff666666</color>
     <color name="color_background_bottom_menu">#F6F6F6</color>
-    <color name="nenKhungChinh">#edebeb</color>
+    <color name="nenKhungChinh">#eeeeee</color>
     <color name="colorWhite">#ffffff</color>
     <color name="textColorHuy">#ff555555</color>
     <color name="color_text_item_plus_menu">#ff343434</color>
@@ -22,4 +22,6 @@
     <color name="color_tittle_item_plus_menu">#ff343434</color>
     <color name="home_new_list_view_line">#20aaaaaa</color>
     <color name="nenLogin">#5fbfb7b7</color>
+    <color name="backgroudDuong">#ebebeb</color>
+    <color name="grayEditText">#e0e0e0</color>
 </resources>

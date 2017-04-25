@@ -50,7 +50,7 @@ import static com.example.kunsubin.foody.R.layout.odau;
  * Created by kunsubin on 3/29/2017.
  */
 
-public class ODau extends android.support.v4.app.Fragment {
+public class ODau extends android.support.v4.app.Fragment implements IChooseStreet{
     ListView listViewMoiNhatODau;
     ListView khungChinhODau;
     LinearLayout layOutMoiNhatODau;
@@ -134,7 +134,8 @@ public class ODau extends android.support.v4.app.Fragment {
         //tạo các trạng thái ban đầu khi nhấn tab
         StaticData.setSelectedDanhMucODau(0);
         StaticData.setSelectedDiaDiemODau(-1);
-
+        StaticData.setGroupODau(-1);
+        StaticData.setChildODau(-1);
         bussinessNhaHang = new BussinessNhaHang(context);
 
 
@@ -614,22 +615,70 @@ public class ODau extends android.support.v4.app.Fragment {
             }
         }
         listAdapterDiaDiemODau=new ExpandableListAdapterODau(mainActivity,listQuanHuyenTheoTinh,listDataChildODau,countDuong);
+        listAdapterDiaDiemODau.setChooseStreet(this);
         list_view_cityODau.setAdapter(listAdapterDiaDiemODau);
 
         list_view_cityODau.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+                TextView textView;
                 StaticData.setSelectedDiaDiemODau(i);
-
+                StaticData.setChildODau(-1);
+                StaticData.setGroupODau(-1);
+                textView=(TextView) view.findViewById(R.id.text_view_district_name);
+                textView.setTextColor(getResources().getColor(R.color.red));
                 //Toast.makeText(getContext(), "Group:" +String.valueOf(i),Toast.LENGTH_LONG).show();
                 //Toast.makeText(getContext(), "Group:" +String.valueOf(expandableListView.ge()),Toast.LENGTH_LONG).show();
-                return false;
+
+                list_view_cityODau.expandGroup(i);
+                list_view_cityODau.collapseGroup(i);
+                //
+                textViewDiaDiemODau.setText(textView.getText());
+                textViewDiaDiemODau.setTextColor(getResources().getColor(R.color.red));
+                text_view_parent_districtODau.setTextColor(getResources().getColor(R.color.black));
+                //đóng listview khi chọn xong item
+                layOutDiaDiemODau.setBackgroundResource(R.drawable.my_button_bg);
+                listViewDiaDiemODau.setVisibility(View.GONE);
+                listViewMoiNhatODau.setVisibility(View.GONE);
+                listViewDanhMucODau.setVisibility(View.GONE);
+                khungChinhODau.setVisibility(View.VISIBLE);
+                btnHuy.setVisibility(View.GONE);
+                bottomNavigationViewEx.setVisibility(View.VISIBLE);
+                trangThaiMoiNhatODau = true;
+                trangThaiDanhMucODau = true;
+                trangThaiDiaDiemODau = true;
+
+                return true;
             }
         });
         list_view_cityODau.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
-                Toast.makeText(getContext(),"Group:"+String.valueOf(i)+ "  Item:" +String.valueOf(i1),Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(),"Group:"+String.valueOf(i)+ "  Item:" +String.valueOf(i1),Toast.LENGTH_LONG).show();
+                TextView textView;
+                StaticData.setSelectedDiaDiemODau(-1);
+                StaticData.setChildODau(i1);
+                StaticData.setGroupODau(i);
+
+                textView=(TextView)view.findViewById(R.id.lblListItemODau);
+                textView.setTextColor(getResources().getColor(R.color.red));
+                list_view_cityODau.collapseGroup(i);
+                list_view_cityODau.expandGroup(i);
+                //
+                textViewDiaDiemODau.setText(textView.getText());
+                textViewDiaDiemODau.setTextColor(getResources().getColor(R.color.red));
+                text_view_parent_districtODau.setTextColor(getResources().getColor(R.color.black));
+                //đóng listview khi chọn xong item
+                layOutDiaDiemODau.setBackgroundResource(R.drawable.my_button_bg);
+                listViewDiaDiemODau.setVisibility(View.GONE);
+                listViewMoiNhatODau.setVisibility(View.GONE);
+                listViewDanhMucODau.setVisibility(View.GONE);
+                khungChinhODau.setVisibility(View.VISIBLE);
+                btnHuy.setVisibility(View.GONE);
+                bottomNavigationViewEx.setVisibility(View.VISIBLE);
+                trangThaiMoiNhatODau = true;
+                trangThaiDanhMucODau = true;
+                trangThaiDiaDiemODau = true;
 
                 return false;
             }
@@ -706,4 +755,12 @@ public class ODau extends android.support.v4.app.Fragment {
         return mResources;
     }
 
+    @Override
+    public void onExpand(int groupPosition) {
+        if(this.list_view_cityODau.isGroupExpanded(groupPosition)){
+            this.list_view_cityODau.collapseGroup(groupPosition);
+        }else{
+            this.list_view_cityODau.expandGroup(groupPosition);
+        }
+    }
 }

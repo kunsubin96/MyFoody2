@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.kunsubin.foody.Object.Duong;
@@ -25,6 +26,11 @@ public class ExpandableListAdapterODau extends BaseExpandableListAdapter {
     private HashMap<QuanHuyen, List<Duong>> _listDataChild;
     LayoutInflater infalInflater;
     List<String> countDuong;
+    IChooseStreet iChooseStreet;
+    public void setChooseStreet(IChooseStreet iChooseStreet) {
+        this.iChooseStreet = iChooseStreet;
+    }
+
     public ExpandableListAdapterODau(Context context, List<QuanHuyen> listDataHeader,
                                      HashMap<QuanHuyen, List<Duong>> listChildData, List<String> countDuong) {
         this._context = context;
@@ -65,7 +71,10 @@ public class ExpandableListAdapterODau extends BaseExpandableListAdapter {
         }
         childHolder=(ChildHolder) convertView.getTag();
         childHolder.textItem.setText(childText.getTenDuong());
-
+        childHolder.textItem.setTextColor(_context.getResources().getColor(R.color.black));
+        if(StaticData.getGroupODau()==groupPosition&&StaticData.getChildODau()==childPosition){
+            childHolder.textItem.setTextColor(_context.getResources().getColor(R.color.red));
+        }
         return convertView;
     }
 
@@ -93,9 +102,11 @@ public class ExpandableListAdapterODau extends BaseExpandableListAdapter {
     {
         TextView textItem;
         TextView text_view_num_of_street;
+        LinearLayout linear_layout_child_expand;
         public Holder(View view){
             this.textItem=(TextView) view.findViewById(R.id.text_view_district_name);
             this.text_view_num_of_street=(TextView) view.findViewById(R.id.text_view_num_of_street);
+            this.linear_layout_child_expand=(LinearLayout)view.findViewById(R.id.linear_layout_child_expand);
         }
     }
     @Override
@@ -114,6 +125,7 @@ public class ExpandableListAdapterODau extends BaseExpandableListAdapter {
         holder.textItem.setText(headerTitle.getTenQuanHuyen());
         holder.textItem.setTextColor(_context.getResources().getColor(R.color.black));
         holder.text_view_num_of_street.setText(countDuong.get(groupPosition).toString()+" đường");
+        holder.linear_layout_child_expand.setOnClickListener(new ExpandStreet(groupPosition));
         if (groupPosition == StaticData.getSelectedDiaDiemODau()) {
             holder.textItem.setTextColor(_context.getResources().getColor(R.color.red));
         }
@@ -128,5 +140,17 @@ public class ExpandableListAdapterODau extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
+    }
+
+    class ExpandStreet implements  View.OnClickListener{
+        int groupPosion;
+        public ExpandStreet(int groupPosition){
+            this.groupPosion=groupPosition;
+        }
+
+        @Override
+        public void onClick(View v) {
+            ExpandableListAdapterODau.this.iChooseStreet.onExpand(this.groupPosion);
+        }
     }
 }

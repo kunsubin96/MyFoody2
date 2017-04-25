@@ -109,6 +109,7 @@
                         android:focusable="false"
                         android:enabled="false"
                         android:textSize="15dp"
+                        android:paddingLeft="6dp"
                         android:layout_marginRight="5dp"
                         android:textCursorDrawable="@color/black"
                         android:layout_gravity="center"
@@ -118,8 +119,9 @@
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1.5px"
-                android:background="#55aaaaaa" />
+                android:layout_height="1px"
+                android:background="#55aaaaaa"
+                android:layout_marginLeft="5dp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -147,6 +149,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:textSize="15dp"
+                        android:paddingLeft="6dp"
                         android:textCursorDrawable="@color/black"
                         android:layout_gravity="center"
                         android:layout_marginRight="5dp"
@@ -154,10 +157,10 @@
                 </LinearLayout>
 
             </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1.5px"
-                android:background="#55aaaaaa" />
+            <View android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#55aaaaaa"
+                android:layout_marginLeft="5dp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -185,6 +188,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:textSize="15dp"
+                        android:paddingLeft="6dp"
                         android:layout_gravity="center"
                         android:layout_marginRight="5dp"
                         android:textCursorDrawable="@color/black"
@@ -193,8 +197,9 @@
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1.5px"
-                android:background="#55aaaaaa" />
+                android:layout_height="1px"
+                android:background="#55aaaaaa"
+                android:layout_marginLeft="5dp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -221,6 +226,7 @@
                         android:id="@+id/SDT"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:paddingLeft="6dp"
                         android:textSize="15dp"
                         android:layout_gravity="center"
                         android:layout_marginRight="5dp"
@@ -228,7 +234,11 @@
                         android:background="@drawable/border_pass" />
                 </LinearLayout>
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#55aaaaaa"
+                android:layout_marginLeft="5dp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -256,10 +266,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:textSize="15dp"
+                        android:paddingLeft="6dp"
                         android:enabled="false"
                         android:layout_gravity="center"
                         android:layout_marginRight="5dp"
-                        android:textCursorDrawable="@color/black"
+                        android:textCursorDrawable="@color/color_circle_rate"
                         android:background="@drawable/border_pass" />
                 </LinearLayout>
             </LinearLayout>
@@ -268,7 +279,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1.5px"
+            android:layout_height="1px"
             android:background="#55aaaaaa"
             android:layout_marginTop="7dp"/>
 
@@ -297,7 +308,7 @@
         </LinearLayout>
         <View
             android:layout_width="match_parent"
-            android:layout_height="1.5px"
+            android:layout_height="1px"
             android:background="#55aaaaaa"
             android:layout_marginTop="7dp"/>
 

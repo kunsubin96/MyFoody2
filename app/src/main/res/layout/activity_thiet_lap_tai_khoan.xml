@@ -300,9 +300,10 @@
                        android:textSize="15dp"
                        android:layout_marginRight="5dp"
                        android:textCursorDrawable="@color/black"
+                       android:paddingLeft="6dp"
                        android:inputType="textPassword"
                        android:layout_gravity="center"
-                       android:background="@drawable/border_pass" />
+                       android:background="@drawable/border_change_pass" />
                </LinearLayout>
 
             </LinearLayout>
@@ -337,7 +338,8 @@
                         android:inputType="textPassword"
                         android:layout_gravity="center"
                         android:layout_marginRight="5dp"
-                        android:background="@drawable/border_pass" />
+                        android:paddingLeft="6dp"
+                        android:background="@drawable/border_change_pass" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -363,16 +365,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2">
+
                     <EditText
                         android:id="@+id/nhapLaiMatKhau"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:paddingLeft="6dp"
                         android:textSize="15dp"
                         android:layout_gravity="center"
                         android:layout_marginRight="5dp"
                         android:inputType="textPassword"
                         android:textCursorDrawable="@color/black"
-                        android:background="@drawable/border_pass" />
+                        android:background="@drawable/border_change_pass" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

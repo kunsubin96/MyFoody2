@@ -49,7 +49,6 @@ public class ImageAdapter extends android.support.v4.view.PagerAdapter {
 
         return itemView;
     }
-
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((LinearLayout) object);

@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:minWidth="100.0dip"
             android:clickable="true"
+            android:background="@drawable/border_duong"
             android:orientation="horizontal">
 
             <TextView

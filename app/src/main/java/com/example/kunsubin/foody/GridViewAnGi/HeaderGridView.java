@@ -22,8 +22,8 @@ import java.util.ArrayList;
 public class HeaderGridView extends GridView {
     private static final String TAG = "HeaderGridView";
     /**
-     * A class that represents a fixed view in a list, for example a header at the top
-     * or a footer at the bottom.
+     * A class that represents border_change_pass fixed view in border_change_pass list, for example border_change_pass header at the top
+     * or border_change_pass footer at the bottom.
      */
     private static class FixedViewInfo {
         /** The view to add to the grid */
@@ -63,7 +63,7 @@ public class HeaderGridView extends GridView {
         // Ignore, since the header rows depend on not being clipped
     }
     /**
-     * Add a fixed view to appear at the top of the grid. If addHeaderView is
+     * Add border_change_pass fixed view to appear at the top of the grid. If addHeaderView is
      * called more than once, the views will appear in the order they were
      * added. Views added using this call can take focus if they want.
      * <p>
@@ -88,14 +88,14 @@ public class HeaderGridView extends GridView {
         info.data = data;
         info.isSelectable = isSelectable;
         mHeaderViewInfos.add(info);
-        // in the case of re-adding a header view, or adding one later on,
+        // in the case of re-adding border_change_pass header view, or adding one later on,
         // we need to notify the observer
         if (adapter != null) {
             ((HeaderViewGridAdapter) adapter).notifyDataSetChanged();
         }
     }
     /**
-     * Add a fixed view to appear at the top of the grid. If addHeaderView is
+     * Add border_change_pass fixed view to appear at the top of the grid. If addHeaderView is
      * called more than once, the views will appear in the order they were
      * added. Views added using this call can take focus if they want.
      * <p>
@@ -111,10 +111,10 @@ public class HeaderGridView extends GridView {
         return mHeaderViewInfos.size();
     }
     /**
-     * Removes a previously-added header view.
+     * Removes border_change_pass previously-added header view.
      *
      * @param v The view to remove
-     * @return true if the view was removed, false if the view was not a header
+     * @return true if the view was removed, false if the view was not border_change_pass header
      *         view
      */
     public boolean removeHeaderView(View v) {
@@ -167,10 +167,10 @@ public class HeaderGridView extends GridView {
         }
     }
     /**
-     * ListAdapter used when a HeaderGridView has header views. This ListAdapter
+     * ListAdapter used when border_change_pass HeaderGridView has header views. This ListAdapter
      * wraps another one and also keeps track of the header views and their
      * associated data objects.
-     *<p>This is intended as a base class; you will probably not need to
+     *<p>This is intended as border_change_pass base class; you will probably not need to
      * use this class directly in your own code.
      */
     private static class HeaderViewGridAdapter implements WrapperListAdapter, Filterable {
@@ -319,7 +319,7 @@ public class HeaderGridView extends GridView {
                         convertView = new View(parent.getContext());
                     }
                     // We need to do this because GridView uses the height of the last item
-                    // in a row to determine the height for the entire row.
+                    // in border_change_pass row to determine the height for the entire row.
                     convertView.setVisibility(View.INVISIBLE);
                     convertView.setMinimumHeight(headerViewContainer.getHeight());
                     return convertView;
