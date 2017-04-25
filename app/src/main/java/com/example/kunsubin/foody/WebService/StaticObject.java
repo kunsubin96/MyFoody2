@@ -32,4 +32,7 @@ public class StaticObject {
     //changeProfile
     public static String METHOD_CREATEUSER="createUser";
     public static String SOAP_ACTION_CREATEUSER=NAME_SPACE+METHOD_CREATEUSER;
+    //get Đường
+    public static String METHOD_GETDUONG="getDuongTheoHuyen";
+    public static String SOAP_ACTION_GETDUONG=NAME_SPACE+METHOD_GETDUONG;
 }

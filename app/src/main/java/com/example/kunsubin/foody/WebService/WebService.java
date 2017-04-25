@@ -2,6 +2,7 @@ package com.example.kunsubin.foody.WebService;
 
 import android.util.Log;
 
+import com.example.kunsubin.foody.Object.Duong;
 import com.example.kunsubin.foody.Object.ObjectInfoUser;
 import com.example.kunsubin.foody.Object.QuanHuyen;
 import com.example.kunsubin.foody.Object.TinhThanh;
@@ -297,5 +298,44 @@ public class WebService {
             e.printStackTrace();
         }
         return resuft;
+    }
+    //get Đường theo quận
+    public List<Duong> getDuong(String idHuyen) {
+        List<Duong> duongs=  new ArrayList<>();;
+
+        SoapObject request = new SoapObject(StaticObject.NAME_SPACE, StaticObject.METHOD_GETDUONG);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet = true;
+        request.addProperty("maHuyen", idHuyen);
+        envelope.setOutputSoapObject(request);
+
+        MarshalFloat marshalFloat = new MarshalFloat();
+        marshalFloat.register(envelope);
+
+        HttpTransportSE HttpsTransport = new HttpTransportSE(StaticObject.URL);
+        try {
+            HttpsTransport.call(StaticObject.SOAP_ACTION_GETDUONG, envelope);
+            //getData
+            SoapObject arraySoapObject = (SoapObject) envelope.getResponse();
+            for (int i = 0; i < arraySoapObject.getPropertyCount(); i++) {
+                SoapObject item = (SoapObject) arraySoapObject.getProperty(i);
+
+                Duong duong = new Duong();
+                duong.setMaDuong(item.getProperty("MaDuong").toString().trim());
+                duong.setTenDuong(item.getProperty("TenDuong").toString().trim());
+                duong.setMaQuanHuyen(item.getProperty("MaQuanHuyen").toString().trim());
+                duongs.add(duong);
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        return duongs;
     }
 }

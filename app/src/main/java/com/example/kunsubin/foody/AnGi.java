@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -21,16 +22,19 @@ import com.example.kunsubin.foody.BussinessAccess.BussinessQuanHuyen;
 import com.example.kunsubin.foody.BussinessAccess.BussinessTinhThanh;
 import com.example.kunsubin.foody.GridViewAnGi.AdapterGridViewAnGi;
 import com.example.kunsubin.foody.GridViewAnGi.HeaderGridView;
+import com.example.kunsubin.foody.Object.Duong;
 import com.example.kunsubin.foody.Object.NhaHang;
 import com.example.kunsubin.foody.Object.QuanHuyen;
 import com.example.kunsubin.foody.Object.StaticData;
 import com.example.kunsubin.foody.Object.TinhThanh;
 import com.example.kunsubin.foody.RecyclerView.MoreItemView;
+import com.example.kunsubin.foody.WebService.AsynDuong;
 import com.example.kunsubin.foody.WebService.AsynQuanHuyen;
 import com.example.kunsubin.foody.WebService.AsynTinhThanh;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -74,7 +78,7 @@ public class AnGi extends android.support.v4.app.Fragment {
 
     String maTinh="";
     List<QuanHuyen> listQuanHuyen;
-    ListView list_view_cityAnGi;
+    ExpandableListView list_view_cityAnGi;
     List<TinhThanh> listTinhThanh;
 
     List<NhaHang> listNhaHangAnGi;
@@ -84,6 +88,9 @@ public class AnGi extends android.support.v4.app.Fragment {
     String TabDanhMuc="";
     String TabMoiNhat="";
     List<QuanHuyen> listQuanHuyenTheoTinh;
+    HashMap<QuanHuyen,List<Duong>> listDataChildAnGi;
+    ExpandableListAdapterAnGi listAdapterDiaDiemAnGi;
+    List<String> countDuong;
     public AnGi(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
         context = mainActivity;
@@ -362,7 +369,7 @@ public class AnGi extends android.support.v4.app.Fragment {
         linear_layout_change_districtAnGi=(LinearLayout)view.findViewById(R.id.linear_layout_change_districtAnGi);
         text_view_parent_districtAnGi=(TextView)view.findViewById(R.id.text_view_parent_districtAnGi);
         textViewDiaDiemAnGi=(TextView)view.findViewById(R.id.textViewDiaDiemAnGi);
-        list_view_cityAnGi=(ListView)view.findViewById(R.id.list_view_cityAnGi);
+        list_view_cityAnGi=(ExpandableListView)view.findViewById(R.id.list_view_cityAnGi);
 
         bottomNavigationViewEx=(BottomNavigationViewEx)mainActivity.findViewById(R.id.bottomNavigationView);
         btnHuy=(TextView)mainActivity.findViewById(R.id.btnHuy);
@@ -556,7 +563,41 @@ public class AnGi extends android.support.v4.app.Fragment {
             if(listQuanHuyen.get(i).getMaTinhThanh().trim().equals(maTinh))
                 listQuanHuyenTheoTinh.add(listQuanHuyen.get(i));
         }
-        list_view_cityAnGi.setAdapter(null);
+        listDataChildAnGi=new HashMap<QuanHuyen, List<Duong>>();
+        countDuong=new ArrayList<>();
+        for (int i=0;i<listQuanHuyenTheoTinh.size();i++){
+            AsynDuong asynDuong=new AsynDuong();
+            try {
+                List<Duong> duongList=asynDuong.execute(listQuanHuyenTheoTinh.get(i).getMaQuanHuyen().toString().trim()).get();
+                countDuong.add(String.valueOf(duongList.size()));
+                //
+                listDataChildAnGi.put(listQuanHuyenTheoTinh.get(i),duongList);
+
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+        listAdapterDiaDiemAnGi=new ExpandableListAdapterAnGi(mainActivity,listQuanHuyenTheoTinh,listDataChildAnGi,countDuong);
+        list_view_cityAnGi.setAdapter(listAdapterDiaDiemAnGi);
+
+        list_view_cityAnGi.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+
+                return false;
+            }
+        });
+        list_view_cityAnGi.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+
+                return false;
+            }
+        });
+        /*list_view_cityAnGi.setAdapter(null);
         list_view_cityAnGi.setAdapter(new CustomAdapterDiaDiemAnGi(mainActivity,listQuanHuyenTheoTinh));
         list_view_cityAnGi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -599,7 +640,7 @@ public class AnGi extends android.support.v4.app.Fragment {
                     khungChinhAnGi.setAdapter(null);
                 }
             }
-        });
+        });*/
 
     }
     //lấy maTinh theo ten tinh

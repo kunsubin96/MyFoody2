@@ -181,15 +181,16 @@
                 </LinearLayout>
             </LinearLayout>
             <!--Expandable-->
-            <ListView
+            <ExpandableListView
                 android:id="@+id/list_view_cityODau"
-                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1.0"
+                android:layout_width="match_parent"
                 android:background="@color/nenKhungChinh"
+                android:layout_weight="1.0"
                 android:cacheColorHint="@android:color/transparent"
                 android:dividerHeight="1.0dip"
-                android:listSelector="@android:color/transparent" />
+                android:listSelector="@android:color/transparent"
+                android:groupIndicator="@null" />
 
         </LinearLayout>
 
