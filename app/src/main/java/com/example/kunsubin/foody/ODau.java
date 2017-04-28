@@ -20,6 +20,7 @@ import com.example.kunsubin.foody.AutoScrollViewPager.AutoScrollViewPager;
 import com.example.kunsubin.foody.BussinessAccess.BussinessNhaHang;
 import com.example.kunsubin.foody.BussinessAccess.BussinessQuanHuyen;
 import com.example.kunsubin.foody.BussinessAccess.BussinessTinhThanh;
+import com.example.kunsubin.foody.Object.BinhLuan;
 import com.example.kunsubin.foody.Object.DanhMuc;
 import com.example.kunsubin.foody.Object.Duong;
 import com.example.kunsubin.foody.Object.NhaHang;
@@ -28,13 +29,18 @@ import com.example.kunsubin.foody.Object.QuanHuyen;
 import com.example.kunsubin.foody.Object.StaticData;
 import com.example.kunsubin.foody.Object.TinhThanh;
 import com.example.kunsubin.foody.RecyclerView.MoreItemView;
+import com.example.kunsubin.foody.WebService.AsynBinhLuan;
 import com.example.kunsubin.foody.WebService.AsynCheckLogin;
 import com.example.kunsubin.foody.WebService.AsynDuong;
 import com.example.kunsubin.foody.WebService.AsynGetImage;
+import com.example.kunsubin.foody.WebService.AsynGetImageMore;
 import com.example.kunsubin.foody.WebService.AsynGetInfoUser;
+import com.example.kunsubin.foody.WebService.AsynNhaHang;
 import com.example.kunsubin.foody.WebService.AsynQuanHuyen;
 import com.example.kunsubin.foody.WebService.AsynTinhThanh;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+
+import org.kobjects.base64.Base64;
 
 import java.security.acl.Group;
 import java.util.ArrayList;
@@ -50,7 +56,7 @@ import static com.example.kunsubin.foody.R.layout.odau;
  * Created by kunsubin on 3/29/2017.
  */
 
-public class ODau extends android.support.v4.app.Fragment implements IChooseStreet{
+public class ODau extends android.support.v4.app.Fragment implements IChooseStreet {
     ListView listViewMoiNhatODau;
     ListView khungChinhODau;
     LinearLayout layOutMoiNhatODau;
@@ -96,6 +102,8 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
     ExpandableListAdapterODau listAdapterDiaDiemODau;
     LinearLayout linear_layout_child_expand;
     List<String> countDuong;
+    List<NhaHang> nhaHangList;
+
     public ODau(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
         context = mainActivity;
@@ -113,18 +121,18 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
         init(view);
 
         //load dữ liệu lên listQuanHuyen
-        AsynQuanHuyen asynQuanHuyen=new AsynQuanHuyen();
+        AsynQuanHuyen asynQuanHuyen = new AsynQuanHuyen();
         try {
-            listQuanHuyen=asynQuanHuyen.execute().get();
+            listQuanHuyen = asynQuanHuyen.execute().get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         //load dữ liệu lên listTỉnh thành
-        AsynTinhThanh asynTinhThanh=new AsynTinhThanh();
+        AsynTinhThanh asynTinhThanh = new AsynTinhThanh();
         try {
-            listTinhThanh=asynTinhThanh.execute().get();
+            listTinhThanh = asynTinhThanh.execute().get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -138,6 +146,7 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
         StaticData.setChildODau(-1);
         bussinessNhaHang = new BussinessNhaHang(context);
 
+        loadNhaHangODau("danhmuc","tphcm","q1","");
 
         //sự kiện khi nhấn tab thứ 1 bên chọn mới nhất
         layOutMoiNhatODau.setOnClickListener(new View.OnClickListener() {
@@ -240,9 +249,9 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                     } else {
                         String temp = textViewDiaDiemODau.getText().toString();
 
-                        if(listTinhThanh.size()>0){
+                        if (listTinhThanh.size() > 0) {
 
-                           loadDiaDiemTheoTinh(getMaTinh(temp));
+                            loadDiaDiemTheoTinh(getMaTinh(temp));
                         }
                         text_view_parent_districtODau.setTextColor(getResources().getColor(R.color.red));
                     }
@@ -324,6 +333,7 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
         loadDuLieuKhungChinh();
         return view;
     }
+
     //nhận dữ liệu trả về từ activity tỉnh thành
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -376,6 +386,7 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
             }
         }
     }
+
     //ánh xạ các view
     public void init(View view) {
         listViewMoiNhatODau = (ListView) view.findViewById(R.id.listViewMoiNhatODau);
@@ -396,7 +407,7 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
         linear_layout_change_districtODau = (LinearLayout) view.findViewById(R.id.linear_layout_change_districtODau);
         bottomNavigationViewEx = (BottomNavigationViewEx) mainActivity.findViewById(R.id.bottomNavigationView);
         btnHuy = (TextView) mainActivity.findViewById(R.id.btnHuy);
-        linear_layout_child_expand=(LinearLayout)view.findViewById(R.id.linear_layout_child_expand);
+        linear_layout_child_expand = (LinearLayout) view.findViewById(R.id.linear_layout_child_expand);
 
     }
 
@@ -588,24 +599,25 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
         }
 
     }
+
     ////load dữ liệu lên list view khi chọn quận huyện, tinh thành
     public void loadDiaDiemTheoTinh(String maTinh) {
-        listQuanHuyenTheoTinh =new ArrayList<>();
-        maTinh=maTinh.trim();
+        listQuanHuyenTheoTinh = new ArrayList<>();
+        maTinh = maTinh.trim();
         //lấy các huyện trong list quan huyen theo tinh chon
         for (int i = 0; i < listQuanHuyen.size(); i++) {
             if (listQuanHuyen.get(i).getMaTinhThanh().trim().equals(maTinh))
                 listQuanHuyenTheoTinh.add(listQuanHuyen.get(i));
         }
-        listDataChildODau=new HashMap<QuanHuyen, List<Duong>>();
-        countDuong=new ArrayList<>();
-        for (int i=0;i<listQuanHuyenTheoTinh.size();i++){
-            AsynDuong asynDuong=new AsynDuong();
+        listDataChildODau = new HashMap<QuanHuyen, List<Duong>>();
+        countDuong = new ArrayList<>();
+        for (int i = 0; i < listQuanHuyenTheoTinh.size(); i++) {
+            AsynDuong asynDuong = new AsynDuong();
             try {
-                List<Duong> duongList=asynDuong.execute(listQuanHuyenTheoTinh.get(i).getMaQuanHuyen().toString().trim()).get();
+                List<Duong> duongList = asynDuong.execute(listQuanHuyenTheoTinh.get(i).getMaQuanHuyen().toString().trim()).get();
                 countDuong.add(String.valueOf(duongList.size()));
                 //
-                listDataChildODau.put(listQuanHuyenTheoTinh.get(i),duongList);
+                listDataChildODau.put(listQuanHuyenTheoTinh.get(i), duongList);
 
 
             } catch (InterruptedException e) {
@@ -614,7 +626,7 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                 e.printStackTrace();
             }
         }
-        listAdapterDiaDiemODau=new ExpandableListAdapterODau(mainActivity,listQuanHuyenTheoTinh,listDataChildODau,countDuong);
+        listAdapterDiaDiemODau = new ExpandableListAdapterODau(mainActivity, listQuanHuyenTheoTinh, listDataChildODau, countDuong);
         listAdapterDiaDiemODau.setChooseStreet(this);
         list_view_cityODau.setAdapter(listAdapterDiaDiemODau);
 
@@ -625,7 +637,7 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                 StaticData.setSelectedDiaDiemODau(i);
                 StaticData.setChildODau(-1);
                 StaticData.setGroupODau(-1);
-                textView=(TextView) view.findViewById(R.id.text_view_district_name);
+                textView = (TextView) view.findViewById(R.id.text_view_district_name);
                 textView.setTextColor(getResources().getColor(R.color.red));
                 //Toast.makeText(getContext(), "Group:" +String.valueOf(i),Toast.LENGTH_LONG).show();
                 //Toast.makeText(getContext(), "Group:" +String.valueOf(expandableListView.ge()),Toast.LENGTH_LONG).show();
@@ -660,7 +672,7 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                 StaticData.setChildODau(i1);
                 StaticData.setGroupODau(i);
 
-                textView=(TextView)view.findViewById(R.id.lblListItemODau);
+                textView = (TextView) view.findViewById(R.id.lblListItemODau);
                 textView.setTextColor(getResources().getColor(R.color.red));
                 list_view_cityODau.collapseGroup(i);
                 list_view_cityODau.expandGroup(i);
@@ -683,7 +695,7 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                 return false;
             }
         });
-       // Toast.makeText(getContext(),String.valueOf(listQuanHuyen.get(0).getMaTinhThanh())+String.valueOf(listQuanHuyenTheoTinh.size()),Toast.LENGTH_LONG).show();
+        // Toast.makeText(getContext(),String.valueOf(listQuanHuyen.get(0).getMaTinhThanh())+String.valueOf(listQuanHuyenTheoTinh.size()),Toast.LENGTH_LONG).show();
         //list_view_cityODau.setAdapter();
 
 
@@ -733,6 +745,7 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
         });*/
 
     }
+
     //lấy maTinh theo ten tinh
     public String getMaTinh(String tenTinh) {
         String maTinh = "";
@@ -757,10 +770,68 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
 
     @Override
     public void onExpand(int groupPosition) {
-        if(this.list_view_cityODau.isGroupExpanded(groupPosition)){
+        if (this.list_view_cityODau.isGroupExpanded(groupPosition)) {
             this.list_view_cityODau.collapseGroup(groupPosition);
-        }else{
+        } else {
             this.list_view_cityODau.expandGroup(groupPosition);
         }
+    }
+    public void loadNhaHangODau(String danhmuc,String tinhthanh,String quanhuyen,String duong){
+        AsynNhaHang asynNhaHang = new AsynNhaHang();
+        try {
+            nhaHangList = asynNhaHang.execute(danhmuc, tinhthanh, quanhuyen, duong).get();
+            //Toast.makeText(getContext(),nhaHangList.get(0).getName().toString(),Toast.LENGTH_LONG).show();
+            if (nhaHangList.size() > 0) {
+                for (int i = 0; i < nhaHangList.size(); i++) {
+                    //set hinh
+                    String image = null;
+                    AsynGetImage getImage = new AsynGetImage();
+                    image = getImage.execute(nhaHangList.get(i).getImage().toString().trim()).get();
+
+                    if (image != null) {
+                        byte[] valueDecoded = Base64.decode(image);
+                        nhaHangList.get(i).setHinh(valueDecoded);
+                    }
+                    //
+                    AsynBinhLuan asynBinhLuan = new AsynBinhLuan();
+                    List<BinhLuan> binhLuanList = asynBinhLuan.execute(nhaHangList.get(i).getId().toString().trim()).get();
+                    if (binhLuanList.size() > 0) {
+                        for (int j = 0; j < binhLuanList.size(); j++) {
+                            AsynGetInfoUser asynGetInfoUser = new AsynGetInfoUser();
+                            ObjectInfoUser objectInfoUser = asynGetInfoUser.execute(binhLuanList.get(j).getUserName().toString().trim()).get();
+                            binhLuanList.get(j).setObjectInfoUser(objectInfoUser);
+                        }
+                    }
+                    nhaHangList.get(i).setListBinhLuan(binhLuanList);
+                    //
+                    AsynGetImageMore asynGetImageMore = new AsynGetImageMore();
+                    List<String> hinh = asynGetImageMore.execute(nhaHangList.get(i).getId().toString().trim()).get();
+                    List<byte[]> listHinh = new ArrayList<>();
+                    if (hinh.size()>0) {
+                        for (int z = 0; z < hinh.size(); z++) {
+                            String photo;
+                            AsynGetImage getImageMore = new AsynGetImage();
+                            photo = getImageMore.execute(hinh.get(z).toString().trim()).get();
+
+                            if (photo != null) {
+                                byte[] valueDecoded = Base64.decode(photo);
+                                listHinh.add(valueDecoded);
+                            }
+                        }
+                    }
+                    nhaHangList.get(i).setListHinh(listHinh);
+
+                }
+            }
+
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        Toast.makeText(getContext(), String.valueOf(nhaHangList.size()), Toast.LENGTH_LONG).show();
     }
 }

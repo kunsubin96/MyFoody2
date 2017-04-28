@@ -2,11 +2,14 @@ package com.example.kunsubin.foody.WebService;
 
 import android.util.Log;
 
+import com.example.kunsubin.foody.Object.BinhLuan;
 import com.example.kunsubin.foody.Object.Duong;
+import com.example.kunsubin.foody.Object.NhaHang;
 import com.example.kunsubin.foody.Object.ObjectInfoUser;
 import com.example.kunsubin.foody.Object.QuanHuyen;
 import com.example.kunsubin.foody.Object.TinhThanh;
 
+import org.kobjects.base64.Base64;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.MarshalFloat;
 import org.ksoap2.serialization.NullSoapObject;
@@ -19,6 +22,8 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 /**
  * Created by kunsubin on 4/21/2017.
  */
@@ -337,5 +342,201 @@ public class WebService {
             e.printStackTrace();
         }
         return duongs;
+    }
+
+
+    public List<BinhLuan> getBinhLuan(String id_nhahang) {
+        List<BinhLuan> binhluan=  new ArrayList<>();;
+
+        SoapObject request = new SoapObject(StaticObject.NAME_SPACE, StaticObject.METHOD_GETBINHLUAN);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet = true;
+        request.addProperty("id_nhahang", id_nhahang);
+        envelope.setOutputSoapObject(request);
+
+        MarshalFloat marshalFloat = new MarshalFloat();
+        marshalFloat.register(envelope);
+
+        HttpTransportSE HttpsTransport = new HttpTransportSE(StaticObject.URL);
+        try {
+            HttpsTransport.call(StaticObject.SOAP_ACTION_GETBINHLUAN, envelope);
+            //getData
+            SoapObject arraySoapObject = (SoapObject) envelope.getResponse();
+            for (int i = 0; i < arraySoapObject.getPropertyCount(); i++) {
+                SoapObject item = (SoapObject) arraySoapObject.getProperty(i);
+
+                BinhLuan binhLuan = new BinhLuan();
+                binhLuan.setId(Integer.parseInt(item.getProperty("ID").toString()));
+                binhLuan.setIdNhaHang(Integer.parseInt(item.getProperty("ID_NhaHang").toString().trim()));
+                binhLuan.setNoiDung(item.getProperty("NoiDung").toString());
+                binhLuan.setDanhGia(Double.parseDouble(item.getProperty("DanhGia").toString().trim()));
+                binhLuan.setUserName(item.getProperty("ID_User").toString());
+               /* String user=item.getProperty("ID_User").toString();
+                AsynGetInfoUser asynGetInfoUser=new AsynGetInfoUser();
+
+                try {
+                    ObjectInfoUser objectInfoUser=asynGetInfoUser.execute(user).get();
+                    binhLuan.setObjectInfoUser(objectInfoUser);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }*/
+
+                binhluan.add(binhLuan);
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        return binhluan;
+    }
+    //getImageMore
+    public List<String> getImageMore(String id_nhahang) {
+        List<String> image=  new ArrayList<>();;
+
+        SoapObject request = new SoapObject(StaticObject.NAME_SPACE, StaticObject.METHOD_GETBIMAGEMORE);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet = true;
+        request.addProperty("id_nhahang", id_nhahang);
+        envelope.setOutputSoapObject(request);
+
+        MarshalFloat marshalFloat = new MarshalFloat();
+        marshalFloat.register(envelope);
+
+        HttpTransportSE HttpsTransport = new HttpTransportSE(StaticObject.URL);
+        try {
+            HttpsTransport.call(StaticObject.SOAP_ACTION_GETIMAGEMORE, envelope);
+            //getData
+            SoapObject arraySoapObject = (SoapObject) envelope.getResponse();
+            for (int i = 0; i < arraySoapObject.getPropertyCount(); i++) {
+                SoapObject item = (SoapObject) arraySoapObject.getProperty(i);
+
+                image.add(item.getProperty("Image").toString());
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        return image;
+    }
+    //getNhaHang
+    public List<NhaHang> getNhaHang(String danhmuc, String tinhthanh, String quanhuyen, String duong) {
+        List<NhaHang> nhaHangs=  new ArrayList<>();;
+
+        SoapObject request = new SoapObject(StaticObject.NAME_SPACE, StaticObject.METHOD_GETNHAHANG);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet = true;
+        request.addProperty("danhmuc", danhmuc);
+        request.addProperty("tinhthanh", tinhthanh);
+        request.addProperty("quanhuyen", quanhuyen);
+        request.addProperty("duong", duong);
+        envelope.setOutputSoapObject(request);
+
+        MarshalFloat marshalFloat = new MarshalFloat();
+        marshalFloat.register(envelope);
+
+        HttpTransportSE HttpsTransport = new HttpTransportSE(StaticObject.URL);
+        try {
+            HttpsTransport.call(StaticObject.SOAP_ACTION_GETNHAHANG, envelope);
+            //getData
+            SoapObject arraySoapObject = (SoapObject) envelope.getResponse();
+            for (int i = 0; i < arraySoapObject.getPropertyCount(); i++) {
+                SoapObject item = (SoapObject) arraySoapObject.getProperty(i);
+                NhaHang nhaHang=new NhaHang();
+                nhaHang.setId(item.getProperty("ID").toString());
+                nhaHang.setName(item.getProperty("TenNhaHang").toString());
+                nhaHang.setDiaChi(item.getProperty("DiaChi").toString());
+                nhaHang.setDanhGia(Double.parseDouble(item.getProperty("DanhGia").toString()));
+                nhaHang.setSDT(item.getProperty("DienThoai").toString());
+                nhaHang.setLuotXem(Integer.parseInt(item.getProperty("LuotXem").toString()));
+                nhaHang.setImage(item.getProperty("Hinh").toString());
+              /* String image=null;
+                AsynGetImage getImage=new AsynGetImage();
+                try {
+                    image=getImage.execute(item.getProperty("Hinh").toString()).get();
+
+                    if(image!=null){
+                        byte[] valueDecoded= Base64.decode(image);
+                        nhaHang.setHinh(valueDecoded);
+                    }
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }*/
+              /*  AsynBinhLuan asynBinhLuan=new AsynBinhLuan();
+                try {
+                    List<BinhLuan> binhLuanList=asynBinhLuan.execute(item.getProperty("ID").toString()).get();
+                    nhaHang.setListBinhLuan(binhLuanList);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (NullPointerException e){
+                    e.printStackTrace();
+                }*/
+              /*  AsynGetImageMore asynGetImageMore=new AsynGetImageMore();
+                try {
+                    List<String> hinh=asynGetImageMore.execute(item.getProperty("ID").toString()).get();
+                    List<byte[]> listHinh=null;
+                    if (hinh!=null){
+                        for (String aa:hinh
+                             ) {
+                            String photo=null;
+                            AsynGetImage getImageMore=new AsynGetImage();
+                            try {
+                                photo=getImageMore.execute(aa).get();
+
+                                if(image!=null){
+                                    byte[] valueDecoded= Base64.decode(photo);
+                                    listHinh.add(valueDecoded);
+                                }
+
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            }catch (NullPointerException e){
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                    nhaHang.setListHinh(listHinh);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }*/
+
+
+                nhaHangs.add(nhaHang);
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        return nhaHangs;
     }
 }

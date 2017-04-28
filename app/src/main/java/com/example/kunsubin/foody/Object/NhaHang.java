@@ -19,6 +19,23 @@ public class NhaHang {
     List<BinhLuan> ListBinhLuan;
     List<byte[]> ListHinh;
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    String image;
+    public List<String> getListImage() {
+        return listImage;
+    }
+    public void setListImage(List<String> listImage) {
+        this.listImage = listImage;
+    }
+
+    List<String> listImage;
     public List<byte[]> getListHinh() {
         return ListHinh;
     }

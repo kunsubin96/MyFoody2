@@ -26,7 +26,8 @@
         <activity android:name=".LoginUser" />
         <activity android:name=".ThietLapTaiKhoan" />
         <activity android:name=".ThongTinLienHe" />
-        <activity android:name=".DangKy"></activity>
+        <activity android:name=".DangKy" />
+        <activity android:name=".Wellcome"></activity>
     </application>
 
 </manifest>

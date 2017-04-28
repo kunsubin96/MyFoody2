@@ -35,4 +35,13 @@ public class StaticObject {
     //get Đường
     public static String METHOD_GETDUONG="getDuongTheoHuyen";
     public static String SOAP_ACTION_GETDUONG=NAME_SPACE+METHOD_GETDUONG;
+    //get binhluan nhà hàng
+    public static String METHOD_GETBINHLUAN="getBinhLuanNhaHang";
+    public static String SOAP_ACTION_GETBINHLUAN=NAME_SPACE+METHOD_GETBINHLUAN;
+    //get ImageMore
+    public static String METHOD_GETBIMAGEMORE="getImageMore";
+    public static String SOAP_ACTION_GETIMAGEMORE=NAME_SPACE+METHOD_GETBIMAGEMORE;
+    //getNhaHang
+    public static String METHOD_GETNHAHANG="getNhaHang";
+    public static String SOAP_ACTION_GETNHAHANG=NAME_SPACE+METHOD_GETNHAHANG;
 }

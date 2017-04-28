@@ -10,6 +10,25 @@ public class BinhLuan {
     int IdNhaHang;
     double  DanhGia;
     String NoiDung;
+
+    public String getUserName() {
+        return UserName;
+    }
+
+    public void setUserName(String userName) {
+        UserName = userName;
+    }
+
+    String UserName;
+    public ObjectInfoUser getObjectInfoUser() {
+        return objectInfoUser;
+    }
+
+    public void setObjectInfoUser(ObjectInfoUser objectInfoUser) {
+        this.objectInfoUser = objectInfoUser;
+    }
+
+    ObjectInfoUser objectInfoUser;
     public String getNoiDung() {
         return NoiDung;
     }
