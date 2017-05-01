@@ -8,6 +8,24 @@ public class Info {
     String Id;
     byte[] Photo;
 
+    public String getID_NhaHang() {
+        return ID_NhaHang;
+    }
+
+    public void setID_NhaHang(String ID_NhaHang) {
+        this.ID_NhaHang = ID_NhaHang;
+    }
+
+    String ID_NhaHang;
+    public String getAvatar() {
+        return Avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        Avatar = avatar;
+    }
+
+    String Avatar;
     public String getId() {
         return Id;
     }

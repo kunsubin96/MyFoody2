@@ -17,9 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kunsubin.foody.AutoScrollViewPager.AutoScrollViewPager;
-import com.example.kunsubin.foody.BussinessAccess.BussinessNhaHang;
-import com.example.kunsubin.foody.BussinessAccess.BussinessQuanHuyen;
-import com.example.kunsubin.foody.BussinessAccess.BussinessTinhThanh;
 import com.example.kunsubin.foody.Object.BinhLuan;
 import com.example.kunsubin.foody.Object.DanhMuc;
 import com.example.kunsubin.foody.Object.Duong;
@@ -31,6 +28,7 @@ import com.example.kunsubin.foody.Object.TinhThanh;
 import com.example.kunsubin.foody.RecyclerView.MoreItemView;
 import com.example.kunsubin.foody.WebService.AsynBinhLuan;
 import com.example.kunsubin.foody.WebService.AsynCheckLogin;
+import com.example.kunsubin.foody.WebService.AsynDanhMuc;
 import com.example.kunsubin.foody.WebService.AsynDuong;
 import com.example.kunsubin.foody.WebService.AsynGetImage;
 import com.example.kunsubin.foody.WebService.AsynGetImageMore;
@@ -92,18 +90,19 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
     List<TinhThanh> listTinhThanh;
 
     List<NhaHang> listNhaHang;
-    BussinessNhaHang bussinessNhaHang;
     String TinhThanh = "";
     String QuanHuyen = "";
     String TabDanhMuc = "";
     String TabMoiNhat = "";
+    String Duong="";
     List<QuanHuyen> listQuanHuyenTheoTinh;
     HashMap<QuanHuyen, List<Duong>> listDataChildODau;
     ExpandableListAdapterODau listAdapterDiaDiemODau;
     LinearLayout linear_layout_child_expand;
     List<String> countDuong;
     List<NhaHang> nhaHangList;
-
+    List<DanhMuc> danhMucList;
+    CustomAdapterNhaHangODau customAdapterNhaHangODau;
     public ODau(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
         context = mainActivity;
@@ -138,15 +137,22 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
+        //load duu lieu danh muc vao listdanhmuc
+        AsynDanhMuc asynDanhMuc=new AsynDanhMuc();
+        try {
+            danhMucList=asynDanhMuc.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         //tạo các trạng thái ban đầu khi nhấn tab
         StaticData.setSelectedDanhMucODau(0);
         StaticData.setSelectedDiaDiemODau(-1);
         StaticData.setGroupODau(-1);
         StaticData.setChildODau(-1);
-        bussinessNhaHang = new BussinessNhaHang(context);
 
-        loadNhaHangODau("danhmuc","tphcm","q1","");
+        //loadNhaHangODau("danhmuc","tphcm","q1","");
 
         //sự kiện khi nhấn tab thứ 1 bên chọn mới nhất
         layOutMoiNhatODau.setOnClickListener(new View.OnClickListener() {
@@ -309,13 +315,15 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                 QuanHuyen = "";
                 TabDanhMuc = textViewDanhMucODau.getText().toString().trim();
                 TabMoiNhat = textMoiNhatODau.getText().toString().trim();
-                khungChinhODau.setAdapter(null);
+
+                loadNhaHangODau(TabDanhMuc,TinhThanh,QuanHuyen,Duong,TabMoiNhat);
+               /* khungChinhODau.setAdapter(null);
                 listNhaHang = bussinessNhaHang.getListNhaHang(TinhThanh, QuanHuyen, TabDanhMuc, TabMoiNhat);
                 if (listNhaHang != null && listNhaHang.size() > 0)
                     khungChinhODau.setAdapter(new CustomAdapterNhaHangODau(mainActivity, listNhaHang));
                 else {
                     khungChinhODau.setAdapter(null);
-                }
+                }*/
                 //đóng listview khi chọn xong item
                 layOutDiaDiemODau.setBackgroundResource(R.drawable.my_button_bg);
                 listViewDiaDiemODau.setVisibility(View.GONE);
@@ -351,7 +359,6 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                 //Toast.makeText(context,maTinh,Toast.LENGTH_SHORT).show();
                 StaticData.setSelectedDiaDiemODau(-1);
                 loadDiaDiemTheoTinh(maTinh);
-
                 //đóng listview khi chọn xong item
                 layOutDiaDiemODau.setBackgroundResource(R.drawable.my_button_bg);
                 listViewDiaDiemODau.setVisibility(View.GONE);
@@ -364,7 +371,7 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                 trangThaiDanhMucODau = true;
                 trangThaiDiaDiemODau = true;
                 //load dữ liệu sau khi chọn tỉnh bên activity tỉnh thành
-                TinhThanh = text_view_parent_districtODau.getText().toString().trim();
+               /* TinhThanh = text_view_parent_districtODau.getText().toString().trim();
                 if (TinhThanh.equals(textViewDiaDiemODau.getText().toString().trim()))
                     QuanHuyen = "";
                 else QuanHuyen = textViewDiaDiemODau.getText().toString().trim();
@@ -378,7 +385,15 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                     khungChinhODau.setAdapter(new CustomAdapterNhaHangODau(mainActivity, listNhaHang));
                 else {
                     khungChinhODau.setAdapter(null);
-                }
+                }*/
+
+
+                TinhThanh=result.trim();
+                QuanHuyen="";
+                Duong="";
+                TabDanhMuc=textViewDanhMucODau.getText().toString().trim();
+                TabMoiNhat=textMoiNhatODau.getText().toString().trim();
+                loadNhaHangODau(TabDanhMuc,TinhThanh,QuanHuyen,Duong,TabMoiNhat);
 
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -435,16 +450,10 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
         //load dữ liệu trang chính
         TinhThanh = "TP.HCM";
         QuanHuyen = "";
+        Duong="";
         TabDanhMuc = "Danh mục";
         TabMoiNhat = "Mới nhất";
-        khungChinhODau.setAdapter(null);
-        listNhaHang = bussinessNhaHang.getListNhaHang(TinhThanh, QuanHuyen, TabDanhMuc, TabMoiNhat);
-        if (listNhaHang != null && listNhaHang.size() > 0)
-            khungChinhODau.setAdapter(new CustomAdapterNhaHangODau(mainActivity, listNhaHang));
-        else {
-            khungChinhODau.setAdapter(null);
-        }
-        //Toast.makeText(context,listNhaHang.size()+"",Toast.LENGTH_SHORT).show();
+        loadNhaHangODau(TabDanhMuc,TinhThanh,QuanHuyen,Duong,TabMoiNhat);
     }
 
     //load dữ liệu lên list view mới nhất
@@ -472,19 +481,13 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                 trangThaiDiaDiemODau = true;
                 //load dữ liệu sau khi chọn tab mới nhất
                 TinhThanh = text_view_parent_districtODau.getText().toString().trim();
-                if (TinhThanh.equals(textViewDiaDiemODau.getText().toString().trim()))
+                if (TinhThanh.equals(textViewDiaDiemODau.getText().toString().trim())){
                     QuanHuyen = "";
-                else QuanHuyen = textViewDiaDiemODau.getText().toString().trim();
-
+                    Duong="";
+                }
                 TabDanhMuc = textViewDanhMucODau.getText().toString().trim();
                 TabMoiNhat = textMoiNhatODau.getText().toString().trim();
-                khungChinhODau.setAdapter(null);
-                listNhaHang = bussinessNhaHang.getListNhaHang(TinhThanh, QuanHuyen, TabDanhMuc, TabMoiNhat);
-                if (listNhaHang != null && listNhaHang.size() > 0)
-                    khungChinhODau.setAdapter(new CustomAdapterNhaHangODau(mainActivity, listNhaHang));
-                else {
-                    khungChinhODau.setAdapter(null);
-                }
+                loadNhaHangODau(TabDanhMuc,TinhThanh,QuanHuyen,Duong,TabMoiNhat);
 
             }
         });
@@ -554,20 +557,20 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                 trangThaiDiaDiemODau = true;
                 //load dữ liệu sau khi chọn tab danh mục
                 TinhThanh = text_view_parent_districtODau.getText().toString().trim();
-                if (TinhThanh.equals(textViewDiaDiemODau.getText().toString().trim()))
+                if (TinhThanh.equals(textViewDiaDiemODau.getText().toString().trim())){
                     QuanHuyen = "";
-                else QuanHuyen = textViewDiaDiemODau.getText().toString().trim();
-
+                    Duong="";
+                }
                 TabDanhMuc = textViewDanhMucODau.getText().toString().trim();
                 TabMoiNhat = textMoiNhatODau.getText().toString().trim();
-                khungChinhODau.setAdapter(null);
+                /*khungChinhODau.setAdapter(null);
                 listNhaHang = bussinessNhaHang.getListNhaHang(TinhThanh, QuanHuyen, TabDanhMuc, TabMoiNhat);
                 if (listNhaHang != null && listNhaHang.size() > 0)
                     khungChinhODau.setAdapter(new CustomAdapterNhaHangODau(mainActivity, listNhaHang));
                 else {
                     khungChinhODau.setAdapter(null);
-                }
-
+                }*/
+                loadNhaHangODau(TabDanhMuc,TinhThanh,QuanHuyen,Duong,TabMoiNhat);
             }
         });
 
@@ -659,7 +662,13 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                 trangThaiMoiNhatODau = true;
                 trangThaiDanhMucODau = true;
                 trangThaiDiaDiemODau = true;
-
+                //load data khi chọn quận huyện
+                TinhThanh = text_view_parent_districtODau.getText().toString().trim();
+                QuanHuyen=textView.getText().toString().trim();
+                Duong="";
+                TabDanhMuc = textViewDanhMucODau.getText().toString().trim();
+                TabMoiNhat = textMoiNhatODau.getText().toString().trim();
+                loadNhaHangODau(TabDanhMuc,TinhThanh,QuanHuyen,Duong,TabMoiNhat);
                 return true;
             }
         });
@@ -695,54 +704,6 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                 return false;
             }
         });
-        // Toast.makeText(getContext(),String.valueOf(listQuanHuyen.get(0).getMaTinhThanh())+String.valueOf(listQuanHuyenTheoTinh.size()),Toast.LENGTH_LONG).show();
-        //list_view_cityODau.setAdapter();
-
-
-      /*  list_view_cityODau.setAdapter(new CustomAdapterDiaDiemODau(mainActivity, listQuanHuyenTheoTinh));
-        list_view_cityODau.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                TextView tv;
-                text_view_parent_districtODau.setTextColor(getResources().getColor(R.color.black));
-                for (int j = 0; j < adapterView.getChildCount(); j++) {
-                    tv = (TextView) adapterView.getChildAt(j).findViewById(R.id.text_view_district_name);
-                    tv.setTextColor(getResources().getColor(R.color.black));
-                }
-                tv = (TextView) view.findViewById(R.id.text_view_district_name);
-                tv.setTextColor(getResources().getColor(R.color.red));
-                StaticData.setSelectedDiaDiemODau(i);
-                textViewDiaDiemODau.setText(tv.getText());
-                textViewDiaDiemODau.setTextColor(getResources().getColor(R.color.red));
-                text_view_parent_districtODau.setTextColor(getResources().getColor(R.color.black));
-                //đóng listview khi chọn xong item
-                layOutDiaDiemODau.setBackgroundResource(R.drawable.my_button_bg);
-                listViewDiaDiemODau.setVisibility(View.GONE);
-                listViewMoiNhatODau.setVisibility(View.GONE);
-                listViewDanhMucODau.setVisibility(View.GONE);
-                khungChinhODau.setVisibility(View.VISIBLE);
-                btnHuy.setVisibility(View.GONE);
-                bottomNavigationViewEx.setVisibility(View.VISIBLE);
-                trangThaiMoiNhatODau = true;
-                trangThaiDanhMucODau = true;
-                trangThaiDiaDiemODau = true;
-                //load dữ liệu sau khi chọn tab địa điểm
-                TinhThanh = text_view_parent_districtODau.getText().toString().trim();
-                if (TinhThanh.equals(textViewDiaDiemODau.getText().toString().trim()))
-                    QuanHuyen = "";
-                else QuanHuyen = textViewDiaDiemODau.getText().toString().trim();
-
-                TabDanhMuc = textViewDanhMucODau.getText().toString().trim();
-                TabMoiNhat = textMoiNhatODau.getText().toString().trim();
-                khungChinhODau.setAdapter(null);
-                listNhaHang = bussinessNhaHang.getListNhaHang(TinhThanh, QuanHuyen, TabDanhMuc, TabMoiNhat);
-                if (listNhaHang != null && listNhaHang.size() > 0)
-                    khungChinhODau.setAdapter(new CustomAdapterNhaHangODau(mainActivity, listNhaHang));
-                else {
-                    khungChinhODau.setAdapter(null);
-                }
-            }
-        });*/
 
     }
 
@@ -750,13 +711,55 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
     public String getMaTinh(String tenTinh) {
         String maTinh = "";
         for (int i = 0; i < listTinhThanh.size(); i++) {
-            if (listTinhThanh.get(i).getTenTinhThanh().equals(tenTinh)) {
+            if (listTinhThanh.get(i).getTenTinhThanh().trim().equals(tenTinh)) {
                 maTinh = listTinhThanh.get(i).getMaTinhThanh();
+                break;
             }
         }
         return maTinh.trim();
     }
+    //lấy quận huyện theo tên tỉnh thành
+    public String getMaQuanHuyen(String maTinh,String tenQuanHuyen) {
+        String MaQuanHuyen="";
+        for (int i = 0; i < listQuanHuyen.size(); i++) {
+            if (listQuanHuyen.get(i).getMaTinhThanh().trim().equals(maTinh)&&listQuanHuyen.get(i).getTenQuanHuyen().trim().equals(tenQuanHuyen)) {
+                MaQuanHuyen = listQuanHuyen.get(i).getMaQuanHuyen();
+                break;
+            }
+        }
+        return MaQuanHuyen.trim();
+    }
+    //get MaDuong theo quận huyện
+    public String getMaDuong(String maHuyen,String tenDuong) {
+        String MaDuong="";
+        AsynDuong asynDuong=new AsynDuong();
+        try {
+            List<Duong> duongs=asynDuong.execute(maHuyen).get();
+            for (int i = 0; i < duongs.size(); i++) {
+                if (duongs.get(i).getTenDuong().trim().equals(tenDuong)) {
+                    MaDuong = duongs.get(i).getMaDuong();
+                    break;
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
+        return MaDuong.trim();
+    }
+    //getDanhMuc theo tên danh mục
+    public String getDanhMuc(String tenDanhMuc) {
+        String MaDanhMuc="";
+        for (int i=0;i<danhMucList.size();i++){
+            if(danhMucList.get(i).getTen().trim().equals(tenDanhMuc)){
+                MaDanhMuc=danhMucList.get(i).getId();
+                break;
+            }
+        }
+        return MaDanhMuc.trim();
+    }
     //hàm lấy hình set image viewpager khung chính
     public static List<Integer> getDefaultImageSlideShow() {
         List<Integer> mResources = new ArrayList<>();
@@ -776,10 +779,16 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
             this.list_view_cityODau.expandGroup(groupPosition);
         }
     }
-    public void loadNhaHangODau(String danhmuc,String tinhthanh,String quanhuyen,String duong){
+    public void loadNhaHangODau(String danhmuc,String tinhthanh,String quanhuyen,String duong,String moinhat){
+        //xử lý đầu vào
+        danhmuc=getDanhMuc(danhmuc);
+        tinhthanh=getMaTinh(tinhthanh);
+        quanhuyen=getMaQuanHuyen(tinhthanh,quanhuyen);
+        duong=getMaDuong(quanhuyen,duong);
+        //get dữ liệu
         AsynNhaHang asynNhaHang = new AsynNhaHang();
         try {
-            nhaHangList = asynNhaHang.execute(danhmuc, tinhthanh, quanhuyen, duong).get();
+            nhaHangList = asynNhaHang.execute(danhmuc, tinhthanh, quanhuyen, duong,moinhat).get();
             //Toast.makeText(getContext(),nhaHangList.get(0).getName().toString(),Toast.LENGTH_LONG).show();
             if (nhaHangList.size() > 0) {
                 for (int i = 0; i < nhaHangList.size(); i++) {
@@ -800,6 +809,21 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                             AsynGetInfoUser asynGetInfoUser = new AsynGetInfoUser();
                             ObjectInfoUser objectInfoUser = asynGetInfoUser.execute(binhLuanList.get(j).getUserName().toString().trim()).get();
                             binhLuanList.get(j).setObjectInfoUser(objectInfoUser);
+
+
+                            //avatar
+                            String photo;
+                            AsynGetImage getImageMore = new AsynGetImage();
+                            photo = getImageMore.execute(binhLuanList.get(j).getObjectInfoUser().getAvatar().toString().trim()).get();
+
+                            if (photo == null||photo.equals("")){
+
+                            }
+                            else {
+                                byte[] valueDecoded = Base64.decode(photo);
+                                if(valueDecoded!=null)
+                                     binhLuanList.get(j).getObjectInfoUser().setHinh(valueDecoded);
+                            }
                         }
                     }
                     nhaHangList.get(i).setListBinhLuan(binhLuanList);
@@ -832,6 +856,14 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-        Toast.makeText(getContext(), String.valueOf(nhaHangList.size()), Toast.LENGTH_LONG).show();
+        khungChinhODau.setAdapter(null);
+        customAdapterNhaHangODau=new CustomAdapterNhaHangODau(mainActivity, nhaHangList);
+        if (nhaHangList != null && nhaHangList.size() > 0)
+            khungChinhODau.setAdapter(customAdapterNhaHangODau);
+        else {
+            khungChinhODau.setAdapter(null);
+        }
+        customAdapterNhaHangODau.notifyDataSetChanged();
+        //Toast.makeText(getContext(), String.valueOf(nhaHangList.size()), Toast.LENGTH_LONG).show();
     }
 }

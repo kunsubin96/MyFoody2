@@ -1,9 +1,13 @@
 package com.example.kunsubin.foody.WebService;
 
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.example.kunsubin.foody.Object.BinhLuan;
+import com.example.kunsubin.foody.Object.DanhMuc;
 import com.example.kunsubin.foody.Object.Duong;
+import com.example.kunsubin.foody.Object.Info;
+import com.example.kunsubin.foody.Object.MonAn;
 import com.example.kunsubin.foody.Object.NhaHang;
 import com.example.kunsubin.foody.Object.ObjectInfoUser;
 import com.example.kunsubin.foody.Object.QuanHuyen;
@@ -433,7 +437,7 @@ public class WebService {
         return image;
     }
     //getNhaHang
-    public List<NhaHang> getNhaHang(String danhmuc, String tinhthanh, String quanhuyen, String duong) {
+    public List<NhaHang> getNhaHang(String danhmuc, String tinhthanh, String quanhuyen, String duong,String moinhat) {
         List<NhaHang> nhaHangs=  new ArrayList<>();;
 
         SoapObject request = new SoapObject(StaticObject.NAME_SPACE, StaticObject.METHOD_GETNHAHANG);
@@ -443,6 +447,7 @@ public class WebService {
         request.addProperty("tinhthanh", tinhthanh);
         request.addProperty("quanhuyen", quanhuyen);
         request.addProperty("duong", duong);
+        request.addProperty("moinhat", moinhat);
         envelope.setOutputSoapObject(request);
 
         MarshalFloat marshalFloat = new MarshalFloat();
@@ -463,67 +468,150 @@ public class WebService {
                 nhaHang.setSDT(item.getProperty("DienThoai").toString());
                 nhaHang.setLuotXem(Integer.parseInt(item.getProperty("LuotXem").toString()));
                 nhaHang.setImage(item.getProperty("Hinh").toString());
-              /* String image=null;
-                AsynGetImage getImage=new AsynGetImage();
-                try {
-                    image=getImage.execute(item.getProperty("Hinh").toString()).get();
 
-                    if(image!=null){
-                        byte[] valueDecoded= Base64.decode(image);
-                        nhaHang.setHinh(valueDecoded);
-                    }
+                nhaHangs.add(nhaHang);
+            }
 
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }*/
-              /*  AsynBinhLuan asynBinhLuan=new AsynBinhLuan();
-                try {
-                    List<BinhLuan> binhLuanList=asynBinhLuan.execute(item.getProperty("ID").toString()).get();
-                    nhaHang.setListBinhLuan(binhLuanList);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (NullPointerException e){
-                    e.printStackTrace();
-                }*/
-              /*  AsynGetImageMore asynGetImageMore=new AsynGetImageMore();
-                try {
-                    List<String> hinh=asynGetImageMore.execute(item.getProperty("ID").toString()).get();
-                    List<byte[]> listHinh=null;
-                    if (hinh!=null){
-                        for (String aa:hinh
-                             ) {
-                            String photo=null;
-                            AsynGetImage getImageMore=new AsynGetImage();
-                            try {
-                                photo=getImageMore.execute(aa).get();
 
-                                if(image!=null){
-                                    byte[] valueDecoded= Base64.decode(photo);
-                                    listHinh.add(valueDecoded);
-                                }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        return nhaHangs;
+    }
+    //get All danh mục
+    public List<DanhMuc> getAllDanhMuc() {
+        List<DanhMuc> listDanhMuc = new ArrayList<>();
+        SoapObject request = new SoapObject(StaticObject.NAME_SPACE, StaticObject.METHOD_GETDANHMUC);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet = true;
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE HttpsTransport = new HttpTransportSE(StaticObject.URL);
+        try {
+            HttpsTransport.call(StaticObject.SOAP_ACTION_GETDANHMUC, envelope);
+            //getData
+            SoapObject arraySoapObject = (SoapObject) envelope.getResponse();
+            for (int i = 0; i < arraySoapObject.getPropertyCount(); i++) {
+                SoapObject item = (SoapObject) arraySoapObject.getProperty(i);
 
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            } catch (ExecutionException e) {
-                                e.printStackTrace();
-                            }catch (NullPointerException e){
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                    nhaHang.setListHinh(listHinh);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }catch (NullPointerException e){
-                    e.printStackTrace();
-                }*/
+                DanhMuc danhMuc = new DanhMuc();
+                danhMuc.setId(item.getProperty("ID").toString());
+                danhMuc.setTen(item.getProperty("TenDanhMuc").toString());
+                listDanhMuc.add(danhMuc);
+            }
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }
+        return listDanhMuc;
+    }
+    //get all mon an
+    public List<MonAn> getAllMonAn(){
+        List<MonAn> monAnList=  new ArrayList<>();;
+
+        SoapObject request = new SoapObject(StaticObject.NAME_SPACE, StaticObject.METHOD_GETMONAN);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet = true;
+        envelope.setOutputSoapObject(request);
+
+        HttpTransportSE HttpsTransport = new HttpTransportSE(StaticObject.URL);
+        try {
+            HttpsTransport.call(StaticObject.SOAP_ACTION_GETMONAN, envelope);
+            //getData
+            SoapObject arraySoapObject = (SoapObject) envelope.getResponse();
+            for (int i = 0; i < arraySoapObject.getPropertyCount(); i++) {
+                SoapObject item = (SoapObject) arraySoapObject.getProperty(i);
+
+                MonAn monAn = new MonAn();
+                monAn.setID(item.getProperty("ID").toString());
+                monAn.setTenMon(item.getProperty("TenMon").toString());
+                monAn.setID_NhaHang(item.getProperty("ID_NhaHang").toString());
+                monAnList.add(monAn);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }
+        return monAnList;
+    }
+    //get info
+    public Info getInfo(String nhahang){
+        Info info=null;
+
+        SoapObject request = new SoapObject(StaticObject.NAME_SPACE, StaticObject.METHOD_GETINFO);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet = true;
+        request.addProperty("nhahang", nhahang);
+        envelope.setOutputSoapObject(request);
+
+        MarshalFloat marshalFloat = new MarshalFloat();
+        marshalFloat.register(envelope);
+
+        HttpTransportSE HttpsTransport = new HttpTransportSE(StaticObject.URL);
+        try {
+            HttpsTransport.call(StaticObject.SOAP_ACTION_GETINFO, envelope);
+            //getData
+            SoapObject data = (SoapObject) envelope.bodyIn;
+            SoapObject item=(SoapObject)data.getProperty(0);
+            info= new Info();
+            info.setId(item.getProperty("ID").toString());
+            info.setAvatar(item.getProperty("Photo").toString());
+            info.setDate(item.getProperty("Date").toString());
+            info.setID_NhaHang(item.getProperty("ID_NhaHang").toString());
+            info.setName(item.getProperty("Name").toString());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }catch (ArrayIndexOutOfBoundsException e){
+
+        }
+        return info;
+    }
+    //get nha hang angi
+    public List<NhaHang> getNhaHangAnGi(String danhmuc, String tinhthanh, String quanhuyen, String duong,String moinhat) {
+        List<NhaHang> nhaHangs=  new ArrayList<>();;
+
+        SoapObject request = new SoapObject(StaticObject.NAME_SPACE, StaticObject.METHOD_GETNHAHANGANGI);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet = true;
+        request.addProperty("danhmuc", danhmuc);
+        request.addProperty("tinhthanh", tinhthanh);
+        request.addProperty("quanhuyen", quanhuyen);
+        request.addProperty("duong", duong);
+        request.addProperty("moinhat", moinhat);
+        envelope.setOutputSoapObject(request);
+
+        MarshalFloat marshalFloat = new MarshalFloat();
+        marshalFloat.register(envelope);
+
+        HttpTransportSE HttpsTransport = new HttpTransportSE(StaticObject.URL);
+        try {
+            HttpsTransport.call(StaticObject.SOAP_ACTION_GETNHAHANGANGI, envelope);
+            //getData
+            SoapObject arraySoapObject = (SoapObject) envelope.getResponse();
+            for (int i = 0; i < arraySoapObject.getPropertyCount(); i++) {
+                SoapObject item = (SoapObject) arraySoapObject.getProperty(i);
+                NhaHang nhaHang=new NhaHang();
+                nhaHang.setId(item.getProperty("ID").toString());
+                nhaHang.setName(item.getProperty("TenNhaHang").toString());
+                nhaHang.setDiaChi(item.getProperty("DiaChi").toString());
+                nhaHang.setDanhGia(Double.parseDouble(item.getProperty("DanhGia").toString()));
+                nhaHang.setSDT(item.getProperty("DienThoai").toString());
+                nhaHang.setLuotXem(Integer.parseInt(item.getProperty("LuotXem").toString()));
+                nhaHang.setImage(item.getProperty("Hinh").toString());
 
                 nhaHangs.add(nhaHang);
             }

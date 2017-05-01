@@ -6,7 +6,6 @@ package com.example.kunsubin.foody.Object;
 
 public class BinhLuan {
     int Id;
-    User UserId;
     int IdNhaHang;
     double  DanhGia;
     String NoiDung;
@@ -61,13 +60,6 @@ public class BinhLuan {
         Id = id;
     }
 
-    public User getUserId() {
-        return UserId;
-    }
-
-    public void setUserId(User userId) {
-        UserId = userId;
-    }
 
 
 }

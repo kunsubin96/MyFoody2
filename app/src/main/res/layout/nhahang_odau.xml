@@ -180,11 +180,14 @@
             android:paddingRight="8.0dip"
             android:paddingTop="10.0dip">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/image_view_avatar_comment_1"
-                android:background="@drawable/border_circle"
-                android:layout_width="30dip"
-                android:layout_height="30dip" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/icon_user_not_login"
+                app:civ_border_width="1dp"
+                app:civ_border_color="@color/colorWhite"/>
 
             <LinearLayout
                 android:layout_width="0.0dip"
@@ -249,12 +252,14 @@
             android:paddingRight="8.0dip"
             android:paddingTop="10.0dip">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/image_view_avatar_comment_2"
-                android:background="@drawable/border_circle"
-                android:layout_width="30dip"
-                android:layout_height="30dip" />
-
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/icon_user_not_login"
+                app:civ_border_width="1dp"
+                app:civ_border_color="@color/colorWhite"/>
             <LinearLayout
                 android:layout_width="0.0dip"
                 android:layout_height="wrap_content"

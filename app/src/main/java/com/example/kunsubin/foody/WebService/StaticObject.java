@@ -44,4 +44,17 @@ public class StaticObject {
     //getNhaHang
     public static String METHOD_GETNHAHANG="getNhaHang";
     public static String SOAP_ACTION_GETNHAHANG=NAME_SPACE+METHOD_GETNHAHANG;
+    //get All danhh mục
+    public static String METHOD_GETDANHMUC="getAllDanhMuc";
+    public static String SOAP_ACTION_GETDANHMUC=NAME_SPACE+METHOD_GETDANHMUC;
+
+    //getMonAn
+    public static String METHOD_GETMONAN="getAllMonAn";
+    public static String SOAP_ACTION_GETMONAN=NAME_SPACE+METHOD_GETMONAN;
+    //getInfo
+    public static String METHOD_GETINFO="getThongTin";
+    public static String SOAP_ACTION_GETINFO=NAME_SPACE+METHOD_GETINFO;
+    //get nhaHangAngi
+    public static String METHOD_GETNHAHANGANGI="getNhaHangAnGi";
+    public static String SOAP_ACTION_GETNHAHANGANGI=NAME_SPACE+METHOD_GETNHAHANGANGI;
 }

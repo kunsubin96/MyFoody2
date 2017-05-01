@@ -18,6 +18,8 @@ import com.example.kunsubin.foody.Object.StaticData;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by kunsubin on 4/9/2017.
  */
@@ -75,14 +77,14 @@ public class CustomAdapterNhaHangODau extends BaseAdapter{
         public LinearLayout linear_layout_parent_comment_res;
 
         public LinearLayout linear_layout_sub_comment_res_1;
-        public ImageView image_view_avatar_comment_1;
+        public CircleImageView image_view_avatar_comment_1;
 
         public TextView text_view_name_user_1;
         public TextView text_view_user_rate_1;
         public TextView text_view_comment_1;
 
         public LinearLayout linear_layout_sub_comment_res_2;
-        public ImageView image_view_avatar_comment_2;
+        public CircleImageView image_view_avatar_comment_2;
         public TextView text_view_name_user_2;
         public TextView text_view_user_rate_2;
         public TextView text_view_comment_2;
@@ -117,13 +119,13 @@ public class CustomAdapterNhaHangODau extends BaseAdapter{
             linear_layout_parent_comment_res = (LinearLayout) item.findViewById(R.id.linear_layout_parent_comment_res);
 
             linear_layout_sub_comment_res_1 = (LinearLayout) item.findViewById(R.id.linear_layout_sub_comment_res_1);
-            image_view_avatar_comment_1 = (ImageView) item.findViewById(R.id.image_view_avatar_comment_1);
+            image_view_avatar_comment_1 = (CircleImageView) item.findViewById(R.id.image_view_avatar_comment_1);
             text_view_name_user_1 = (TextView) item.findViewById(R.id.text_view_name_user_1);
             text_view_user_rate_1 = (TextView) item.findViewById(R.id.text_view_user_rate_1);
             text_view_comment_1 = (TextView) item.findViewById(R.id.text_view_comment_1);
 
             linear_layout_sub_comment_res_2 = (LinearLayout) item.findViewById(R.id.linear_layout_sub_comment_res_2);
-            image_view_avatar_comment_2 = (ImageView) item.findViewById(R.id.image_view_avatar_comment_2);
+            image_view_avatar_comment_2 = (CircleImageView) item.findViewById(R.id.image_view_avatar_comment_2);
             text_view_name_user_2 = (TextView) item.findViewById(R.id.text_view_name_user_2);
             text_view_user_rate_2 = (TextView) item.findViewById(R.id.text_view_user_rate_2);
             text_view_comment_2 = (TextView) item.findViewById(R.id.text_view_comment_2);
@@ -243,19 +245,19 @@ public class CustomAdapterNhaHangODau extends BaseAdapter{
         }
         //bình luận 1
         public void showBinhLuan1(BinhLuan binhLuan) {
-            if(binhLuan.getUserId().getAvatar()!=null)
-                Glide.with(context).load(binhLuan.getUserId().getAvatar()).into(image_view_avatar_comment_1);
+            if(binhLuan.getObjectInfoUser().getHinh()!=null)
+                Glide.with(context).load(binhLuan.getObjectInfoUser().getHinh()).into(image_view_avatar_comment_1);
 
-            text_view_name_user_1.setText(binhLuan.getUserId().getTen());
+            text_view_name_user_1.setText(binhLuan.getObjectInfoUser().getHoTen());
             text_view_user_rate_1.setText(binhLuan.getDanhGia() + "");
             text_view_comment_1.setText(binhLuan.getNoiDung());
         }
         //bình luận 2
         public void showBinhLuan2(BinhLuan binhLuan) {
-            if(binhLuan.getUserId().getAvatar()!=null)
-                Glide.with(context).load(binhLuan.getUserId().getAvatar()).into(image_view_avatar_comment_2);
+            if(binhLuan.getObjectInfoUser().getHinh()!=null)
+                Glide.with(context).load(binhLuan.getObjectInfoUser().getHinh()).into(image_view_avatar_comment_2);
 
-            text_view_name_user_2.setText(binhLuan.getUserId().getTen());
+            text_view_name_user_2.setText(binhLuan.getObjectInfoUser().getHoTen());
             text_view_user_rate_2.setText(binhLuan.getDanhGia() + "");
             text_view_comment_2.setText(binhLuan.getNoiDung());
         }
