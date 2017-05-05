@@ -27,7 +27,10 @@
         <activity android:name=".ThietLapTaiKhoan" />
         <activity android:name=".ThongTinLienHe" />
         <activity android:name=".DangKy" />
-        <activity android:name=".Wellcome"></activity>
+        <activity android:name=".Wellcome" />
+        <activity android:name=".ChiTietNhaHang" />
+        <activity android:name=".ChangeAvatar" />
+        <activity android:name=".GalleryFolderActivity"></activity>
     </application>
 
 </manifest>

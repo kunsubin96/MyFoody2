@@ -14,4 +14,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="boSuuTap"><u>Bộ sưu tập</u></string>
     <string name="tinhThanh"><u>TP.HCM</u></string>
+    <string name="TEXT_PERMISSION_STORAGE">"Truy cập ảnh, phương tiện và tệp trên thiết bị của bạn"</string>
+    <string name="TEXT_REQUEST_PERMISSION">Bạn cần cho phép quyền vào thiết bị để thực hiện chức năng này</string>
+    <string name="TEXT_YES">Có</string>
+    <string name="TEXT_NO">Không</string>
 </resources>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffeeeeee"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/choose_provine_top_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="45.0dip"
+        android:background="#ffcc0000"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:id="@+id/back_button_change_avatar"
+            android:layout_width="50.0dip"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/list_item_selector"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="50.0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:padding="10.0dip"
+                android:src="@drawable/icon_back" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_view_user_name"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@+id/back_button_change_avatar"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:text="Ảnh đại diện &amp; bìa"
+            android:textColor="#ffffffff"
+            android:textSize="@dimen/text_size_big_title"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffefeff4"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10.0dip"
+            android:layout_marginTop="5.0dip"
+            android:text="HÌNH ĐẠI DIỆN"
+            android:textColor="#ff888888"
+            android:textSize="@dimen/text_size_title" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:layout_marginTop="5.0dip"
+            android:background="#ffcccccc"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffffff">
+
+            <LinearLayout
+                android:id="@+id/linear_layout_change_avatar"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/list_item_selector"
+                android:clickable="true"
+                android:gravity="center_vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/profile_image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/icon_user_not_login"
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_width="2dp" />
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10.0dip"
+                    android:layout_weight="1.0"
+                    android:text="Đổi ảnh đại diện"
+
+                    android:textColor="#ff000000"
+                    android:textSize="13dip" />
+
+                <ImageView
+                    android:layout_width="30.0dip"
+                    android:layout_height="25.0dip"
+                    android:layout_marginRight="10.0dip"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:background="#ffcccccc"
+            android:orientation="vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10.0dip"
+            android:layout_marginTop="5.0dip"
+            android:text="HÌNH COVER"
+            android:textColor="#ff888888"
+            android:textSize="@dimen/text_size_title" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:layout_marginTop="5.0dip"
+            android:background="#ffcccccc"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffffff"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:id="@+id/linear_layout_change_cover"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/list_item_selector"
+                android:clickable="true"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="80.0dip"
+                    android:layout_height="80.0dip"
+                    android:layout_marginBottom="5.0dip"
+                    android:layout_marginLeft="10.0dip"
+                    android:layout_marginTop="5.0dip"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon_bottom_menu_gallery" />
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10.0dip"
+                    android:layout_weight="1.0"
+                    android:text="Đổi ảnh bìa"
+                    android:textColor="#ff000000"
+                    android:textSize="13dip" />
+
+                <ImageView
+                    android:layout_width="30.0dip"
+                    android:layout_height="25.0dip"
+                    android:layout_marginRight="10.0dip"
+                    android:src="@drawable/icon_arrow_right" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:background="#ffcccccc"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/text_view_save_change"
+            android:layout_width="fill_parent"
+            android:layout_height="40.0dip"
+            android:layout_marginLeft="10.0dip"
+            android:layout_marginRight="10.0dip"
+            android:layout_marginTop="20.0dip"
+            android:background="@drawable/border_button_save_change"
+            android:gravity="center"
+            android:text="Lưu thay đổi"
+            android:textColor="#ffffffff"
+            android:textSize="13dip" />
+    </LinearLayout>
+
+</LinearLayout>

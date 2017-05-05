@@ -321,17 +321,6 @@ public class AnGi extends android.support.v4.app.Fragment implements IChooseStre
                 TabMoiNhat = textMoiNhatAnGi.getText().toString().trim();
 
                 loadNhaHangAnGi(TabDanhMuc,TinhThanh,QuanHuyen,Duong,TabMoiNhat);
-              /*  TinhThanh = text_view_parent_districtAnGi.getText().toString().trim();
-                QuanHuyen = "";
-                TabDanhMuc = textDanhMucAnGi.getText().toString().trim();
-                TabMoiNhat = textMoiNhatAnGi.getText().toString().trim();
-                khungChinhAnGi.setAdapter(null);
-                listNhaHangAnGi = bussinessNhaHang.getListNhaHangAnGi(TinhThanh, QuanHuyen, TabDanhMuc, TabMoiNhat);
-                if (listNhaHangAnGi != null && listNhaHangAnGi.size() > 0)
-                    khungChinhAnGi.setAdapter(new AdapterGridViewAnGi(mainActivity, listNhaHangAnGi));
-                else {
-                    khungChinhAnGi.setAdapter(null);
-                }*/
                 //đóng listview khi chọn xong item
                 layOutDiaDiemAnGi.setBackgroundResource(R.drawable.my_button_bg);
                 listViewDiaDiemAnGi.setVisibility(View.GONE);
@@ -364,7 +353,6 @@ public class AnGi extends android.support.v4.app.Fragment implements IChooseStre
                 textViewDiaDiemAnGi.setText(result);
                 textViewDiaDiemAnGi.setTextColor(getResources().getColor(R.color.red));
                 //công việc load lại list địa điểm
-                //Toast.makeText(context,maTinh,Toast.LENGTH_SHORT).show();
                 StaticData.setSelectedDiaDiemAnGi(-1);
                 loadDiaDiemTheoTinh(maTinh);
                 //đóng listview khi chọn xong item
@@ -379,20 +367,6 @@ public class AnGi extends android.support.v4.app.Fragment implements IChooseStre
                 trangThaiDanhMucAnGi = true;
                 trangThaiDiaDiemAnGi = true;
                 //load dữ liệu sau khi chọn tab địa điểm
-             /*   TinhThanh = text_view_parent_districtAnGi.getText().toString().trim();
-                if (TinhThanh.equals(textViewDiaDiemAnGi.getText().toString().trim()))
-                    QuanHuyen = "";
-                else QuanHuyen = textViewDiaDiemAnGi.getText().toString().trim();
-
-                TabDanhMuc = textDanhMucAnGi.getText().toString().trim();
-                TabMoiNhat = textMoiNhatAnGi.getText().toString().trim();*/
-               /* khungChinhAnGi.setAdapter(null);
-                listNhaHangAnGi = bussinessNhaHang.getListNhaHangAnGi(TinhThanh, QuanHuyen, TabDanhMuc, TabMoiNhat);
-                if (listNhaHangAnGi != null && listNhaHangAnGi.size() > 0)
-                    khungChinhAnGi.setAdapter(new AdapterGridViewAnGi(mainActivity, listNhaHangAnGi));
-                else {
-                    khungChinhAnGi.setAdapter(null);
-                }*/
                 TinhThanh=result.trim();
                 QuanHuyen="";
                 Duong="";
@@ -450,8 +424,6 @@ public class AnGi extends android.support.v4.app.Fragment implements IChooseStre
         indicator.setViewPager(view_pager_imageAnGi);
         khungChinhAnGi.addHeaderView(slideShowBanner);
         //add các icon button main
-
-
         moreItemView = new MoreItemView(context);
         khungChinhAnGi.addHeaderView(moreItemView);
 
@@ -461,15 +433,6 @@ public class AnGi extends android.support.v4.app.Fragment implements IChooseStre
         TabDanhMuc = "Danh mục";
         TabMoiNhat = "Mới nhất";
         loadNhaHangAnGi(TabDanhMuc,TinhThanh,QuanHuyen,Duong,TabMoiNhat);
-        /*khungChinhAnGi.setAdapter(null);
-        listNhaHangAnGi = bussinessNhaHang.getListNhaHangAnGi(TinhThanh, QuanHuyen, TabDanhMuc, TabMoiNhat);
-        if (listNhaHangAnGi != null && listNhaHangAnGi.size() > 0)
-            khungChinhAnGi.setAdapter(new AdapterGridViewAnGi(mainActivity, listNhaHangAnGi));
-        else {
-            khungChinhAnGi.setAdapter(null);
-        }*/
-
-        //Toast.makeText(context,listNhaHangAnGi.size()+"",Toast.LENGTH_SHORT).show();
 
     }
 
@@ -492,21 +455,6 @@ public class AnGi extends android.support.v4.app.Fragment implements IChooseStre
                 trangThaiMoiNhatAnGi = true;
                 trangThaiDanhMucAnGi = true;
                 trangThaiDiaDiemAnGi = true;
-                //
-             /*   TinhThanh = text_view_parent_districtAnGi.getText().toString().trim();
-                if (TinhThanh.equals(textViewDiaDiemAnGi.getText().toString().trim()))
-                    QuanHuyen = "";
-                else QuanHuyen = textViewDiaDiemAnGi.getText().toString().trim();
-
-                TabDanhMuc = textDanhMucAnGi.getText().toString().trim();
-                TabMoiNhat = textMoiNhatAnGi.getText().toString().trim();
-                khungChinhAnGi.setAdapter(null);
-                listNhaHangAnGi = bussinessNhaHang.getListNhaHangAnGi(TinhThanh, QuanHuyen, TabDanhMuc, TabMoiNhat);
-                if (listNhaHangAnGi != null && listNhaHangAnGi.size() > 0)
-                    khungChinhAnGi.setAdapter(new AdapterGridViewAnGi(mainActivity, listNhaHangAnGi));
-                else {
-                    khungChinhAnGi.setAdapter(null);
-                }*/
 
                 TinhThanh = text_view_parent_districtAnGi.getText().toString().trim();
                 if (TinhThanh.equals(textViewDiaDiemAnGi.getText().toString().trim())){
@@ -514,7 +462,11 @@ public class AnGi extends android.support.v4.app.Fragment implements IChooseStre
                     Duong="";
                 }
                 TabDanhMuc = textDanhMucAnGi.getText().toString().trim();
-                TabMoiNhat = textMoiNhatAnGi.getText().toString().trim();
+                if(textMoiNhatAnGi.getText().toString().trim().equals("Xem nhiều"))
+                    TabMoiNhat="Phổ biến";
+                else
+                    TabMoiNhat = textMoiNhatAnGi.getText().toString().trim();
+
                 loadNhaHangAnGi(TabDanhMuc,TinhThanh,QuanHuyen,Duong,TabMoiNhat);
             }
         });
@@ -580,20 +532,6 @@ public class AnGi extends android.support.v4.app.Fragment implements IChooseStre
                 trangThaiDanhMucAnGi = true;
                 trangThaiDiaDiemAnGi = true;
                 //load dữ liệu sau khi chọn tab danh mục
-             /*   TinhThanh = text_view_parent_districtAnGi.getText().toString().trim();
-                if (TinhThanh.equals(textViewDiaDiemAnGi.getText().toString().trim()))
-                    QuanHuyen = "";
-                else QuanHuyen = textViewDiaDiemAnGi.getText().toString().trim();
-
-                TabDanhMuc = textDanhMucAnGi.getText().toString().trim();
-                TabMoiNhat = textMoiNhatAnGi.getText().toString().trim();
-                khungChinhAnGi.setAdapter(null);
-                listNhaHangAnGi = bussinessNhaHang.getListNhaHangAnGi(TinhThanh, QuanHuyen, TabDanhMuc, TabMoiNhat);
-                if (listNhaHangAnGi != null && listNhaHangAnGi.size() > 0)
-                    khungChinhAnGi.setAdapter(new AdapterGridViewAnGi(mainActivity, listNhaHangAnGi));
-                else {
-                    khungChinhAnGi.setAdapter(null);
-                }*/
                 //load dữ liệu sau khi chọn tab danh mục
                 TinhThanh = text_view_parent_districtAnGi.getText().toString().trim();
                 if (TinhThanh.equals(textViewDiaDiemAnGi.getText().toString().trim())){
@@ -823,7 +761,6 @@ public class AnGi extends android.support.v4.app.Fragment implements IChooseStre
         AsynNhaHangAnGi asynNhaHangAnGi = new AsynNhaHangAnGi();
         try {
             nhaHangList = asynNhaHangAnGi.execute(danhmuc, tinhthanh, quanhuyen, duong, moinhat).get();
-            //Toast.makeText(getContext(),nhaHangList.get(0).getName().toString(),Toast.LENGTH_LONG).show();
             if (nhaHangList.size() > 0) {
                 for (int i = 0; i < nhaHangList.size(); i++) {
                     //set hinh
@@ -880,6 +817,5 @@ public class AnGi extends android.support.v4.app.Fragment implements IChooseStre
             khungChinhAnGi.setAdapter(null);
         }
         adapterGridViewAnGi.notifyDataSetChanged();
-        //Toast.makeText(getContext(), String.valueOf(nhaHangList.get(0).getInfo().getName()), Toast.LENGTH_LONG).show();
     }
 }

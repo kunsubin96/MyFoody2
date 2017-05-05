@@ -105,4 +105,25 @@ public class StaticData {
     }
 
     static int childAnGi;
+
+    public static int getPossionGioiTinh() {
+        return PossionGioiTinh;
+    }
+
+    public static void setPossionGioiTinh(int possionGioiTinh) {
+        PossionGioiTinh = possionGioiTinh;
+    }
+
+    static int PossionGioiTinh;
+
+    public static int getPossionMarry() {
+        return PossionMarry;
+    }
+
+    public static void setPossionMarry(int possionMarry) {
+        PossionMarry = possionMarry;
+    }
+
+    static int PossionMarry;
+
 }

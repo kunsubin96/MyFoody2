@@ -1,7 +1,10 @@
 package com.example.kunsubin.foody.WebService;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
+import com.example.kunsubin.foody.MainActivity;
+import com.example.kunsubin.foody.ODau;
 import com.example.kunsubin.foody.Object.NhaHang;
 
 import java.util.List;

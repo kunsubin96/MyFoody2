@@ -1,6 +1,7 @@
 package com.example.kunsubin.foody;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,10 +14,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.kunsubin.foody.Object.StaticData;
 import com.example.kunsubin.foody.WebService.AsynChangePassword;
 
 import java.util.concurrent.ExecutionException;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ThietLapTaiKhoan extends AppCompatActivity {
     LinearLayout layOutThietLap;
@@ -29,6 +33,8 @@ public class ThietLapTaiKhoan extends AppCompatActivity {
     Toolbar toolbarMatKhau;
     Button btnLuuThayDoi;
     TextView textViewEmailDangKy;
+    CircleImageView avataredit;
+    RelativeLayout changeAvatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,9 @@ public class ThietLapTaiKhoan extends AppCompatActivity {
         setContentView(R.layout.activity_thiet_lap_tai_khoan);
         init();
         textViewEmailDangKy.setText("Email đăng ký: "+StaticData.getObjectInfoUser().getEmail());
+        if(StaticData.getObjectInfoUser().getHinh()!=null){
+            Glide.with(this).load(StaticData.getObjectInfoUser().getHinh()).into(avataredit);
+        }
         toolbarTaiKhoan.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +66,13 @@ public class ThietLapTaiKhoan extends AppCompatActivity {
                 matKhauHienTai.setText("");
                 matKhauMoi.setText("");
                 nhapLaiMatKhau.setText("");
+            }
+        });
+        changeAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ChangeAvatar.class);
+                startActivity(intent);
             }
         });
         btnLuuThayDoi.setOnClickListener(new View.OnClickListener() {
@@ -115,5 +131,7 @@ public class ThietLapTaiKhoan extends AppCompatActivity {
         toolbarMatKhau = (Toolbar) findViewById(R.id.toolbarMatKhau);
         btnLuuThayDoi = (Button) findViewById(R.id.btnLuuThayDoi);
         textViewEmailDangKy=(TextView)findViewById(R.id.textViewEmailDangKy);
+        avataredit=(CircleImageView)findViewById(R.id.avataredit);
+        changeAvatar=(RelativeLayout)findViewById(R.id.changeAvatar);
     }
 }

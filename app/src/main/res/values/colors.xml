@@ -24,4 +24,10 @@
     <color name="nenLogin">#5fbfb7b7</color>
     <color name="backgroudDuong">#ebebeb</color>
     <color name="grayEditText">#e0e0e0</color>
+    <color name="back_ground_color">#ffdddddd</color>
+    <color name="color_button_save_change_selected">#aa044aa0</color>
+    <color name="color_button_save_change_normal">#aa018423</color>
+    <color name="line_gray1">#ffedebeb</color>
+    <color name="transparent_white_95">#f2ffffff</color>
+    <color name="orange">#d9de740b</color>
 </resources>

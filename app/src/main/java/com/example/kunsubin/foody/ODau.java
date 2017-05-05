@@ -152,8 +152,6 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
         StaticData.setGroupODau(-1);
         StaticData.setChildODau(-1);
 
-        //loadNhaHangODau("danhmuc","tphcm","q1","");
-
         //sự kiện khi nhấn tab thứ 1 bên chọn mới nhất
         layOutMoiNhatODau.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -317,13 +315,6 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                 TabMoiNhat = textMoiNhatODau.getText().toString().trim();
 
                 loadNhaHangODau(TabDanhMuc,TinhThanh,QuanHuyen,Duong,TabMoiNhat);
-               /* khungChinhODau.setAdapter(null);
-                listNhaHang = bussinessNhaHang.getListNhaHang(TinhThanh, QuanHuyen, TabDanhMuc, TabMoiNhat);
-                if (listNhaHang != null && listNhaHang.size() > 0)
-                    khungChinhODau.setAdapter(new CustomAdapterNhaHangODau(mainActivity, listNhaHang));
-                else {
-                    khungChinhODau.setAdapter(null);
-                }*/
                 //đóng listview khi chọn xong item
                 layOutDiaDiemODau.setBackgroundResource(R.drawable.my_button_bg);
                 listViewDiaDiemODau.setVisibility(View.GONE);
@@ -371,23 +362,6 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                 trangThaiDanhMucODau = true;
                 trangThaiDiaDiemODau = true;
                 //load dữ liệu sau khi chọn tỉnh bên activity tỉnh thành
-               /* TinhThanh = text_view_parent_districtODau.getText().toString().trim();
-                if (TinhThanh.equals(textViewDiaDiemODau.getText().toString().trim()))
-                    QuanHuyen = "";
-                else QuanHuyen = textViewDiaDiemODau.getText().toString().trim();
-
-                TabDanhMuc = textViewDanhMucODau.getText().toString().trim();
-                TabMoiNhat = textMoiNhatODau.getText().toString().trim();
-                khungChinhODau.setAdapter(null);
-                //lấy dữ liệu từ database đổ lên listNhaHang
-                listNhaHang = bussinessNhaHang.getListNhaHang(TinhThanh, QuanHuyen, TabDanhMuc, TabMoiNhat);
-                if (listNhaHang != null && listNhaHang.size() > 0)
-                    khungChinhODau.setAdapter(new CustomAdapterNhaHangODau(mainActivity, listNhaHang));
-                else {
-                    khungChinhODau.setAdapter(null);
-                }*/
-
-
                 TinhThanh=result.trim();
                 QuanHuyen="";
                 Duong="";
@@ -539,7 +513,6 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 StaticData.setSelectedDanhMucODau(position);
-                //Toast.makeText(context,adapterView.getChildCount()+" "+adapterView.getCount()+ " "+position,Toast.LENGTH_SHORT).show();
                 //set trạng thái item select
                 stateSelectedItemListViewDanhMuc(adapterView, view);
 
@@ -563,13 +536,7 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                 }
                 TabDanhMuc = textViewDanhMucODau.getText().toString().trim();
                 TabMoiNhat = textMoiNhatODau.getText().toString().trim();
-                /*khungChinhODau.setAdapter(null);
-                listNhaHang = bussinessNhaHang.getListNhaHang(TinhThanh, QuanHuyen, TabDanhMuc, TabMoiNhat);
-                if (listNhaHang != null && listNhaHang.size() > 0)
-                    khungChinhODau.setAdapter(new CustomAdapterNhaHangODau(mainActivity, listNhaHang));
-                else {
-                    khungChinhODau.setAdapter(null);
-                }*/
+
                 loadNhaHangODau(TabDanhMuc,TinhThanh,QuanHuyen,Duong,TabMoiNhat);
             }
         });
@@ -642,8 +609,6 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                 StaticData.setGroupODau(-1);
                 textView = (TextView) view.findViewById(R.id.text_view_district_name);
                 textView.setTextColor(getResources().getColor(R.color.red));
-                //Toast.makeText(getContext(), "Group:" +String.valueOf(i),Toast.LENGTH_LONG).show();
-                //Toast.makeText(getContext(), "Group:" +String.valueOf(expandableListView.ge()),Toast.LENGTH_LONG).show();
 
                 list_view_cityODau.expandGroup(i);
                 list_view_cityODau.collapseGroup(i);
@@ -675,7 +640,6 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
         list_view_cityODau.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
-                //Toast.makeText(getContext(),"Group:"+String.valueOf(i)+ "  Item:" +String.valueOf(i1),Toast.LENGTH_LONG).show();
                 TextView textView;
                 StaticData.setSelectedDiaDiemODau(-1);
                 StaticData.setChildODau(i1);
