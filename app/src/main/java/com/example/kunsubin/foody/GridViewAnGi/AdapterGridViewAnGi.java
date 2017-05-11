@@ -6,9 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.kunsubin.foody.IChooseItemNhaHang;
 import com.example.kunsubin.foody.MainActivity;
 import com.example.kunsubin.foody.Object.NhaHang;
 import com.example.kunsubin.foody.R;
@@ -25,6 +27,10 @@ public class AdapterGridViewAnGi extends BaseAdapter{
     Context context;
     List<NhaHang> listNhaHang;
     private static LayoutInflater inflater=null;
+    IChooseItemNhaHang iChoose;
+    public void setChooseNhaHang(IChooseItemNhaHang iChoose) {
+        this.iChoose = iChoose;
+    }
     public AdapterGridViewAnGi(MainActivity mainActivity, List<NhaHang> listNhaHang) {
         this.listNhaHang=listNhaHang;
         context=mainActivity;
@@ -62,6 +68,7 @@ public class AdapterGridViewAnGi extends BaseAdapter{
         CircleImageView imageAvatar;
         TextView nameUser;
         TextView ngayDang;
+        LinearLayout itemnhahangangi;
         public Holder(View view){
             this.image_view_angi=(ImageView)view.findViewById(R.id.image_view_angi);
             this.text_viewMonAn=(TextView) view.findViewById(R.id.text_viewMonAn);
@@ -70,6 +77,7 @@ public class AdapterGridViewAnGi extends BaseAdapter{
             this.imageAvatar=(CircleImageView) view.findViewById(R.id.imageAvatar);
             this.nameUser=(TextView)view.findViewById(R.id.nameUser);
             this.ngayDang=(TextView)view.findViewById(R.id.ngayDang);
+            this.itemnhahangangi=(LinearLayout)view.findViewById(R.id.itemnhahangangi);
 
         }
         //show dữ liệu lên grid view tab Ăn Gi
@@ -87,6 +95,10 @@ public class AdapterGridViewAnGi extends BaseAdapter{
                     Glide.with(context).load(nhaHang.getInfo().getPhoto()).into(imageAvatar);
             }
         }
+        //onclick item
+        public void  onClickItem(NhaHang nhaHang){
+            itemnhahangangi.setOnClickListener(new ItemNhaHang(nhaHang));
+        }
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -102,7 +114,19 @@ public class AdapterGridViewAnGi extends BaseAdapter{
         holder=(Holder) convertView.getTag();
 
         holder.showNoiDung(item);
+        holder.onClickItem(item);
 
         return convertView;
+    }
+    public class ItemNhaHang implements  View.OnClickListener{
+        NhaHang nhaHang;
+        public ItemNhaHang(NhaHang nhaHang){
+            this.nhaHang=nhaHang;
+        }
+
+        @Override
+        public void onClick(View v) {
+            AdapterGridViewAnGi.this.iChoose.ChooseItemNhaHang(this.nhaHang);
+        }
     }
 }

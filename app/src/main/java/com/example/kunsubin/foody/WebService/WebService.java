@@ -627,4 +627,36 @@ public class WebService {
         }
         return nhaHangs;
     }
+    public Boolean uploadImageAvatar(String image,String name,String userID){
+        boolean resuft=false;
+        SoapObject request = new SoapObject(StaticObject.NAME_SPACE, StaticObject.METHOD_UPLOADIMAGE);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet = true;
+        request.addProperty("image", image);
+        request.addProperty("name", name);
+        request.addProperty("userID", userID);
+        Log.d("image",image);
+        Log.d("image",name);
+        Log.d("image",userID);
+        Log.d("method",StaticObject.METHOD_UPLOADIMAGE);
+        Log.d("action",StaticObject.SOAP_ACTION_UPLOADIMAGE);
+        MarshalFloat marshalFloat = new MarshalFloat();
+        marshalFloat.register(envelope);
+        HttpTransportSE HttpsTransport = new HttpTransportSE(StaticObject.URL);
+        try {
+            HttpsTransport.call(StaticObject.SOAP_ACTION_UPLOADIMAGE, envelope);
+            SoapPrimitive item = (SoapPrimitive) envelope.getResponse();
+            String kq=item.toString();
+
+            resuft = Boolean.parseBoolean(kq);
+        }catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        return resuft;
+    }
 }

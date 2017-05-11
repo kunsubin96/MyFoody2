@@ -28,6 +28,10 @@ public class CustomAdapterNhaHangODau extends BaseAdapter{
     Context context;
     List<NhaHang> listNhaHang;
     private static LayoutInflater inflater=null;
+    IChooseItemNhaHang iChoose;
+    public void setChooseNhaHang(IChooseItemNhaHang iChoose) {
+        this.iChoose = iChoose;
+    }
     public CustomAdapterNhaHangODau(MainActivity mainActivity, List<NhaHang> listNhaHang) {
         context=mainActivity;
         this.listNhaHang=listNhaHang;
@@ -95,6 +99,7 @@ public class CustomAdapterNhaHangODau extends BaseAdapter{
         public TextView text_view_num_of_review;
         public TextView text_view_num_of_photo;
 
+        public LinearLayout itemnhahangodau;
         public Holder(View view){
             this.item=view;
             init(view);
@@ -134,6 +139,8 @@ public class CustomAdapterNhaHangODau extends BaseAdapter{
             linear_layout_num_of_photo=(LinearLayout) item.findViewById(R.id.linear_layout_num_of_photo);
             text_view_num_of_review = (TextView) item.findViewById(R.id.text_view_num_of_review);
             text_view_num_of_photo = (TextView) item.findViewById(R.id.text_view_num_of_photo);
+
+            itemnhahangodau=(LinearLayout)item.findViewById(R.id.itemnhahangodau);
         }
         //show dữ liệu lên theo từng item trong listNhaHang lên khung màn hình chính
         public void showHolder(NhaHang nhaHang){
@@ -141,6 +148,8 @@ public class CustomAdapterNhaHangODau extends BaseAdapter{
             showMoreImage(nhaHang);
             showBinhLuan(nhaHang);
             updateStatusNhaHang(nhaHang);
+
+            onClickItem(nhaHang);
         }
         //hiểu thị tiêu đề nhà hàng, địa chỉ..
         private void showHeader(NhaHang nhaHang) {
@@ -277,6 +286,9 @@ public class CustomAdapterNhaHangODau extends BaseAdapter{
 
 
         }
+        public void onClickItem(NhaHang nhaHang){
+            itemnhahangodau.setOnClickListener(new ItemNhaHang(nhaHang));
+        }
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -293,5 +305,17 @@ public class CustomAdapterNhaHangODau extends BaseAdapter{
         holder.showHolder(nhaHang);
         return convertView;
     }
+    public class ItemNhaHang implements  View.OnClickListener{
+        NhaHang nhaHang;
+        public ItemNhaHang(NhaHang nhaHang){
+            this.nhaHang=nhaHang;
+        }
+
+        @Override
+        public void onClick(View v) {
+            CustomAdapterNhaHangODau.this.iChoose.ChooseItemNhaHang(this.nhaHang);
+        }
+    }
+
 
 }

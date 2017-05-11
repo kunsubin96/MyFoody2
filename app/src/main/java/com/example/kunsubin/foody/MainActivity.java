@@ -22,8 +22,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.kunsubin.foody.GridViewAnGi.HeaderGridView;
+import com.example.kunsubin.foody.Object.ObjectInfoUser;
+import com.example.kunsubin.foody.Object.StaticData;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -256,6 +261,22 @@ public class MainActivity extends AppCompatActivity {
                         tabBottom.setVisibility(View.VISIBLE);
                         homeMain.setVisibility(View.GONE);
                         transaction.show(user);
+                        //check login chưa
+                        if(StaticData.getObjectInfoUser()!=null){
+                            TextView textHoTen=(TextView)findViewById(R.id.textHoTen);
+                            CircleImageView avatarUser=(CircleImageView) findViewById(R.id.avatarUser);
+                            TextView textXemHoatDong=(TextView)findViewById(R.id.textXemHoatDong);
+                            LinearLayout dangXuat=(LinearLayout)findViewById(R.id.dangXuat);
+
+                            ObjectInfoUser objectInfoUser= StaticData.getObjectInfoUser();
+                            textHoTen.setText(objectInfoUser.getHoTen());
+                            if(objectInfoUser.getHinh()!=null){
+                                Glide.with(getApplicationContext()).load(objectInfoUser.getHinh()).into(avatarUser);
+                            }
+                            textXemHoatDong.setVisibility(View.VISIBLE);
+                            dangXuat.setVisibility(View.VISIBLE);
+
+                        }
                         break;
                     default:
                         break;

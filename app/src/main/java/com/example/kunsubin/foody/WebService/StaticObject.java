@@ -57,4 +57,8 @@ public class StaticObject {
     //get nhaHangAngi
     public static String METHOD_GETNHAHANGANGI="getNhaHangAnGi";
     public static String SOAP_ACTION_GETNHAHANGANGI=NAME_SPACE+METHOD_GETNHAHANGANGI;
+    //upload hinh
+    public static String METHOD_UPLOADIMAGE="UploadImageAvartar";
+    public static String SOAP_ACTION_UPLOADIMAGE=NAME_SPACE+METHOD_UPLOADIMAGE;
+
 }

@@ -12,6 +12,7 @@
         android:clickable="true"
         android:orientation="vertical">
         <LinearLayout
+            android:id="@+id/linear_layout_ecoupon_plus_menu"
             android:layout_width="fill_parent"
             android:layout_height="45.0dip"
             android:background="@drawable/list_item_selector"
@@ -35,6 +36,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linear_layout_upload_image_plus_menu"
             android:layout_width="fill_parent"
             android:layout_height="45.0dip"
             android:background="@drawable/list_item_selector"
@@ -57,6 +59,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linear_layout_checkin_plus_menu"
             android:layout_width="fill_parent"
             android:layout_height="45.0dip"
             android:background="@drawable/list_item_selector"
@@ -80,6 +83,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linear_layout_review_plus_menu"
             android:layout_width="fill_parent"
             android:layout_height="45.0dip"
             android:background="@drawable/list_item_selector"
@@ -102,6 +106,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linear_layout_add_place_plus_menu"
             android:layout_width="fill_parent"
             android:layout_height="45.0dip"
             android:background="@drawable/list_item_selector"

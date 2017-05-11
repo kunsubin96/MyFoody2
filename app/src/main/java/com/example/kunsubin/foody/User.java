@@ -102,7 +102,7 @@ public class User extends Fragment {
                     startActivityForResult(intent, 3);
                 }else{
                     Intent intent = new Intent(getContext(), ThietLapTaiKhoan.class);
-                    startActivity(intent);
+                    startActivityForResult(intent,19);
                 }
             }
         });
@@ -229,6 +229,16 @@ public class User extends Fragment {
         if(requestCode==4){
             if (resultCode == Activity.RESULT_OK) {
                 textHoTen.setText(StaticData.getObjectInfoUser().getHoTen());
+            }
+            if(requestCode==Activity.RESULT_CANCELED){
+
+            }
+        }
+        if(requestCode==19){
+            if (resultCode == Activity.RESULT_OK) {
+                if(StaticData.getObjectInfoUser().getHinh()!=null){
+                    Glide.with(getContext()).load(StaticData.getObjectInfoUser().getHinh()).into(avatarUser);
+                }
             }
             if(requestCode==Activity.RESULT_CANCELED){
 

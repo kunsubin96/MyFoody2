@@ -1,5 +1,7 @@
 package com.example.kunsubin.foody.Object;
 
+import com.google.gson.JsonObject;
+
 /**
  * Created by kunsubin on 4/6/2017.
  */
@@ -126,4 +128,20 @@ public class StaticData {
 
     static int PossionMarry;
 
+    public static NhaHang getNhaHang() {
+        return nhaHang;
+    }
+
+    public static void setNhaHang(NhaHang nhaHang) {
+        StaticData.nhaHang = nhaHang;
+    }
+
+    static NhaHang nhaHang;
+
+    public static final JsonObject GET_ERROR_OBJECT() {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("success", false);
+        jsonObject.addProperty("message", "Something went wrong");
+        return jsonObject;
+    }
 }

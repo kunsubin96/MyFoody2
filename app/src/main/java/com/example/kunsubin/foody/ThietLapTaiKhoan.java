@@ -1,5 +1,6 @@
 package com.example.kunsubin.foody;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.kunsubin.foody.Object.ObjectInfoUser;
 import com.example.kunsubin.foody.Object.StaticData;
 import com.example.kunsubin.foody.WebService.AsynChangePassword;
 
@@ -48,7 +50,9 @@ public class ThietLapTaiKhoan extends AppCompatActivity {
         toolbarTaiKhoan.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_OK, returnIntent);
+                finish();
             }
         });
         toolbarMatKhau.setNavigationOnClickListener(new View.OnClickListener() {
@@ -72,7 +76,7 @@ public class ThietLapTaiKhoan extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ChangeAvatar.class);
-                startActivity(intent);
+                startActivityForResult(intent,18);
             }
         });
         btnLuuThayDoi.setOnClickListener(new View.OnClickListener() {
@@ -133,5 +137,21 @@ public class ThietLapTaiKhoan extends AppCompatActivity {
         textViewEmailDangKy=(TextView)findViewById(R.id.textViewEmailDangKy);
         avataredit=(CircleImageView)findViewById(R.id.avataredit);
         changeAvatar=(RelativeLayout)findViewById(R.id.changeAvatar);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 18) {
+            if (resultCode == Activity.RESULT_OK) {
+                ObjectInfoUser objectInfoUser= StaticData.getObjectInfoUser();
+                if(objectInfoUser.getHinh()!=null){
+                    Glide.with(getApplicationContext()).load(objectInfoUser.getHinh()).into(avataredit);
+                }
+
+            }
+            if(requestCode==Activity.RESULT_CANCELED){
+
+            }
+        }
     }
 }

@@ -59,7 +59,7 @@ import me.relex.circleindicator.CircleIndicator;
  * Created by kunsubin on 3/29/2017.
  */
 
-public class AnGi extends android.support.v4.app.Fragment implements IChooseStreet {
+public class AnGi extends android.support.v4.app.Fragment implements IChooseStreet,IChooseItemNhaHang {
     ListView listViewMoiNhatAnGi;
     HeaderGridView khungChinhAnGi;
     LinearLayout layOutMoiNhatAnGi;
@@ -378,6 +378,14 @@ public class AnGi extends android.support.v4.app.Fragment implements IChooseStre
             if (resultCode == Activity.RESULT_CANCELED) {
                 //hủy lấy data nếu trả về là RESULT_OK
             }
+        }
+        if(requestCode == 31){
+            if(StaticData.getObjectInfoUser()!=null)
+            {
+                Intent intent = new Intent(context, ChiTietNhaHang.class);
+                startActivity(intent);
+            }
+
         }
     }
 
@@ -811,11 +819,26 @@ public class AnGi extends android.support.v4.app.Fragment implements IChooseStre
         }
         khungChinhAnGi.setAdapter(null);
         adapterGridViewAnGi=new AdapterGridViewAnGi(mainActivity, nhaHangList);
+        adapterGridViewAnGi.setChooseNhaHang(this);
         if (nhaHangList != null && nhaHangList.size() > 0)
             khungChinhAnGi.setAdapter(adapterGridViewAnGi);
         else {
             khungChinhAnGi.setAdapter(null);
         }
         adapterGridViewAnGi.notifyDataSetChanged();
+    }
+
+    @Override
+    public void ChooseItemNhaHang(NhaHang nhaHang) {
+        StaticData.setNhaHang(nhaHang);
+
+        if(StaticData.getObjectInfoUser()!=null){
+            Intent intent = new Intent(context, ChiTietNhaHang.class);
+            startActivity(intent);
+        }
+        else{
+            Intent intent = new Intent(context, LoginUser.class);
+            startActivityForResult(intent,31);
+        }
     }
 }

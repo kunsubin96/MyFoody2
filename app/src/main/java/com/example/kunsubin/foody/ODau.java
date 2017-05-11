@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,7 @@ import static com.example.kunsubin.foody.R.layout.odau;
  * Created by kunsubin on 3/29/2017.
  */
 
-public class ODau extends android.support.v4.app.Fragment implements IChooseStreet {
+public class ODau extends android.support.v4.app.Fragment implements IChooseStreet,IChooseItemNhaHang {
     ListView listViewMoiNhatODau;
     ListView khungChinhODau;
     LinearLayout layOutMoiNhatODau;
@@ -373,6 +374,14 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
             if (resultCode == Activity.RESULT_CANCELED) {
                 //hủy lấy data nếu trả về là RESULT_OK
             }
+        }
+        if(requestCode == 30){
+            if(StaticData.getObjectInfoUser()!=null)
+            {
+                Intent intent = new Intent(context, ChiTietNhaHang.class);
+                startActivity(intent);
+            }
+
         }
     }
 
@@ -822,6 +831,7 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
         }
         khungChinhODau.setAdapter(null);
         customAdapterNhaHangODau=new CustomAdapterNhaHangODau(mainActivity, nhaHangList);
+        customAdapterNhaHangODau.setChooseNhaHang(this);
         if (nhaHangList != null && nhaHangList.size() > 0)
             khungChinhODau.setAdapter(customAdapterNhaHangODau);
         else {
@@ -829,5 +839,20 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
         }
         customAdapterNhaHangODau.notifyDataSetChanged();
         //Toast.makeText(getContext(), String.valueOf(nhaHangList.size()), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void ChooseItemNhaHang(NhaHang nhaHang) {
+        StaticData.setNhaHang(nhaHang);
+
+        if(StaticData.getObjectInfoUser()!=null){
+            Intent intent = new Intent(context, ChiTietNhaHang.class);
+            startActivity(intent);
+        }
+        else{
+            Intent intent = new Intent(context, LoginUser.class);
+            startActivityForResult(intent,30);
+        }
+
     }
 }

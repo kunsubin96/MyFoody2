@@ -5,7 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="false"
@@ -30,7 +31,10 @@
         <activity android:name=".Wellcome" />
         <activity android:name=".ChiTietNhaHang" />
         <activity android:name=".ChangeAvatar" />
-        <activity android:name=".GalleryFolderActivity"></activity>
+        <activity android:name=".GalleryFolderActivity" />
+        <activity android:name=".GalleryFileActivity"></activity>
     </application>
-
+    <meta-data
+        android:name="com.inthecheesefactory.lab.glidepicasso.GlideConfiguration"
+        android:value="GlideModule" />
 </manifest>
