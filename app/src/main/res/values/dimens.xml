@@ -11,4 +11,5 @@
     <dimen name="text_size_title">14.0sp</dimen>
     <dimen name="text_size_more_item">13.0sp</dimen>
     <dimen name="textSizeItem">18dp</dimen>
+    <dimen name="actionBarSize">45.0dip</dimen>
 </resources>

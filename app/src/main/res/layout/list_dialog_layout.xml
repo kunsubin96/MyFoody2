@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffffff"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip"
+        android:background="#ffcc0000"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center">
+            <!--SEARCH-->
+            <ImageView
+                android:id="@+id/image_view_back"
+                android:layout_width="30.0dip"
+                android:layout_height="30.0dip"
+                android:layout_marginLeft="10.0dip"
+                android:focusableInTouchMode="false"
+                android:src="@drawable/icon_back_dialog"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_view_title"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5.0dip"
+            android:layout_weight="1.0"
+            android:gravity="center_vertical"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="#ffffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edit_text_quick_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3.0dip"
+            android:layout_marginTop="3.0dip"
+            android:layout_weight="1.0"
+            android:background="@null"
+            android:hint="@string/ACTION_QUICKSEARCH"
+            android:padding="5.0dip"
+            android:textColor="@color/colorWhite"
+            android:textColorHighlight="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"
+            android:textSize="@dimen/text_size_small"
+            android:visibility="gone">
+
+            <requestFocus />
+        </EditText>
+
+        <ImageView
+            android:id="@+id/image_view_icon"
+            android:layout_width="35.0dip"
+            android:layout_height="35.0dip"
+            android:padding="8.0dip"
+            android:src="@drawable/icon_search"
+            android:visibility="gone" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="2.0dip"
+        android:background="#ff2e8ff1"
+        android:orientation="vertical"></LinearLayout>
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:background="@drawable/sort_option"
+        android:cacheColorHint="#00000000"
+        android:divider="#ffdddddd"
+        android:dividerHeight="1.0px"
+        android:listSelector="@drawable/list_item_selector"
+        android:overScrollMode="never" />
+
+    <LinearLayout
+        android:id="@+id/linear_layout_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5.0dip"
+        android:background="#ff333333"
+        android:gravity="center"
+        android:padding="5.0dip">
+
+        <Button
+            android:id="@+id/left_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/border_button_cancel_dialog"
+            android:paddingBottom="8.0dip"
+            android:paddingLeft="5.0dip"
+            android:paddingRight="5.0dip"
+            android:paddingTop="8.0dip"
+            android:text="Hủy"
+            android:textColor="#ffaaaaaa"
+            android:textSize="@dimen/text_size_title"
+            android:visibility="gone"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/right_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="3.0dip"
+            android:layout_weight="1.0"
+            android:background="@drawable/border_button_ok_dialog"
+            android:paddingBottom="8.0dip"
+            android:paddingLeft="5.0dip"
+            android:paddingRight="5.0dip"
+            android:paddingTop="8.0dip"
+            android:text="@string/TEXT_ACTION_DONE"
+            android:textColor="#ffffffff"
+            android:textSize="@dimen/text_size_title"
+            android:visibility="gone"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

@@ -30,4 +30,7 @@
     <color name="line_gray1">#ffedebeb</color>
     <color name="transparent_white_95">#f2ffffff</color>
     <color name="orange">#d9de740b</color>
+    <color name="line_gray">#ffdddddd</color>
+    <color name="color_ss">#aa044aa0</color>
+    <color name="color_green">#aa018423</color>
 </resources>

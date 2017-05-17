@@ -1,6 +1,8 @@
 package com.example.kunsubin.foody;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -10,13 +12,17 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.kunsubin.foody.Object.StaticData;
+
+import static android.R.attr.data;
+
 /**
  * Created by kunsubin on 3/26/2017.
  */
 //show Dialog khi nhấn dấu cộng bên góc trái màn hình
 public class BottomSheet3DialogFragment extends BottomSheetDialogFragment implements View.OnClickListener{
     View view;
-    LinearLayout linear_layout_add_place_plus_menu;
+    LinearLayout linear_layout_add_location_menu;
     LinearLayout linear_layout_checkin_plus_menu;
     LinearLayout linear_layout_ecoupon_plus_menu;
     LinearLayout linear_layout_review_plus_menu;
@@ -26,13 +32,13 @@ public class BottomSheet3DialogFragment extends BottomSheetDialogFragment implem
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.home_plus_menu, container, false);
 
-        linear_layout_add_place_plus_menu = (LinearLayout) view.findViewById(R.id.linear_layout_add_place_plus_menu);
+        linear_layout_add_location_menu = (LinearLayout) view.findViewById(R.id.linear_layout_add_location_menu);
         linear_layout_checkin_plus_menu = (LinearLayout) view.findViewById(R.id.linear_layout_checkin_plus_menu);
         linear_layout_ecoupon_plus_menu = (LinearLayout) view.findViewById(R.id.linear_layout_ecoupon_plus_menu);
         linear_layout_review_plus_menu = (LinearLayout) view.findViewById(R.id.linear_layout_review_plus_menu);
         linear_layout_upload_image_plus_menu = (LinearLayout) view.findViewById(R.id.linear_layout_upload_image_plus_menu);
 
-        linear_layout_add_place_plus_menu.setOnClickListener(this);
+        linear_layout_add_location_menu.setOnClickListener(this);
         linear_layout_checkin_plus_menu.setOnClickListener(this);
         linear_layout_ecoupon_plus_menu.setOnClickListener(this);
         linear_layout_review_plus_menu.setOnClickListener(this);
@@ -41,36 +47,40 @@ public class BottomSheet3DialogFragment extends BottomSheetDialogFragment implem
         return view;
     }
     @Override
+    public void onActivityResult (int requestCode,int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 32) {
+            if (resultCode == Activity.RESULT_OK) {
+                linear_layout_add_location_menu.performClick();
+            }
+        }
+    }
+    @Override
     public void onClick(View view) {
-        String str = "You clicked ";
         switch (view.getId()) {
-            case R.id.linear_layout_add_place_plus_menu:
-               /* if(GlobalStaticData.isLogined()){
-                    getActivity().startActivity(new Intent(this.getActivity(), AddNewPlaceActivity.class));
+            case R.id.linear_layout_add_location_menu:
+                if(StaticData.getObjectInfoUser()!=null){
+                    getActivity().startActivity(new Intent(getActivity(),AddNhaHang.class));
                 }else{
-                    startActivityForResult(new Intent(this.getActivity(), LoginChooserActivity.class), AppConfig.REQUEST_CODE_LOGIN_TO_ADD_NEW_PLACE);
-                }*/
-                str = str + "Them Dia Diem";
-                Toast.makeText(getActivity().getApplicationContext(), str, Toast.LENGTH_SHORT).show();
+                    getActivity().startActivityForResult(new Intent(getActivity(),LoginUser.class),32);
+                }
+                Toast.makeText(getActivity().getApplicationContext(), "Thêm địa điểm", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.linear_layout_checkin_plus_menu:
-                str = str + "Checkin";
-                Toast.makeText(getActivity().getApplicationContext(), str, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Check in", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.linear_layout_ecoupon_plus_menu:
-                str = str + "Ecoupon";
-                Toast.makeText(getActivity().getApplicationContext(), str, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Ecoupon", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.linear_layout_review_plus_menu:
-                str = str + "Viết bình luận";
-                Toast.makeText(getActivity().getApplicationContext(), str, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Viết bình luận", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.linear_layout_upload_image_plus_menu:
-                str = str + "Đăng ảnh";
-                Toast.makeText(getActivity().getApplicationContext(), str, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Đăng ảnh", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
         }
+
     }
 }

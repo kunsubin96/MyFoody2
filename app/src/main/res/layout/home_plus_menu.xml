@@ -106,7 +106,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linear_layout_add_place_plus_menu"
+            android:id="@+id/linear_layout_add_location_menu"
             android:layout_width="fill_parent"
             android:layout_height="45.0dip"
             android:background="@drawable/list_item_selector"

@@ -144,4 +144,24 @@ public class StaticData {
         jsonObject.addProperty("message", "Something went wrong");
         return jsonObject;
     }
+
+    public static String getIDTinhThanh() {
+        return IDTinhThanh;
+    }
+
+    public static void setIDTinhThanh(String IDTinhThanh) {
+        StaticData.IDTinhThanh = IDTinhThanh;
+    }
+
+    static String IDTinhThanh;
+
+    public static String getTenTinhThanh() {
+        return TenTinhThanh;
+    }
+
+    public static void setTenTinhThanh(String tenTinhThanh) {
+        TenTinhThanh = tenTinhThanh;
+    }
+
+    static String TenTinhThanh;
 }

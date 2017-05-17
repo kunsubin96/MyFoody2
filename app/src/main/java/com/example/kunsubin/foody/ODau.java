@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.kunsubin.foody.AutoScrollViewPager.AutoScrollViewPager;
 import com.example.kunsubin.foody.Object.BinhLuan;
@@ -28,7 +26,6 @@ import com.example.kunsubin.foody.Object.StaticData;
 import com.example.kunsubin.foody.Object.TinhThanh;
 import com.example.kunsubin.foody.RecyclerView.MoreItemView;
 import com.example.kunsubin.foody.WebService.AsynBinhLuan;
-import com.example.kunsubin.foody.WebService.AsynCheckLogin;
 import com.example.kunsubin.foody.WebService.AsynDanhMuc;
 import com.example.kunsubin.foody.WebService.AsynDuong;
 import com.example.kunsubin.foody.WebService.AsynGetImage;
@@ -41,7 +38,6 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import org.kobjects.base64.Base64;
 
-import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -152,7 +148,8 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
         StaticData.setSelectedDiaDiemODau(-1);
         StaticData.setGroupODau(-1);
         StaticData.setChildODau(-1);
-
+        StaticData.setIDTinhThanh("tphcm");
+        StaticData.setTenTinhThanh("TP.HCM");
         //sự kiện khi nhấn tab thứ 1 bên chọn mới nhất
         layOutMoiNhatODau.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -673,7 +670,13 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                 trangThaiMoiNhatODau = true;
                 trangThaiDanhMucODau = true;
                 trangThaiDiaDiemODau = true;
-
+                //load data khi chọn đường
+                TinhThanh = text_view_parent_districtODau.getText().toString().trim();
+                QuanHuyen=listQuanHuyenTheoTinh.get(i).getTenQuanHuyen().trim();
+                Duong=textView.getText().toString().trim();
+                TabDanhMuc = textViewDanhMucODau.getText().toString().trim();
+                TabMoiNhat = textMoiNhatODau.getText().toString().trim();
+                loadNhaHangODau(TabDanhMuc,TinhThanh,QuanHuyen,Duong,TabMoiNhat);
                 return false;
             }
         });

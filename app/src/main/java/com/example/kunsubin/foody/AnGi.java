@@ -676,6 +676,15 @@ public class AnGi extends android.support.v4.app.Fragment implements IChooseStre
                 trangThaiMoiNhatAnGi = true;
                 trangThaiDanhMucAnGi = true;
                 trangThaiDiaDiemAnGi = true;
+
+                //load data khi chọn quận huyện
+                TinhThanh = text_view_parent_districtAnGi.getText().toString().trim();
+                QuanHuyen=listQuanHuyenTheoTinh.get(i).getTenQuanHuyen();
+                Duong=textView.getText().toString().trim();
+                TabDanhMuc = textDanhMucAnGi.getText().toString().trim();
+                TabMoiNhat = textMoiNhatAnGi.getText().toString().trim();
+                loadNhaHangAnGi(TabDanhMuc,TinhThanh,QuanHuyen,Duong,TabMoiNhat);
+
                 return false;
             }
         });

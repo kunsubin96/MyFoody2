@@ -3,12 +3,8 @@ package com.example.kunsubin.foody;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.opengl.EGLExt;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.MenuItem;
@@ -16,9 +12,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.kunsubin.foody.BaseSlideActivity.BaseSlideActivity;
 import com.example.kunsubin.foody.JSONService.AsynChangeAvatar;
 import com.example.kunsubin.foody.JSONService.StaticObjectJSON;
 import com.example.kunsubin.foody.Object.ImageGalleryBean;
@@ -27,15 +23,10 @@ import com.example.kunsubin.foody.Object.StaticData;
 import com.example.kunsubin.foody.Permission.PermissionUtil;
 import com.example.kunsubin.foody.WebService.AsynGetImage;
 import com.example.kunsubin.foody.WebService.AsynGetInfoUser;
-import com.example.kunsubin.foody.WebService.AsynTaskChangeImageAvatar;
 import com.google.gson.JsonObject;
 
 import org.kobjects.base64.Base64;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -44,7 +35,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 
-public class ChangeAvatar extends AppCompatActivity implements View.OnClickListener{
+public class ChangeAvatar extends BaseSlideActivity implements View.OnClickListener{
 
     LinearLayout linear_layout_change_avatar;
     LinearLayout linear_layout_change_cover;
