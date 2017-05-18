@@ -20,7 +20,7 @@ import com.example.kunsubin.foody.R;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class PermissionUtil {
+public class Permission {
 
     public static boolean isReadWritePermission(Context context) {
         return VERSION.SDK_INT < 23 || (VERSION.SDK_INT >= 23 &&

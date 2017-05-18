@@ -1,14 +1,19 @@
 package com.example.kunsubin.foody;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -21,6 +26,7 @@ import android.widget.TimePicker;
 import com.example.kunsubin.foody.BaseSlideActivity.BaseSlideActivity;
 import com.example.kunsubin.foody.Object.DanhMuc;
 import com.example.kunsubin.foody.Object.ImageGalleryBean;
+import com.example.kunsubin.foody.Object.ImageNhaHang;
 import com.example.kunsubin.foody.Object.MenuBarItemBean;
 import com.example.kunsubin.foody.Object.QuanHuyen;
 import com.example.kunsubin.foody.Object.StaticData;
@@ -28,13 +34,16 @@ import com.example.kunsubin.foody.Object.TinhThanh;
 import com.example.kunsubin.foody.Object.Type;
 import com.example.kunsubin.foody.Other.ListItemDialog;
 import com.example.kunsubin.foody.Other.ListItemDialogTypeRes;
+import com.example.kunsubin.foody.Permission.Permission;
 import com.example.kunsubin.foody.WebService.AsynDanhMuc;
 import com.example.kunsubin.foody.WebService.AsynQuanHuyen;
 import com.example.kunsubin.foody.WebService.AsynTinhThanh;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 public class AddNhaHang extends BaseSlideActivity implements View.OnClickListener,IOnClickImageNH{
@@ -75,15 +84,13 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
     int positionSelectedDistrict = 0;
     ListItemDialog dialogChooseProvince;
     DialogAdapter choosePronvinceDialogAdapter;
-    //ProvinceController provinceController;
+
 
     ListItemDialog dialogChooseDistrict;
     DialogAdapter chooseDistrictDialogAdapter;
-   // DistrictController districtController;
 
     ListItemDialogTypeRes dialogChooseResType;
     DialogAdapter chooseResTypeAdapter;
-    //MenuBarItemController menuBarItemController;
 
     List<TinhThanh> tinhThanhList;
     List<QuanHuyen> quanHuyenList;
@@ -108,16 +115,9 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
         //
         initView();
         initEvent();
-        //initController();
         initPopup();
         setDefaultDisplay();
     }
-/*    private void initController() {
-        provinceController = new ProvinceController(this.getApplicationContext(), "vietnam", false);
-        districtController = new DistrictController(this.getApplicationContext());
-        menuBarItemController = new MenuBarItemController(this.getApplicationContext(), APIAction.GET_CATEGORY_WHAT2DO);
-    }*/
-
     private void initPopup() {
         buildPopup(POPUP_CHOOSE_PROVINCE);
         buildPopup(POPUP_CHOOSE_DISTRICT);
@@ -234,6 +234,18 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
 
         }
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 35) {
+            if (resultCode == Activity.RESULT_OK) {
+                selectedImages = data.getParcelableArrayListExtra("images");
+                this.selectedFileAdapter.removeAllSelectedSingleClick();
+                this.selectedFileAdapter.addAll(selectedImages);
+                updateNumofPhoto();
+            }
+        }
+    }
     private void updateNumofPhoto() {
         if (this.selectedFileAdapter.imageSelected.size() > 0) {
             text_view_photo_count.setText("" + this.selectedFileAdapter.imageSelected.size());
@@ -251,17 +263,25 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
         }
         text_view_lat_long.setText("Lat " + this.lat + " - " + "Long " + this.lng);
     }
-    /*private List<MoreImageRestaurantBean> getListMoreItem(final String resid) {
-        List<MoreImageRestaurantBean> list = new ArrayList<>();
+    //get list image more
+    private List<ImageNhaHang> getListMoreItem(final String idNhaHang) {
+        List<ImageNhaHang> list = new ArrayList<>();
         for (int i = 1; i < selectedImages.size(); i++) {
-            MoreImageRestaurantBean item = new MoreImageRestaurantBean(UUID.randomUUID().toString(), resid,
-                    GlobalFunction.decodeImage2Base64(selectedImages.get(i).getPath()));
+
+            ImageNhaHang item = new ImageNhaHang(UUID.randomUUID().toString(), idNhaHang, getStringImage(selectedImages.get(i).getPath()));
 
             list.add(item);
         }
         return list;
-    }*/
-
+    }
+    public String getStringImage(String path){
+        Bitmap myBitmap = BitmapFactory.decodeFile(path);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        myBitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
+        byte[] byteArray = bos.toByteArray();
+        String str = Base64.encodeToString(byteArray, Base64.NO_WRAP);
+        return str;
+    }
     private String getAllPhoneNumber() {
         String result = "";
         for (int i = 0; i < this.linear_layout_phone_number.getChildCount(); i++) {
@@ -405,6 +425,7 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
         AlertDialog alert = builder.create();
         alert.show();
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -424,7 +445,7 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
                 dialogChooseResType.show();
                 break;
             case R.id.linear_layout_map_location:
-               /* if (PermissionUtil.isGPSPermission(this)) {
+               /* if (Permission.isGPSPermission(this)) {
                     Intent intentLocation = new Intent(this, MapsActivity.class);
                     intentLocation.putExtra("lat", lat);
                     intentLocation.putExtra("long", lng);
@@ -438,14 +459,14 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
                 this.closeTimePiker.show();
                 break;
             case R.id.frame_layout_add_image:
-               /* if (PermissionUtil.isReadWritePermission_LowAPI(this)) {
+                if (Permission.isReadWritePermission(this)) {
                     Intent intent = new Intent(this, GalleryFolderActivity.class);
                     intent.putExtra("mode", GalleryFolderActivity.MULTI_SELECT);
                     intent.putParcelableArrayListExtra("images", this.selectedFileAdapter.imageSelected);
-                    startActivityForResult(intent, 1);
+                    startActivityForResult(intent, 35);
                     break;
                 }
-                PermissionUtil.isReadWritePermission_HighAPI(this);*/
+                Permission.marshmallowReadWritePermissionCheck(this);
                 break;
         }
     }

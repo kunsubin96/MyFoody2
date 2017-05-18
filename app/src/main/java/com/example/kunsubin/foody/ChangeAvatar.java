@@ -20,7 +20,7 @@ import com.example.kunsubin.foody.JSONService.StaticObjectJSON;
 import com.example.kunsubin.foody.Object.ImageGalleryBean;
 import com.example.kunsubin.foody.Object.ObjectInfoUser;
 import com.example.kunsubin.foody.Object.StaticData;
-import com.example.kunsubin.foody.Permission.PermissionUtil;
+import com.example.kunsubin.foody.Permission.Permission;
 import com.example.kunsubin.foody.WebService.AsynGetImage;
 import com.example.kunsubin.foody.WebService.AsynGetInfoUser;
 import com.google.gson.JsonObject;
@@ -80,13 +80,13 @@ public class ChangeAvatar extends BaseSlideActivity implements View.OnClickListe
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.select_from_gallery:
-                    if(PermissionUtil.isReadWritePermission(ChangeAvatar.this.getApplicationContext())){
+                    if(Permission.isReadWritePermission(ChangeAvatar.this.getApplicationContext())){
                         Intent intent=new Intent(ChangeAvatar.this, GalleryFolderActivity.class);
                         intent.putExtra("mode",GalleryFolderActivity.SINGLE_SELECT);
                         startActivityForResult(intent,17);
                         return true;
                     }
-                    PermissionUtil.marshmallowReadWritePermissionCheck(ChangeAvatar.this);
+                    Permission.marshmallowReadWritePermissionCheck(ChangeAvatar.this);
                     return true;
                 case R.id.select_from_camera:
                     break;

@@ -536,4 +536,5 @@
             android:clickable="true"
             android:src="@drawable/icon_take_photo" />
     </RelativeLayout>
+
 </RelativeLayout>

@@ -8,4 +8,5 @@ import android.view.View;
 
 public interface IOnClickImage {
     void onClickImage(View v, int index);
+    void onClickReviewImage(View v,int index);
 }

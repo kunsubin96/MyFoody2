@@ -18,4 +18,5 @@
     <string name="TEXT_REQUEST_PERMISSION">Bạn cần cho phép quyền vào thiết bị để thực hiện chức năng này</string>
     <string name="TEXT_YES">Có</string>
     <string name="TEXT_NO">Không</string>
+    <string name="title_activity_google_map">Map</string>
 </resources>
