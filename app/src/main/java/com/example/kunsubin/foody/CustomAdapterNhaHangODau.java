@@ -13,8 +13,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.kunsubin.foody.Object.BinhLuan;
 import com.example.kunsubin.foody.Object.NhaHang;
-import com.example.kunsubin.foody.Object.QuanHuyen;
-import com.example.kunsubin.foody.Object.StaticData;
 
 import java.util.List;
 
@@ -180,6 +178,7 @@ public class CustomAdapterNhaHangODau extends BaseAdapter{
                     showImageSmall(3, nhaHang);
                     break;
                 default:
+                    showImageSmall(3, nhaHang);
                     break;
             }
         }

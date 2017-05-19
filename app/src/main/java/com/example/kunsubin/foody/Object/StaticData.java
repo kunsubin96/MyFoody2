@@ -1,5 +1,10 @@
 package com.example.kunsubin.foody.Object;
 
+import android.content.Context;
+import android.view.View;
+import android.view.animation.AnimationUtils;
+
+import com.example.kunsubin.foody.R;
 import com.google.gson.JsonObject;
 
 /**
@@ -164,4 +169,8 @@ public class StaticData {
     }
 
     static String TenTinhThanh;
+
+    public static void shakeView(Context context, View v) {
+        v.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake));
+    }
 }

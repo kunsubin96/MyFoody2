@@ -145,5 +145,34 @@ public class NhaHang {
 
     Info Info;
 
+    public String TinhThanh;
+
+    public String getQuanHuyen() {
+        return QuanHuyen;
+    }
+
+    public void setQuanHuyen(String quanHuyen) {
+        QuanHuyen = quanHuyen;
+    }
+
+    public String getTinhThanh() {
+        return TinhThanh;
+    }
+
+    public void setTinhThanh(String tinhThanh) {
+        TinhThanh = tinhThanh;
+    }
+
+    public String QuanHuyen;
+
+    public List<ImageNhaHang> getImageMoreNhaHang() {
+        return ImageMoreNhaHang;
+    }
+
+    public void setImageMoreNhaHang(List<ImageNhaHang> imageMoreNhaHang) {
+        ImageMoreNhaHang = imageMoreNhaHang;
+    }
+
+    public List<ImageNhaHang> ImageMoreNhaHang;
 
 }

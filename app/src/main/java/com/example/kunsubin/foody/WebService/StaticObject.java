@@ -60,5 +60,8 @@ public class StaticObject {
     //upload hinh
     public static String METHOD_UPLOADIMAGE="UploadImageAvartar";
     public static String SOAP_ACTION_UPLOADIMAGE=NAME_SPACE+METHOD_UPLOADIMAGE;
+    //insert nhà hàng
+    public static String METHOD_INSERTNHAHANG="insertNhaHang";
+    public static String SOAP_ACTION_INSERTNHAHANG=NAME_SPACE+METHOD_INSERTNHAHANG;
 
 }

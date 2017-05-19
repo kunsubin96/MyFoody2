@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -24,6 +25,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.kunsubin.foody.BaseSlideActivity.BaseSlideActivity;
+import com.example.kunsubin.foody.JSONService.AsynInsertImageMoreNhaHang;
+import com.example.kunsubin.foody.JSONService.AsynInsertImageNhaHang;
+import com.example.kunsubin.foody.JSONService.StaticObjectJSON;
 import com.example.kunsubin.foody.Object.DanhMuc;
 import com.example.kunsubin.foody.Object.ImageGalleryBean;
 import com.example.kunsubin.foody.Object.ImageNhaHang;
@@ -36,8 +40,10 @@ import com.example.kunsubin.foody.Other.ListItemDialog;
 import com.example.kunsubin.foody.Other.ListItemDialogTypeRes;
 import com.example.kunsubin.foody.Permission.Permission;
 import com.example.kunsubin.foody.WebService.AsynDanhMuc;
+import com.example.kunsubin.foody.WebService.AsynInsertNhaHang;
 import com.example.kunsubin.foody.WebService.AsynQuanHuyen;
 import com.example.kunsubin.foody.WebService.AsynTinhThanh;
+import com.google.gson.JsonObject;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -45,6 +51,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
+
+import static java.util.UUID.randomUUID;
 
 public class AddNhaHang extends BaseSlideActivity implements View.OnClickListener,IOnClickImageNH{
     public static final int POPUP_CHOOSE_PROVINCE = 0;
@@ -268,7 +276,7 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
         List<ImageNhaHang> list = new ArrayList<>();
         for (int i = 1; i < selectedImages.size(); i++) {
 
-            ImageNhaHang item = new ImageNhaHang(UUID.randomUUID().toString(), idNhaHang, getStringImage(selectedImages.get(i).getPath()));
+            ImageNhaHang item = new ImageNhaHang(randomUUID().toString(), idNhaHang, getStringImage(selectedImages.get(i).getPath()));
 
             list.add(item);
         }
@@ -312,7 +320,7 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
         alertDialogBuilder
                 .setMessage(mess)
                 .setCancelable(false)
-                .setPositiveButton("Hủy", new DialogInterface.OnClickListener() {
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }
@@ -425,7 +433,89 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
         AlertDialog alert = builder.create();
         alert.show();
     }
+    private void sendData() {
+        if (curDistrictID == null || curDistrictID.equals("")) {
+            StaticData.shakeView(this.getApplicationContext(), text_view_choose_district);
+            return;
+        } else if (edit_text_name_res.getText().toString().trim().length() == 0) {
+            StaticData.shakeView(this.getApplicationContext(), edit_text_name_res);
+            return;
+        } else if (selectedResType.size() == 0) {
+            StaticData.shakeView(this.getApplicationContext(), linear_layout_choose_type_res);
+            return;
+        } else if (edit_text_address_res.getText().toString().trim().length() == 0) {
+            StaticData.shakeView(this.getApplicationContext(), edit_text_address_res);
+            return;
+        } else if (edit_text_min_cash.getText().toString().length() == 0 || edit_text_max_cash.getText().toString().length() == 0) {
+            StaticData.shakeView(this.getApplicationContext(), edit_text_min_cash);
+            StaticData.shakeView(this.getApplicationContext(), edit_text_max_cash);
+            return;
+        } else {
+            for (int i = 0; i < this.linear_layout_phone_number.getChildCount(); i++) {
+                View v = this.linear_layout_phone_number.getChildAt(i);
+                String s = ((EditText) v.findViewById(R.id.edit_text_phone_number)).getText().toString();
+                if (s.length() <= 0) {
+                    StaticData.shakeView(this.getApplicationContext(), v);
+                    return;
+                }
+            }
+        }
+        insertNhaHang();
+        //JsonObject input = createJsonInput();
+       // new PostMethod(input, this.getApplicationContext(), new CallBackUploadNhaHang()).execute("api/restaurant/post");
+    }
+    public void insertNhaHang(){
+        String ID=UUID.randomUUID().toString();
+        String TenNhaHang=edit_text_name_res.getText().toString().trim();
+        String DiaChi=edit_text_address_res.getText().toString().trim();
+        String SDT=getAllPhoneNumber().trim();
+        String TinhThanh=curProvinceID;
+        String QuanHuyen=curDistrictID;
+        String DanhMucODau=selectedResType.get(0).getId();
+        Log.d("kiemtrabienID",ID+"");
+        Log.d("kiemtrabienID",TenNhaHang+"");
+        Log.d("kiemtrabienID",DiaChi+"");
+        Log.d("kiemtrabienID",SDT+"");
+        Log.d("kiemtrabienID",TinhThanh+"");
+        Log.d("kiemtrabienID",QuanHuyen+"");
+        Log.d("kiemtrabienID",DanhMucODau+"");
+        AsynInsertNhaHang asynInsertNhaHang=new AsynInsertNhaHang();
 
+        try {
+            boolean f=asynInsertNhaHang.execute(ID,TenNhaHang,DiaChi,SDT,TinhThanh,QuanHuyen,"",DanhMucODau).get();
+            Log.d("kiemtrabien",f+"");
+            if(f){
+                //change image nha hàng
+                if (selectedImages.size() > 0) {
+                    JsonObject input= StaticObjectJSON.createImageInputNhaHangObject(selectedImages.get(0).getPath(),ID);
+                    AsynInsertImageNhaHang asynInsertImageNhaHang=new AsynInsertImageNhaHang(input);
+                    JsonObject object= asynInsertImageNhaHang.execute().get();
+                    String bool=object.get("success").toString();
+                    Log.d("imageNhaHang",bool);
+                    //Boolean imge1=Boolean.parseBoolean(bool);
+
+                }
+                //change image more nha hàng
+                if (selectedImages.size() > 1) {
+                    for (int i=1;i<selectedImages.size();i++){
+                        JsonObject input= StaticObjectJSON.createImageInputNhaHangObject(selectedImages.get(i).getPath(),ID);
+                        AsynInsertImageMoreNhaHang asynInsertImageMoreNhaHang=new AsynInsertImageMoreNhaHang(input);
+                        JsonObject object= asynInsertImageMoreNhaHang.execute().get();
+                        String bool=object.get("success").toString();
+                        Log.d("imageMoreNhaHang",bool);
+                    }
+                }
+                showAlert("Upload thành công!");
+            }else{
+                showAlert("Upload thất bại!");
+            }
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -433,7 +523,7 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
                 finish();
                 break;
             case R.id.text_view_done:
-               // sendData();
+                sendData();
                 break;
             case R.id.text_view_choose_province:
                 dialogChooseProvince.show();

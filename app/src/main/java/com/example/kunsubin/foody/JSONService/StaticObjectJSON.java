@@ -36,4 +36,25 @@ public class StaticObjectJSON {
 
         return outputObject;
     }
+    public static JsonObject createImageInputNhaHangObject(String path,String nhahangid) {
+        JsonObject outputObject = null;
+
+        Bitmap myBitmap = BitmapFactory.decodeFile(path);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        myBitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
+        byte[] byteArray = bos.toByteArray();
+
+
+        String str = Base64.encodeToString(byteArray, Base64.NO_WRAP);
+
+
+        outputObject = new JsonObject();
+
+        outputObject.addProperty("nhahangid", nhahangid);
+        outputObject.addProperty("id", UUID.randomUUID().toString());
+        outputObject.addProperty("image", str);
+
+
+        return outputObject;
+    }
 }

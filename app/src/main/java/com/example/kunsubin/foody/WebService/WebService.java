@@ -1,6 +1,5 @@
 package com.example.kunsubin.foody.WebService;
 
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.example.kunsubin.foody.Object.BinhLuan;
@@ -13,10 +12,8 @@ import com.example.kunsubin.foody.Object.ObjectInfoUser;
 import com.example.kunsubin.foody.Object.QuanHuyen;
 import com.example.kunsubin.foody.Object.TinhThanh;
 
-import org.kobjects.base64.Base64;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.MarshalFloat;
-import org.ksoap2.serialization.NullSoapObject;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
@@ -26,7 +23,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by kunsubin on 4/21/2017.
@@ -608,10 +604,12 @@ public class WebService {
                 nhaHang.setId(item.getProperty("ID").toString());
                 nhaHang.setName(item.getProperty("TenNhaHang").toString());
                 nhaHang.setDiaChi(item.getProperty("DiaChi").toString());
-                nhaHang.setDanhGia(Double.parseDouble(item.getProperty("DanhGia").toString()));
+                if(item.getProperty("DanhGia")!=null)
+                    nhaHang.setDanhGia(Double.parseDouble(item.getProperty("DanhGia").toString()));
                 nhaHang.setSDT(item.getProperty("DienThoai").toString());
                 nhaHang.setLuotXem(Integer.parseInt(item.getProperty("LuotXem").toString()));
-                nhaHang.setImage(item.getProperty("Hinh").toString());
+                if(item.getProperty("Hinh")!=null)
+                    nhaHang.setImage(item.getProperty("Hinh").toString());
 
                 nhaHangs.add(nhaHang);
             }
@@ -623,6 +621,8 @@ public class WebService {
             e.printStackTrace();
         }
         catch (NullPointerException e){
+            e.printStackTrace();
+        }catch (RuntimeException e){
             e.printStackTrace();
         }
         return nhaHangs;
@@ -655,6 +655,46 @@ public class WebService {
             e.printStackTrace();
         }
         catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        return resuft;
+    }
+    //insert nha hang
+    public boolean insertNhaHang(String id, String tennhahang,String diachi,String sdt,String tinhthanh,String quanhuyen,String duong,String danhmucodau) {
+        boolean resuft=false;
+        SoapObject request = new SoapObject(StaticObject.NAME_SPACE, StaticObject.METHOD_INSERTNHAHANG);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet = true;
+        request.addProperty("ID", id);
+        request.addProperty("TenNhaHang", tennhahang);
+        request.addProperty("DiaChi", diachi);
+        request.addProperty("SDT", sdt);
+        request.addProperty("TinhThanh", tinhthanh);
+        request.addProperty("QuanHuyen", quanhuyen);
+        request.addProperty("Duong", duong);
+        request.addProperty("DanhMucODau", danhmucodau);
+
+        envelope.setOutputSoapObject(request);
+
+        MarshalFloat marshalFloat = new MarshalFloat();
+        marshalFloat.register(envelope);
+
+        HttpTransportSE HttpsTransport = new HttpTransportSE(StaticObject.URL);
+
+        try {
+
+            HttpsTransport.call(StaticObject.SOAP_ACTION_INSERTNHAHANG, envelope);
+
+            SoapPrimitive item = (SoapPrimitive) envelope.getResponse();
+            String kq=item.toString();
+            resuft = Boolean.parseBoolean(kq);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }catch (NullPointerException e){
             e.printStackTrace();
         }
         return resuft;
