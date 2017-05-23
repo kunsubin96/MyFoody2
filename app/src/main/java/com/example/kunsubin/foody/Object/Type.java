@@ -5,11 +5,5 @@ package com.example.kunsubin.foody.Object;
  */
 
 public enum Type {
-    LATEST,
-    CATEGORY,
-    DISTRICT,
-    STREET,
-    IMAGE_INFILE,
-    IMAGESELECTED_INFILE,
     IMAGESELECTED_INADDPLACE
 }

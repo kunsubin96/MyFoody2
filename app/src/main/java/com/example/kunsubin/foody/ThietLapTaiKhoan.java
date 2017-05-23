@@ -43,10 +43,13 @@ public class ThietLapTaiKhoan extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thiet_lap_tai_khoan);
         init();
+        //set image mặc định của user lên textViewEmailDangKy
         textViewEmailDangKy.setText("Email đăng ký: "+StaticData.getObjectInfoUser().getEmail());
+        //đưa avatar user lên avataredit
         if(StaticData.getObjectInfoUser().getHinh()!=null){
             Glide.with(this).load(StaticData.getObjectInfoUser().getHinh()).into(avataredit);
         }
+        //trở về activity khi nhấn mữi tên back
         toolbarTaiKhoan.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,6 +58,7 @@ public class ThietLapTaiKhoan extends AppCompatActivity {
                 finish();
             }
         });
+        //show layout mặc định ban đầu lên và ẩn layout đổi mật khẩu
         toolbarMatKhau.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,6 +66,7 @@ public class ThietLapTaiKhoan extends AppCompatActivity {
                 layOutMatKhau.setVisibility(View.GONE);
             }
         });
+        //show layout đổi mật khẩu lên
         doiMatKhau.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,6 +77,7 @@ public class ThietLapTaiKhoan extends AppCompatActivity {
                 nhapLaiMatKhau.setText("");
             }
         });
+        //mở activity đổi avatar cho user
         changeAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,19 +85,25 @@ public class ThietLapTaiKhoan extends AppCompatActivity {
                 startActivityForResult(intent,18);
             }
         });
+        //lưu thay đổi của mật khẩu
         btnLuuThayDoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //kiểm tra đầu vào
                 if (matKhauHienTai.getText().toString().trim().equals("") || matKhauMoi.getText().toString().trim().equals("") || nhapLaiMatKhau.getText().toString().trim().equals("")) {
                     Toast.makeText(getApplicationContext(), "Nhập đầy đủ thông tin vào!", Toast.LENGTH_SHORT).show();
                 } else {
+
                     if (matKhauHienTai.getText().toString().trim().equals(StaticData.getObjectInfoUser().getPassword().trim())) {
                         if (matKhauMoi.getText().toString().trim().equals(nhapLaiMatKhau.getText().toString().trim())) {
+                            //thỏa tất cả các đầu vào thì tiến hành công việc đổi mật khẩu
                             boolean f = false;
                             AsynChangePassword asynChangePassword = new AsynChangePassword();
                             try {
+                                //thực thi công việc đổi mật khẩu
                                 f = asynChangePassword.execute(StaticData.getObjectInfoUser().getUsername(), matKhauMoi.getText().toString().trim()).get();
                                 if (f) {
+                                    //thông báo kết quả thành công
                                     AlertDialog.Builder builder = new AlertDialog.Builder(ThietLapTaiKhoan.this);
                                     builder.setMessage("Đổi mật khẩu thành công");
                                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -123,7 +135,7 @@ public class ThietLapTaiKhoan extends AppCompatActivity {
         });
 
     }
-
+    //ánh xạ các view
     public void init() {
         layOutThietLap = (LinearLayout) findViewById(R.id.layOutThietLap);
         layOutMatKhau = (LinearLayout) findViewById(R.id.layOutMatKhau);
@@ -138,12 +150,14 @@ public class ThietLapTaiKhoan extends AppCompatActivity {
         avataredit=(CircleImageView)findViewById(R.id.avataredit);
         changeAvatar=(RelativeLayout)findViewById(R.id.changeAvatar);
     }
+    //nhận kết quả trả về từ activity thay đổi avatar
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 18) {
             if (resultCode == Activity.RESULT_OK) {
                 ObjectInfoUser objectInfoUser= StaticData.getObjectInfoUser();
+                //set lại avatar khi đổi avatar thành công
                 if(objectInfoUser.getHinh()!=null){
                     Glide.with(getApplicationContext()).load(objectInfoUser.getHinh()).into(avataredit);
                 }

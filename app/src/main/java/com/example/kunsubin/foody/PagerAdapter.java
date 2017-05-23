@@ -20,6 +20,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         odau=new ODau(mainActivity);
         angi=new AnGi(mainActivity);
     }
+    //trả ra fragment được chọn
     @Override
     public android.support.v4.app.Fragment getItem(int position) {
 

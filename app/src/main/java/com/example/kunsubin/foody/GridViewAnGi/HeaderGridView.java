@@ -18,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Created by kunsubin on 4/10/2017.
  */
-
+//mở rộng viết lại gridview để có khả năng add header cho listview
 public class HeaderGridView extends GridView {
     private static final String TAG = "HeaderGridView";
     /**

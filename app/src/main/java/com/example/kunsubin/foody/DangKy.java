@@ -28,18 +28,22 @@ public class DangKy extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_ky);
         init();
+        //trở về màn hình login
         link_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+        //sự kiện click đăng ký
         btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //check dữ liệu đầu vào
                 if(input_name.getText().toString().trim().equals("")||input_email.getText().toString().trim().equals("")||input_password.getText().toString().trim().equals("")||
                         input_again_password.getText().toString().trim().equals("")||input_HoTen.getText().toString().trim().equals("")||input_DiaChi.getText().toString().trim().equals("")
                         ||input_SDT.getText().toString().trim().equals("")){
+                    //không thỏa đầu vào
                     AlertDialog.Builder builder = new AlertDialog.Builder(DangKy.this);
                     builder.setMessage("Hãy điền đầy đủ thông tin vào!");
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -51,9 +55,10 @@ public class DangKy extends AppCompatActivity {
                     AlertDialog alert = builder.create();
                     alert.show();
                 }else{
+
                     if(input_password.getText().toString().trim().equals(input_again_password.getText().toString().trim())){
                         if(input_SDT.getText().toString().trim().length()<=11){
-
+                            //thỏa mãn tất cả, tiến hành đăng ký
                             boolean f=false;
                             AsynCreateUser asynCreateUser=new AsynCreateUser();
                             try {
@@ -90,6 +95,7 @@ public class DangKy extends AppCompatActivity {
                             }
 
                         }else{
+                            //không thỏa về số điện thoại
                             AlertDialog.Builder builder = new AlertDialog.Builder(DangKy.this);
                             builder.setMessage("Số điện thoại vượt quá 11 số!");
                             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -102,6 +108,7 @@ public class DangKy extends AppCompatActivity {
                             alert.show();
                         }
                     }else{
+                        //không khớp mật khẩu mới với gõ lại mật khẩu
                         AlertDialog.Builder builder = new AlertDialog.Builder(DangKy.this);
                         builder.setMessage("Gõ lại mật khẩu không khớp với mật khẩu!");
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -117,6 +124,7 @@ public class DangKy extends AppCompatActivity {
             }
         });
     }
+    //ánh xạ các view
     public void init(){
         input_name=(EditText)findViewById(R.id.input_name);
         input_email=(EditText)findViewById(R.id.input_email);

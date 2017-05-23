@@ -13,6 +13,7 @@ public class AsynInsertImageMoreNhaHang extends AsyncTask<Object, Object, JsonOb
     public AsynInsertImageMoreNhaHang(JsonObject jsonObject){
         this.jsonObject=jsonObject;
     }
+    //đẩy dữ liệu json hình xuống để lưu xong lấy kết quả trả về là json
     @Override
     protected JsonObject doInBackground(Object... objects) {
         return JsonHTTPHelper.makeHttpResponse(StaticJSON.URL+StaticJSON.INSERT_IMAGEMORE_NHAHANG, true, jsonObject);

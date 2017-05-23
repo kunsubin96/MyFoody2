@@ -9,11 +9,9 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.kunsubin.foody.Object.ObjectInfoUser;
@@ -46,6 +44,8 @@ public class User extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_user, container, false);
+
+        //ánh xạ các view
         layOutDangNhap=(LinearLayout)view.findViewById(R.id.layOutDangNhap);
         avatarUser=(CircleImageView)view.findViewById(R.id.avatarUser);
         textHoTen=(TextView) view.findViewById(R.id.textHoTen);
@@ -80,6 +80,7 @@ public class User extends Fragment {
 
             }
         });
+        //thông tin liên hệ
         thongTinLienHe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,6 +95,7 @@ public class User extends Fragment {
                 }
             }
         });
+        //thiết lập tài khoản
         thietLapTaiKhoan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,6 +108,7 @@ public class User extends Fragment {
                 }
             }
         });
+        //tiền thưởng
         tienThuong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,6 +118,7 @@ public class User extends Fragment {
                 }
             }
         });
+        //thanh toán
         thanhToan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,6 +128,7 @@ public class User extends Fragment {
                 }
             }
         });
+        //lịch sử đặt chỗ
         lichSuDatCho.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,6 +138,7 @@ public class User extends Fragment {
                 }
             }
         });
+        //lịch sử giao hàng
         lichSuDatGiaoHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,6 +148,7 @@ public class User extends Fragment {
                 }
             }
         });
+        //lịch sử Coupon
         lichSuCoupon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,6 +158,7 @@ public class User extends Fragment {
                 }
             }
         });
+        //sử dụng Ecard
         suDungEcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,6 +168,7 @@ public class User extends Fragment {
                 }
             }
         });
+        //lịch sử Eat
         lichSuEat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,8 +178,7 @@ public class User extends Fragment {
                 }
             }
         });
-
-
+        //đăng xuất
         dangXuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -206,14 +214,18 @@ public class User extends Fragment {
 
         return view;
     }
-
+    //nhận kết quả trả về
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //kết quả trả về của form đăng nhập
         if (requestCode == 3) {
+            //đăng nhập thành công
             if (resultCode == Activity.RESULT_OK) {
+                //set lại các giá trị cho user
                 ObjectInfoUser objectInfoUser= StaticData.getObjectInfoUser();
                 textHoTen.setText(objectInfoUser.getHoTen());
+                //set avatar cho user
                 if(objectInfoUser.getHinh()!=null){
                     Glide.with(getContext()).load(objectInfoUser.getHinh()).into(avatarUser);
                 }
@@ -226,6 +238,7 @@ public class User extends Fragment {
 
             }
         }
+        //kết quả trả về của chỉnh sữa thông tin cá nhân
         if(requestCode==4){
             if (resultCode == Activity.RESULT_OK) {
                 textHoTen.setText(StaticData.getObjectInfoUser().getHoTen());
@@ -234,8 +247,10 @@ public class User extends Fragment {
 
             }
         }
+        //kết quả trả về của thiết lập tài khoản
         if(requestCode==19){
             if (resultCode == Activity.RESULT_OK) {
+                //cập nhật lại hình avarta khi có sự chỉnh sửa hình
                 if(StaticData.getObjectInfoUser().getHinh()!=null){
                     Glide.with(getContext()).load(StaticData.getObjectInfoUser().getHinh()).into(avatarUser);
                 }

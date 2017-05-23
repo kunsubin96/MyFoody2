@@ -3,7 +3,7 @@ package com.example.kunsubin.foody.Object;
 /**
  * Created by kunsubin on 4/25/2017.
  */
-
+//biến object data Dường
 public class Duong {
     public String MaDuong;
     public String TenDuong;

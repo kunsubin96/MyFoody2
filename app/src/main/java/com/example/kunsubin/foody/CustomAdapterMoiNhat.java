@@ -7,9 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import static java.security.AccessController.getContext;
 
 /**
  * Created by kunsubin on 3/22/2017.
@@ -55,6 +52,7 @@ public class CustomAdapterMoiNhat extends BaseAdapter {
     public int getItemViewType(int i) {
         return i;
     }
+    //ánh xạ các view
     public class Holder
     {
         ImageView iconItem;
@@ -80,7 +78,7 @@ public class CustomAdapterMoiNhat extends BaseAdapter {
             holder=(Holder) convertView.getTag();
         }
         holder=(Holder) convertView.getTag();
-
+        //set data lên item list view
         holder.iconItem.setImageResource(imageId[position]);
         holder.textItem.setText(result[position]);
         holder.checked.setImageResource(0);

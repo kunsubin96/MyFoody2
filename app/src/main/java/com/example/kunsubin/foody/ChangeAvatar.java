@@ -49,17 +49,19 @@ public class ChangeAvatar extends BaseSlideActivity implements View.OnClickListe
         setContentView(R.layout.activity_change_avatar);
 
         init();
+        //set sự kiện click cho các view
         linear_layout_change_avatar.setOnClickListener(this);
         linear_layout_change_cover.setOnClickListener(this);
         text_view_save_change.setOnClickListener(this);
         back_button_change_avatar.setOnClickListener(this);
 
-        //
+        //đưa hình user lên CircleImageView
         if(StaticData.getObjectInfoUser().getHinh()!=null){
             Glide.with(getApplicationContext()).load(StaticData.getObjectInfoUser().getHinh()).into(profile_image);
         }
 
     }
+    //ánh xạ các view
     public void init(){
         back_button_change_avatar=(LinearLayout)findViewById(R.id.back_button_change_avatar);
         linear_layout_change_avatar=(LinearLayout)findViewById(R.id.linear_layout_change_avatar);
@@ -68,18 +70,20 @@ public class ChangeAvatar extends BaseSlideActivity implements View.OnClickListe
         profile_image=(CircleImageView)findViewById(R.id.profile_image);
         cover_image=(ImageView)findViewById(R.id.cover_image);
     }
+    //show menu chọn hình hoặc chụp ảnh
     private void showPopup(View v) {
         PopupMenu popup = new PopupMenu(this, v);
         popup.getMenuInflater().inflate(R.menu.select_photo_menu, popup.getMenu());
         popup.setOnMenuItemClickListener(onMenuItemClickListener);
         popup.show();
     }
-
+    //sự kiện chọn menu chọn hình từ thư viện hoặc chụp hình
     PopupMenu.OnMenuItemClickListener onMenuItemClickListener = new PopupMenu.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.select_from_gallery:
+                    //nếu là chọn hình thì tiến hành mở activity tiếp theo cho việc chọn hình
                     if(Permission.isReadWritePermission(ChangeAvatar.this.getApplicationContext())){
                         Intent intent=new Intent(ChangeAvatar.this, GalleryFolderActivity.class);
                         intent.putExtra("mode",GalleryFolderActivity.SINGLE_SELECT);
@@ -96,6 +100,7 @@ public class ChangeAvatar extends BaseSlideActivity implements View.OnClickListe
     };
     ImageGalleryBean uploadAvatar = null;
     ImageGalleryBean uploadCover = null;
+    //nhận kết quả trả về là hình
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -111,6 +116,7 @@ public class ChangeAvatar extends BaseSlideActivity implements View.OnClickListe
     }
     boolean changeavatar = false;
     boolean changecover = false;
+    //cập nhật trạng thái image view avatar hoặc ảnh bìa
     public void updateImageView(ImageGalleryBean image) {
         if (this.changeavatar) {
             this.changeavatar = false;
@@ -123,22 +129,27 @@ public class ChangeAvatar extends BaseSlideActivity implements View.OnClickListe
             Glide.with(this.getApplicationContext()).load("file://" + uploadCover.getPath()).into(cover_image);
         }
     }
+    //sự kiện cho các view
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            //trở về
             case R.id.back_button_change_avatar:
                 finish();
                 break;
+            //chọn layout avarta rùi show menu
             case R.id.linear_layout_change_avatar:
                 this.changeavatar = true;
                 this.changecover = false;
                 showPopup(view);
                 break;
+            //chọn layout ảnh bìa rùi show menu
             case R.id.linear_layout_change_cover:
                 this.changecover = true;
                 this.changeavatar = false;
                 showPopup(view);
                 break;
+            //lưu hình xuống
             case R.id.text_view_save_change:
 
                 if(uploadAvatar!=null){
@@ -150,6 +161,7 @@ public class ChangeAvatar extends BaseSlideActivity implements View.OnClickListe
                 break;
         }
     }
+    //upload hình đại diện cho user
     public void uploadAvatar(ImageGalleryBean uploadAvatar){
 
 
@@ -173,17 +185,19 @@ public class ChangeAvatar extends BaseSlideActivity implements View.OnClickListe
             e.printStackTrace();
         }*/
         //Toast.makeText(getApplicationContext(),encImage,Toast.LENGTH_LONG).show();
-
+        //tạo đối tượng jsonInputImage
         JsonObject input= StaticObjectJSON.createImageInputObject(uploadAvatar.getPath());
         AsynChangeAvatar asynChangeAvatar=new AsynChangeAvatar(input);
         try {
+            //thực thi thao tác cập nhật ảnh
             JsonObject object= asynChangeAvatar.execute().get();
             Log.d("hạhfds",object.toString());
-
+            //lấy kết quả
             String bool=object.get("success").toString();
             Boolean f=Boolean.parseBoolean(bool);
 
             if(f){
+                //kết quả thành công
                 AlertDialog.Builder builder = new AlertDialog.Builder(ChangeAvatar.this);
                 builder.setMessage("Thay đổi avatar thành công!");
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -191,6 +205,7 @@ public class ChangeAvatar extends BaseSlideActivity implements View.OnClickListe
                         //do things
                         AsynGetInfoUser user=new AsynGetInfoUser();
                         try {
+                            //cập nhật lại user và avatar cho user
                             ObjectInfoUser user1=user.execute(StaticData.getObjectInfoUser().getUsername()).get();
                             AsynGetImage asynGetImage=new AsynGetImage();
                             String stringImage=asynGetImage.execute(user1.getAvatar()).get();
@@ -204,6 +219,7 @@ public class ChangeAvatar extends BaseSlideActivity implements View.OnClickListe
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                         }
+                        //trả kết quả về activity khi thành công
                         Intent returnIntent = new Intent();
                         setResult(Activity.RESULT_OK, returnIntent);
                         finish();
@@ -212,6 +228,7 @@ public class ChangeAvatar extends BaseSlideActivity implements View.OnClickListe
                 AlertDialog alert = builder.create();
                 alert.show();
             }else{
+                //thất bại
                 AlertDialog.Builder builder = new AlertDialog.Builder(ChangeAvatar.this);
                 builder.setMessage("Thay đổi avatar thất bại!");
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

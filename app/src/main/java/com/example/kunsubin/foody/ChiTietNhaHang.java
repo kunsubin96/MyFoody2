@@ -1,13 +1,11 @@
 package com.example.kunsubin.foody;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.kunsubin.foody.Object.NhaHang;
@@ -25,7 +23,9 @@ public class ChiTietNhaHang extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chi_tiet_nha_hang);
         init();
+        //lấy thông tin nha hàng
         NhaHang nhaHang= StaticData.getNhaHang();
+        //show lên nội dung chi tiết của nhà hàng
         if(nhaHang!=null){
             if(nhaHang.getHinh()!=null)
                 Glide.with(getApplicationContext()).load(nhaHang.getHinh()).into(info_imv);
@@ -38,6 +38,7 @@ public class ChiTietNhaHang extends AppCompatActivity {
             }
             info_tvaddress.setText(nhaHang.getDiaChi());
         }
+        //trở về
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,6 +46,7 @@ public class ChiTietNhaHang extends AppCompatActivity {
             }
         });
     }
+    //ánh xạ các view
     private void init(){
         info_imv=(ImageView)findViewById(R.id.info_imv);
         text_view_num_of_comment=(TextView)findViewById(R.id.text_view_num_of_comment);

@@ -5,15 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.kunsubin.foody.Object.StaticData;
 import com.example.kunsubin.foody.Object.TinhThanh;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,7 +53,7 @@ public class CustomAdapterTinhThanh extends BaseAdapter{
     public int getItemViewType(int i) {
         return i;
     }
-
+    //ánh xạ các view
     public static class Holder {
         View item;
         ImageView iconCheck;
@@ -87,11 +84,13 @@ public class CustomAdapterTinhThanh extends BaseAdapter{
         if(i==banDau){
             holder.textItem.setTextColor(context.getResources().getColor(R.color.blue));
         }
+        //set vị trí được chọn
         if(i== StaticData.getSelected()){
             holder.iconCheck.setImageResource(R.drawable.icon_stick);
             holder.textItem.setText(tinhThanh.getTenTinhThanh());
             holder.macDinh.setVisibility(View.VISIBLE);
         }else {
+            //set data cho các vị trí còn lại
             holder.iconCheck.setImageResource(0);
             holder.textItem.setText(tinhThanh.getTenTinhThanh());
             holder.macDinh.setVisibility(View.GONE);

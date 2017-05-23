@@ -6,13 +6,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -55,31 +54,34 @@ public class ThongTinLienHe extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thong_tin_lien_he);
         init();
-
+        //thiết lập giá trị được chọn mặc định
         StaticData.setPossionGioiTinh(1);
         StaticData.setPossionGioiTinh(-1);
         GenderData();
         MarryStatusData();
+        //ánh xạ các view
         textViewHoTen.setText(StaticData.getObjectInfoUser().getHoTen().toString());
         tenDangNhap.setText(StaticData.getObjectInfoUser().getUsername().toString());
         hoTen.setText(StaticData.getObjectInfoUser().getHoTen().toString());
         diaChi.setText(StaticData.getObjectInfoUser().getDiaChi().toString());
         SDT.setText(StaticData.getObjectInfoUser().getSDT().toString());
         Email.setText(StaticData.getObjectInfoUser().getEmail().toString());
-
+        //thiết laaoj sự kiện click cho các view
         text_view_date_of_birth.setOnClickListener(this);
         edit_text_sex.setOnClickListener(this);
         edit_text_marry_status.setOnClickListener(this);
+        //lấy lịch
         Calendar calendar = Calendar.getInstance();
-
+        //lấy giá trị lịch từ text_view_date_of_birth
         String[] birth = text_view_date_of_birth.getText().toString().trim().split("/");
+        //set date time
         this.year = Integer.parseInt(birth[0]);
         this.month = Integer.parseInt(birth[1]);
         this.dayofmonth = Integer.parseInt(birth[2]);
         datePicker = new DatePickerDialog(this, this, this.year, this.month, this.dayofmonth);
 
     }
-
+    //ánh xạ các view
     public void init() {
         icon_back = (LinearLayout) findViewById(R.id.icon_back);
         textViewHoTen = (TextView) findViewById(R.id.textViewHoTen);
@@ -93,19 +95,22 @@ public class ThongTinLienHe extends AppCompatActivity implements View.OnClickLis
         edit_text_sex=(EditText)findViewById(R.id.edit_text_sex);
         edit_text_marry_status=(EditText)findViewById(R.id.edit_text_marry_status);
     }
-
+    //trở về
     public void onClickBackThongTinLienHe(View view) {
         this.finish();
     }
-
+    //lưu thông tin liên hệ khi chỉnh sữa xong
     public void onClickSavaThongTinLienHe(View view) {
+        //kiểm tra dữ liệu đầu vào có thỏa hay kkhoong
         if (hoTen.getText().toString().trim().equals("") || diaChi.getText().toString().trim().equals("") || SDT.getText().toString().trim().equals("")) {
             Toast.makeText(getApplicationContext(), "Hãy nhập đầy đủ thông tin vào!", Toast.LENGTH_SHORT).show();
         } else {
+            //check số điện thoại
             if (SDT.getText().toString().length() <= 11) {
                 boolean f = false;
                 AsynChangeProfile asynChangeProfile = new AsynChangeProfile();
                 try {
+                    //thực thi lưu thông tin liên hệ
                     f = asynChangeProfile.execute(tenDangNhap.getText().toString().trim(), hoTen.getText().toString().trim(), diaChi.getText().toString().trim(),
                             SDT.getText().toString().trim()).get();
                     if (f) {
@@ -113,10 +118,11 @@ public class ThongTinLienHe extends AppCompatActivity implements View.OnClickLis
                         builder.setMessage("Thay đổi thông tin thành công!");
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                //do things
+                                //set lại các giá trị thay đổ cho các biến trong user
                                 StaticData.getObjectInfoUser().setHoTen(hoTen.getText().toString().trim());
                                 StaticData.getObjectInfoUser().setDiaChi(diaChi.getText().toString().trim());
                                 StaticData.getObjectInfoUser().setSDT(SDT.getText().toString().trim());
+                                //trả kết quả về cho activity user
                                 Intent returnIntent = new Intent();
                                 setResult(Activity.RESULT_OK, returnIntent);
                                 finish();
@@ -125,7 +131,7 @@ public class ThongTinLienHe extends AppCompatActivity implements View.OnClickLis
                         AlertDialog alert = builder.create();
                         alert.show();
                     } else {
-
+                        //không thay đổ được
                         AlertDialog.Builder builder = new AlertDialog.Builder(ThongTinLienHe.this);
                         builder.setMessage("Thay đổi không thành công!");
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -148,7 +154,7 @@ public class ThongTinLienHe extends AppCompatActivity implements View.OnClickLis
             }
         }
     }
-
+    //set trị ngày cho datePicker
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         if (checkDateValid(year, Calendar.YEAR) == 1) {
@@ -161,25 +167,28 @@ public class ThongTinLienHe extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(this, "Ngày sinh không hợp lệ!", Toast.LENGTH_SHORT).show();
         }
     }
-
+    //check kiểm tra ngày sinh chọn có hợp lệ so với ngày hiện tại không
     private int checkDateValid(int value, int type) {
         if (value > Calendar.getInstance().get(type)) {
             return -1;
         }
         return 1;
     }
-
+    //click view
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            //show date time picker
             case R.id.text_view_date_of_birth:
                 this.datePicker.updateDate(this.year, this.month - 1, this.dayofmonth);
                 this.datePicker.show();
                 break;
+            //show menu chọn giới tính
             case R.id.edit_text_sex:
                 genderAdapter.notifyDataSetChanged();
                 genderBuilder.show();
                 break;
+            //show menu chọn edit_text_marry_status
             case R.id.edit_text_marry_status:
                 marryAdapter.notifyDataSetChanged();
                 marryBuilder.show();
@@ -188,6 +197,7 @@ public class ThongTinLienHe extends AppCompatActivity implements View.OnClickLis
                 break;
         }
     }
+    //data cho khi click edit_text_marry_status
     private void MarryStatusData() {
         final List<String> marry=new ArrayList<>();
         marry.add("Độc thân");
@@ -221,6 +231,7 @@ public class ThongTinLienHe extends AppCompatActivity implements View.OnClickLis
             }
         });
     }
+    // //data cho khi click chọn giới tính
     public void GenderData() {
         final List<String> gioiTinh=new ArrayList<>();
         gioiTinh.add("Nam");
@@ -248,6 +259,7 @@ public class ThongTinLienHe extends AppCompatActivity implements View.OnClickLis
         public GenderAdapter(@NonNull Context context, @LayoutRes int resource) {
             super(context, resource);
         }
+        //get dữ liệu cho adapter giới tính, cái được mặc định sẻ tô màu
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -264,7 +276,7 @@ public class ThongTinLienHe extends AppCompatActivity implements View.OnClickLis
         public MarryAdapter(@NonNull Context context, @LayoutRes int resource) {
             super(context, resource);
         }
-
+        //get dữ liệu cho adapter marry, cái được mặc định sẻ tô màu
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

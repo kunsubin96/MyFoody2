@@ -3,7 +3,7 @@ package com.example.kunsubin.foody.Object;
 /**
  * Created by kunsubin on 4/8/2017.
  */
-
+//biến data lấy bình luận
 public class BinhLuan {
     int Id;
     int IdNhaHang;

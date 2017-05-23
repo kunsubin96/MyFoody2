@@ -14,6 +14,7 @@ public class AsynChangeAvatar extends AsyncTask<Object, Object, JsonObject>{
     public AsynChangeAvatar(JsonObject jsonObject){
         this.jsonObject=jsonObject;
     }
+    //đẩy dữ liệu json hình xuống để lưu xong lấy kết quả trả về là json
     @Override
     protected JsonObject doInBackground(Object... objects) {
         return JsonHTTPHelper.makeHttpResponse(StaticJSON.URL+StaticJSON.CHANGE_AVATAR, true, jsonObject);

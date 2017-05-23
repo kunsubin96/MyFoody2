@@ -2,12 +2,8 @@ package com.example.kunsubin.foody;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.provider.ContactsContract;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +11,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.kunsubin.foody.Object.ObjectInfoUser;
 import com.example.kunsubin.foody.Object.StaticData;
 import com.example.kunsubin.foody.WebService.AsynCheckLogin;
@@ -35,6 +30,7 @@ public class LoginUser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_user);
+        //ánh xạ các view
         username=(EditText)findViewById(R.id.input_username);
         btn_login=(Button)findViewById(R.id.btn_login);
         password=(EditText)findViewById(R.id.input_password);
@@ -47,6 +43,7 @@ public class LoginUser extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        //mở activity đăng ký
         link_DangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,15 +51,18 @@ public class LoginUser extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //check login
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //kiểm tra đầu vào
                 if(username.getText().toString().trim().equals("")||password.getText().toString().trim().equals("")){
                     Toast.makeText(getApplicationContext(),"Username, Password không được để trống!",Toast.LENGTH_SHORT).show();
                 }else{
                     int ketQua=-1;
                     AsynCheckLogin asynCheckLogin=new AsynCheckLogin();
                     try {
+                        //thực thi và lấy kết quả trả về
                         ketQua= asynCheckLogin.execute(username.getText().toString().trim(),password.getText().toString().trim()).get();
                     } catch (InterruptedException e) {
                         e.printStackTrace();

@@ -372,6 +372,7 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                 //hủy lấy data nếu trả về là RESULT_OK
             }
         }
+        //khi màn hình đăng nhập thành công thì cho mở ngay chi tiết nhà hàng
         if(requestCode == 30){
             if(StaticData.getObjectInfoUser()!=null)
             {
@@ -467,6 +468,7 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                 }
                 TabDanhMuc = textViewDanhMucODau.getText().toString().trim();
                 TabMoiNhat = textMoiNhatODau.getText().toString().trim();
+                //load dữ liệu khi chọn trong mục tab số 1
                 loadNhaHangODau(TabDanhMuc,TinhThanh,QuanHuyen,Duong,TabMoiNhat);
 
             }
@@ -542,7 +544,7 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                 }
                 TabDanhMuc = textViewDanhMucODau.getText().toString().trim();
                 TabMoiNhat = textMoiNhatODau.getText().toString().trim();
-
+                //load dữ liệu khi chọn danh mục bất kỳ của nhà hàng
                 loadNhaHangODau(TabDanhMuc,TinhThanh,QuanHuyen,Duong,TabMoiNhat);
             }
         });
@@ -605,17 +607,18 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
         listAdapterDiaDiemODau = new ExpandableListAdapterODau(mainActivity, listQuanHuyenTheoTinh, listDataChildODau, countDuong);
         listAdapterDiaDiemODau.setChooseStreet(this);
         list_view_cityODau.setAdapter(listAdapterDiaDiemODau);
-
+        //click group bên mục địa điểm với group là tên các quận huyện
         list_view_cityODau.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
                 TextView textView;
+                //set vị trí được chọn
                 StaticData.setSelectedDiaDiemODau(i);
                 StaticData.setChildODau(-1);
                 StaticData.setGroupODau(-1);
                 textView = (TextView) view.findViewById(R.id.text_view_district_name);
                 textView.setTextColor(getResources().getColor(R.color.red));
-
+                //mở rùi đóng expandableListView
                 list_view_cityODau.expandGroup(i);
                 list_view_cityODau.collapseGroup(i);
                 //
@@ -639,20 +642,24 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                 Duong="";
                 TabDanhMuc = textViewDanhMucODau.getText().toString().trim();
                 TabMoiNhat = textMoiNhatODau.getText().toString().trim();
+                //tiến hành load dữ liệu khi chọn quận huyện
                 loadNhaHangODau(TabDanhMuc,TinhThanh,QuanHuyen,Duong,TabMoiNhat);
                 return true;
             }
         });
+        //click  bên mục địa điểm với child là tên đường
         list_view_cityODau.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
                 TextView textView;
+                //set vị trí được chọn trong expandableListView
                 StaticData.setSelectedDiaDiemODau(-1);
                 StaticData.setChildODau(i1);
                 StaticData.setGroupODau(i);
 
                 textView = (TextView) view.findViewById(R.id.lblListItemODau);
                 textView.setTextColor(getResources().getColor(R.color.red));
+                //đóng rùi mở expandableListView
                 list_view_cityODau.collapseGroup(i);
                 list_view_cityODau.expandGroup(i);
                 //
@@ -676,6 +683,7 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                 Duong=textView.getText().toString().trim();
                 TabDanhMuc = textViewDanhMucODau.getText().toString().trim();
                 TabMoiNhat = textMoiNhatODau.getText().toString().trim();
+                //load dữ liệu sau khi chọn đường
                 loadNhaHangODau(TabDanhMuc,TinhThanh,QuanHuyen,Duong,TabMoiNhat);
                 return false;
             }
@@ -768,7 +776,7 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
             //Toast.makeText(getContext(),nhaHangList.get(0).getName().toString(),Toast.LENGTH_LONG).show();
             if (nhaHangList.size() > 0) {
                 for (int i = 0; i < nhaHangList.size(); i++) {
-                    //set hinh
+                    //set hinh cho nhà hàng lấy lên
                     String image = null;
                     AsynGetImage getImage = new AsynGetImage();
                     image = getImage.execute(nhaHangList.get(i).getImage().toString().trim()).get();
@@ -777,7 +785,7 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                         byte[] valueDecoded = Base64.decode(image);
                         nhaHangList.get(i).setHinh(valueDecoded);
                     }
-                    //
+                    //lấy danh sách bình luận của nhà hàng
                     AsynBinhLuan asynBinhLuan = new AsynBinhLuan();
                     List<BinhLuan> binhLuanList = asynBinhLuan.execute(nhaHangList.get(i).getId().toString().trim()).get();
                     if (binhLuanList.size() > 0) {
@@ -803,7 +811,7 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
                         }
                     }
                     nhaHangList.get(i).setListBinhLuan(binhLuanList);
-                    //
+                    //get các hình còn lại của nhà hàng
                     AsynGetImageMore asynGetImageMore = new AsynGetImageMore();
                     List<String> hinh = asynGetImageMore.execute(nhaHangList.get(i).getId().toString().trim()).get();
                     List<byte[]> listHinh = new ArrayList<>();
@@ -833,8 +841,11 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
             e.printStackTrace();
         }
         khungChinhODau.setAdapter(null);
+        //set adapter cho listview chình của nhà hàng
         customAdapterNhaHangODau=new CustomAdapterNhaHangODau(mainActivity, nhaHangList);
+        //set sự kiện chọn nhà hàng
         customAdapterNhaHangODau.setChooseNhaHang(this);
+        //set adapter cho listview khi nhaHangList có size >0
         if (nhaHangList != null && nhaHangList.size() > 0)
             khungChinhODau.setAdapter(customAdapterNhaHangODau);
         else {
@@ -843,16 +854,17 @@ public class ODau extends android.support.v4.app.Fragment implements IChooseStre
         customAdapterNhaHangODau.notifyDataSetChanged();
         //Toast.makeText(getContext(), String.valueOf(nhaHangList.size()), Toast.LENGTH_LONG).show();
     }
-
+    //sự kiện khi chọn nhà hàng bất kì trên listview
     @Override
     public void ChooseItemNhaHang(NhaHang nhaHang) {
         StaticData.setNhaHang(nhaHang);
-
+        //nếu đăng nhập rùi thì chuyển sang activity thông tin nhà hàng
         if(StaticData.getObjectInfoUser()!=null){
             Intent intent = new Intent(context, ChiTietNhaHang.class);
             startActivity(intent);
         }
         else{
+            //nếu chưa chuyển sàn activity đăng nhập
             Intent intent = new Intent(context, LoginUser.class);
             startActivityForResult(intent,30);
         }

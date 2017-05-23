@@ -51,6 +51,7 @@ public class ExpandableListAdapterODau extends BaseExpandableListAdapter {
     public long getChildId(int groupPosition, int childPosition) {
         return childPosition;
     }
+    //ánh xạ view cho child
     public class ChildHolder
     {
         TextView textItem;
@@ -70,8 +71,10 @@ public class ExpandableListAdapterODau extends BaseExpandableListAdapter {
             convertView.setTag(childHolder);
         }
         childHolder=(ChildHolder) convertView.getTag();
+        //set dữ liệu cho các tên đường
         childHolder.textItem.setText(childText.getTenDuong());
         childHolder.textItem.setTextColor(_context.getResources().getColor(R.color.black));
+        //tô màu đường được chọn
         if(StaticData.getGroupODau()==groupPosition&&StaticData.getChildODau()==childPosition){
             childHolder.textItem.setTextColor(_context.getResources().getColor(R.color.red));
         }
@@ -98,6 +101,7 @@ public class ExpandableListAdapterODau extends BaseExpandableListAdapter {
     public long getGroupId(int groupPosition) {
         return groupPosition;
     }
+    //ánh xạ các view cho groupView
     public class Holder
     {
         TextView textItem;
@@ -112,6 +116,7 @@ public class ExpandableListAdapterODau extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
+        //lấy ra quận huyện theo groupPosition
         QuanHuyen headerTitle = getGroup(groupPosition);
 
         Holder holder;
@@ -121,11 +126,12 @@ public class ExpandableListAdapterODau extends BaseExpandableListAdapter {
             convertView.setTag(holder);
         }
         holder=(Holder) convertView.getTag();
-
+        //lấy đưa thông tin lên view
         holder.textItem.setText(headerTitle.getTenQuanHuyen());
         holder.textItem.setTextColor(_context.getResources().getColor(R.color.black));
         holder.text_view_num_of_street.setText(countDuong.get(groupPosition).toString()+" đường");
         holder.linear_layout_child_expand.setOnClickListener(new ExpandStreet(groupPosition));
+        //thiết lập vị trí được chọn
         if (groupPosition == StaticData.getSelectedDiaDiemODau()) {
             holder.textItem.setTextColor(_context.getResources().getColor(R.color.red));
         }
@@ -141,7 +147,7 @@ public class ExpandableListAdapterODau extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
-
+    //tạo class thụ lý việc xử lý sự kiện nhấn vào mục số đường
     class ExpandStreet implements  View.OnClickListener{
         int groupPosion;
         public ExpandStreet(int groupPosition){

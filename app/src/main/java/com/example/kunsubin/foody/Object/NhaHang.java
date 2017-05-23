@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by kunsubin on 4/8/2017.
  */
-
+////biến object data chứa các thông tin trong nhà hàng
 public class NhaHang {
     String Id;
     String Name;
@@ -18,16 +18,17 @@ public class NhaHang {
     String DanhMucAnGi;
     List<BinhLuan> ListBinhLuan;
     List<byte[]> ListHinh;
-
+    //lấy hình trong nhà hàng
     public String getImage() {
         return image;
     }
-
+    //set hình cho nhà hàng
     public void setImage(String image) {
         this.image = image;
     }
 
     String image;
+    //list hình của nhà hàng
     public List<String> getListImage() {
         return listImage;
     }

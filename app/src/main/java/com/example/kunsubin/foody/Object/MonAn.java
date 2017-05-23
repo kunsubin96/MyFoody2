@@ -3,7 +3,7 @@ package com.example.kunsubin.foody.Object;
 /**
  * Created by kunsubin on 5/1/2017.
  */
-
+////biến object data Món ăn của nhà hàng
 public class MonAn {
     String ID;
     String TenMon;

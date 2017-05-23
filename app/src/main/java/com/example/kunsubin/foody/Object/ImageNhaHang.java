@@ -3,7 +3,7 @@ package com.example.kunsubin.foody.Object;
 /**
  * Created by kunsubin on 5/18/2017.
  */
-
+//biến object data chứa image của nhà hàng
 public class ImageNhaHang {
     private String id;
 

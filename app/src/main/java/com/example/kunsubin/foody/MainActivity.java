@@ -1,26 +1,20 @@
 package com.example.kunsubin.foody;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.kunsubin.foody.GridViewAnGi.HeaderGridView;
@@ -183,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClickHuy(View view){
         //set layout bên khu vực ăn gì
         HeaderGridView khungChinhAnGi=(HeaderGridView) findViewById(R.id.khungChinhAnGi);
-
+        //ánh xạ các view
         ListView listViewMoiNhatAnGi=(ListView)findViewById(R.id.listViewMoiNhatAnGi);
         ListView listViewDanhMucAnGi=(ListView)findViewById(R.id.listViewDanhMucAnGi);
         LinearLayout listViewDiaDiemAnGi=(LinearLayout)findViewById(R.id.listViewDiaDiemAnGi);
@@ -203,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
 
         //set layout bên khu vực ở đâu
         ListView khungChinhODau=(ListView) findViewById(R.id.khungChinhODau);
-
+        //ánh xạ các view
         ListView listViewMoiNhatODau=(ListView)findViewById(R.id.listViewMoiNhatODau);
         ListView listViewDanhMucODau=(ListView)findViewById(R.id.listViewDanhMucOdau);
         LinearLayout listViewDiaDiemODau=(LinearLayout)findViewById(R.id.listViewDiaDiemODau);
@@ -263,6 +257,7 @@ public class MainActivity extends AppCompatActivity {
                         transaction.show(user);
                         //check login chưa
                         if(StaticData.getObjectInfoUser()!=null){
+                            //nếu login rùi thì đưa thông tin lên activity user
                             TextView textHoTen=(TextView)findViewById(R.id.textHoTen);
                             CircleImageView avatarUser=(CircleImageView) findViewById(R.id.avatarUser);
                             TextView textXemHoatDong=(TextView)findViewById(R.id.textXemHoatDong);
@@ -270,6 +265,7 @@ public class MainActivity extends AppCompatActivity {
 
                             ObjectInfoUser objectInfoUser= StaticData.getObjectInfoUser();
                             textHoTen.setText(objectInfoUser.getHoTen());
+                            //đưa hình user lên
                             if(objectInfoUser.getHinh()!=null){
                                 Glide.with(getApplicationContext()).load(objectInfoUser.getHinh()).into(avatarUser);
                             }

@@ -14,38 +14,30 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.kunsubin.foody.AutoScrollViewPager.AutoScrollViewPager;
 import com.example.kunsubin.foody.GridViewAnGi.AdapterGridViewAnGi;
 import com.example.kunsubin.foody.GridViewAnGi.HeaderGridView;
-import com.example.kunsubin.foody.Object.BinhLuan;
 import com.example.kunsubin.foody.Object.DanhMuc;
 import com.example.kunsubin.foody.Object.Duong;
 import com.example.kunsubin.foody.Object.Info;
 import com.example.kunsubin.foody.Object.MonAn;
 import com.example.kunsubin.foody.Object.NhaHang;
-import com.example.kunsubin.foody.Object.ObjectInfoUser;
 import com.example.kunsubin.foody.Object.QuanHuyen;
 import com.example.kunsubin.foody.Object.StaticData;
 import com.example.kunsubin.foody.Object.TinhThanh;
 import com.example.kunsubin.foody.RecyclerView.MoreItemView;
-import com.example.kunsubin.foody.WebService.AsynBinhLuan;
 import com.example.kunsubin.foody.WebService.AsynDanhMuc;
 import com.example.kunsubin.foody.WebService.AsynDuong;
 import com.example.kunsubin.foody.WebService.AsynGetImage;
-import com.example.kunsubin.foody.WebService.AsynGetImageMore;
-import com.example.kunsubin.foody.WebService.AsynGetInfoUser;
 import com.example.kunsubin.foody.WebService.AsynInfo;
 import com.example.kunsubin.foody.WebService.AsynMonAn;
-import com.example.kunsubin.foody.WebService.AsynNhaHang;
 import com.example.kunsubin.foody.WebService.AsynNhaHangAnGi;
 import com.example.kunsubin.foody.WebService.AsynQuanHuyen;
 import com.example.kunsubin.foody.WebService.AsynTinhThanh;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import org.kobjects.base64.Base64;
-import org.ksoap2.serialization.NullSoapObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -609,18 +601,19 @@ public class AnGi extends android.support.v4.app.Fragment implements IChooseStre
         listAdapterDiaDiemAnGi = new ExpandableListAdapterAnGi(mainActivity, listQuanHuyenTheoTinh, listDataChildAnGi, countDuong);
         listAdapterDiaDiemAnGi.setChooseStreet(this);
         list_view_cityAnGi.setAdapter(listAdapterDiaDiemAnGi);
-
+        //click group bên mục địa điểm với group là tên các quận huyện
         list_view_cityAnGi.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
                 TextView textView;
+                //set vị trí được chọn
                 StaticData.setSelectedDiaDiemAnGi(i);
                 StaticData.setChildAnGi(-1);
                 StaticData.setGroupAnGi(-1);
                 textView = (TextView) view.findViewById(R.id.text_view_district_name);
                 textView.setTextColor(getResources().getColor(R.color.red));
 
-
+                //mở rùi đóng expandableListView
                 list_view_cityAnGi.expandGroup(i);
                 list_view_cityAnGi.collapseGroup(i);
                 //
@@ -644,21 +637,25 @@ public class AnGi extends android.support.v4.app.Fragment implements IChooseStre
                 Duong="";
                 TabDanhMuc = textDanhMucAnGi.getText().toString().trim();
                 TabMoiNhat = textMoiNhatAnGi.getText().toString().trim();
+                //tiến hành load dữ liệu khi chọn quận huyện
                 loadNhaHangAnGi(TabDanhMuc,TinhThanh,QuanHuyen,Duong,TabMoiNhat);
 
                 return true;
             }
         });
+        //click  bên mục địa điểm với child là tên đường
         list_view_cityAnGi.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
                 TextView textView;
+                //set vị trí được chọn trong expandableListView
                 StaticData.setSelectedDiaDiemAnGi(-1);
                 StaticData.setChildAnGi(i1);
                 StaticData.setGroupAnGi(i);
 
                 textView = (TextView) view.findViewById(R.id.lblListItemODau);
                 textView.setTextColor(getResources().getColor(R.color.red));
+                //đóng rùi mở expandableListView
                 list_view_cityAnGi.collapseGroup(i);
                 list_view_cityAnGi.expandGroup(i);
                 //
@@ -677,12 +674,13 @@ public class AnGi extends android.support.v4.app.Fragment implements IChooseStre
                 trangThaiDanhMucAnGi = true;
                 trangThaiDiaDiemAnGi = true;
 
-                //load data khi chọn quận huyện
+                //load data khi chọn đường
                 TinhThanh = text_view_parent_districtAnGi.getText().toString().trim();
                 QuanHuyen=listQuanHuyenTheoTinh.get(i).getTenQuanHuyen();
                 Duong=textView.getText().toString().trim();
                 TabDanhMuc = textDanhMucAnGi.getText().toString().trim();
                 TabMoiNhat = textMoiNhatAnGi.getText().toString().trim();
+                //load dữ liệu sau khi chọn đường
                 loadNhaHangAnGi(TabDanhMuc,TinhThanh,QuanHuyen,Duong,TabMoiNhat);
 
                 return false;
@@ -780,7 +778,7 @@ public class AnGi extends android.support.v4.app.Fragment implements IChooseStre
             nhaHangList = asynNhaHangAnGi.execute(danhmuc, tinhthanh, quanhuyen, duong, moinhat).get();
             if (nhaHangList.size() > 0) {
                 for (int i = 0; i < nhaHangList.size(); i++) {
-                    //set hinh
+                    //set hinh cho nhà hàng lấy lên
                     String image = null;
                     AsynGetImage getImage = new AsynGetImage();
                     image = getImage.execute(nhaHangList.get(i).getImage().toString().trim()).get();
@@ -801,7 +799,7 @@ public class AnGi extends android.support.v4.app.Fragment implements IChooseStre
                     Info info = asynInfo.execute(nhaHangList.get(i).getId().trim()).get();
 
 
-
+                    //lấy các hình user
                     if(info!=null){
                         String photo=null;
                         AsynGetImage getImageMore = new AsynGetImage();
@@ -827,6 +825,7 @@ public class AnGi extends android.support.v4.app.Fragment implements IChooseStre
             e.printStackTrace();
         }
         khungChinhAnGi.setAdapter(null);
+        //set dữ liệu cho adapter rùi đưa dữ liệu nhà hàng lên list view
         adapterGridViewAnGi=new AdapterGridViewAnGi(mainActivity, nhaHangList);
         adapterGridViewAnGi.setChooseNhaHang(this);
         if (nhaHangList != null && nhaHangList.size() > 0)
@@ -836,16 +835,17 @@ public class AnGi extends android.support.v4.app.Fragment implements IChooseStre
         }
         adapterGridViewAnGi.notifyDataSetChanged();
     }
-
+    //sự kiện khi chọn nhà hàng bất kì trên grid view
     @Override
     public void ChooseItemNhaHang(NhaHang nhaHang) {
         StaticData.setNhaHang(nhaHang);
-
+        //nếu đăng nhập rùi thì chuyển sang activity thông tin nhà hàng
         if(StaticData.getObjectInfoUser()!=null){
             Intent intent = new Intent(context, ChiTietNhaHang.class);
             startActivity(intent);
         }
         else{
+            //nếu chưa chuyển sàn activity đăng nhập
             Intent intent = new Intent(context, LoginUser.class);
             startActivityForResult(intent,31);
         }

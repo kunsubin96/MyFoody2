@@ -1,29 +1,22 @@
 package com.example.kunsubin.foody;
 
 import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.kunsubin.foody.Object.StaticData;
 import com.example.kunsubin.foody.Object.TinhThanh;
 import com.example.kunsubin.foody.WebService.AsynTinhThanh;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -39,7 +32,7 @@ public class ChooseProvince extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose_province_activity_layout);
-
+        //lấy danh sách tỉnh thành
         AsynTinhThanh asynTinhThanh=new AsynTinhThanh();
         try {
             listTinhThanh=asynTinhThanh.execute().get();
@@ -87,6 +80,7 @@ public class ChooseProvince extends AppCompatActivity {
                     iconCheck.setImageResource(0);
                     macDinh.setVisibility(View.GONE);
                 }
+                //set vị trí được chọn
                 StaticData.setSelected(postion-1);
                 iconCheck = (ImageView) view.findViewById(R.id.image_view_check_status);
                 macDinh = (TextView) view.findViewById(R.id.text_view_set_default);

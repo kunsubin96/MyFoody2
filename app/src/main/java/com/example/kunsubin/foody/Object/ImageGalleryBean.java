@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by kunsubin on 5/6/2017.
  */
-
+//Object chứa image
 public class ImageGalleryBean implements Parcelable {
     String path;
     boolean isSelected;

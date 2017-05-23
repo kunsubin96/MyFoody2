@@ -15,18 +15,19 @@ import java.util.UUID;
  */
 
 public class StaticObjectJSON {
+    //tạo một đối tượng jsson gồm có 3 đối tượng userid,id,image
     public static JsonObject createImageInputObject(String path) {
         JsonObject outputObject = null;
-
+        //get image từ đường dẫn chuyển thành dạng byte
         Bitmap myBitmap = BitmapFactory.decodeFile(path);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         myBitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
         byte[] byteArray = bos.toByteArray();
 
-
+        //encode chuyển byte[] thành StringBase64
         String str = Base64.encodeToString(byteArray, Base64.NO_WRAP);
 
-
+        //tạo jsson object
         outputObject = new JsonObject();
 
         outputObject.addProperty("userid", StaticData.getObjectInfoUser().getUsername().trim());
@@ -36,18 +37,19 @@ public class StaticObjectJSON {
 
         return outputObject;
     }
+    //tạo một đối tượng jsson gồm có 3 đối tượng nhahangid,id,image
     public static JsonObject createImageInputNhaHangObject(String path,String nhahangid) {
         JsonObject outputObject = null;
-
+        //get image từ đường dẫn chuyển thành dạng byte
         Bitmap myBitmap = BitmapFactory.decodeFile(path);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         myBitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
         byte[] byteArray = bos.toByteArray();
 
-
+        //encode chuyển byte[] thành StringBase64
         String str = Base64.encodeToString(byteArray, Base64.NO_WRAP);
 
-
+        //tạo jsson object
         outputObject = new JsonObject();
 
         outputObject.addProperty("nhahangid", nhahangid);

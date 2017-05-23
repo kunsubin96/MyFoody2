@@ -3,7 +3,7 @@ package com.example.kunsubin.foody.Object;
 /**
  * Created by kunsubin on 4/22/2017.
  */
-
+//biến object data thông tin người dùng
 public class ObjectInfoUser {
 
     public  byte[] hinh;

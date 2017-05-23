@@ -5,7 +5,7 @@ import com.example.kunsubin.foody.R;
 /**
  * Created by kunsubin on 4/5/2017.
  */
-
+//chứa dữ liệu cho các menu ở khung chính
 public class MoreItem {
     String tittle;
     MoreItemCode code;

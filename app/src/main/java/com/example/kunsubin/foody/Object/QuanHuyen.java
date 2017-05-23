@@ -3,7 +3,7 @@ package com.example.kunsubin.foody.Object;
 /**
  * Created by kunsubin on 4/8/2017.
  */
-
+//biến object data chứa thông tin quận huyện
 public class QuanHuyen {
     String MaQuanHuyen;
     String TenQuanHuyen;

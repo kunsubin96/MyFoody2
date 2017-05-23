@@ -2,8 +2,6 @@ package com.example.kunsubin.foody;
 
 
 import android.content.Context;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.*;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +18,7 @@ public class ImageAdapter extends android.support.v4.view.PagerAdapter {
     Context mContext;
     LayoutInflater mLayoutInflater;
     List<Integer> mResources;
-
+    //nhận vào 1 cái list hình
     public ImageAdapter(Context context, List<Integer> mResources) {
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

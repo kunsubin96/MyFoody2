@@ -52,6 +52,7 @@ public class CustomAdapterDanhMucODau extends BaseAdapter{
     public int getItemViewType(int i) {
         return i;
     }
+    //ánh xạ các view
     public class Holder
     {
         ImageView iconItem;
@@ -75,14 +76,14 @@ public class CustomAdapterDanhMucODau extends BaseAdapter{
             holder=(Holder) convertView.getTag();
         }
         holder=(Holder) convertView.getTag();
-
+        //set data lên list view
         holder.iconItem.setImageResource(imageId[position]);
         holder.textItem.setText(result[position]);
         holder.checked.setImageResource(0);
         holder.textItem.setTextColor(context.getResources().getColor(R.color.black));
         if(position==0)
             holder.iconItem.getLayoutParams().width = 1;
-
+        //thiết lập danh mục được chọn trong list view
         if (position == StaticData.getSelectedDanhMucODau()) {
             holder.textItem.setTextColor(context.getResources().getColor(R.color.red));
             holder.checked.setImageResource(R.drawable.icon_stick);

@@ -142,7 +142,7 @@ public class StaticData {
     }
 
     static NhaHang nhaHang;
-
+    //kết quả trả về khi gặp lỗi không get được giá trị json
     public static final JsonObject GET_ERROR_OBJECT() {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("success", false);
@@ -169,7 +169,7 @@ public class StaticData {
     }
 
     static String TenTinhThanh;
-
+    //hiệu ứng rung dùng cho ô edittext
     public static void shakeView(Context context, View v) {
         v.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake));
     }

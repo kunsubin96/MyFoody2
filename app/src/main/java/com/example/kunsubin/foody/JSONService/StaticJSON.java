@@ -3,7 +3,7 @@ package com.example.kunsubin.foody.JSONService;
 /**
  * Created by kunsubin on 5/11/2017.
  */
-
+//chứa biến data về url với method tương ứng
 public class StaticJSON {
     static String URL="http://10.0.3.2:8080/WebServiceMyFoody/rest/";
 

@@ -22,6 +22,7 @@ import java.net.URLConnection;
  */
 
 public class JsonHTTPHelper {
+    //nhận url và phương thức trả lên dữ liệu dạng json
     public static JsonObject makeHttpResponse(String url, boolean method, @Nullable JsonObject jsonObjectInput) {
 
         URLConnection connection = getHTTPConnection(url, method);
@@ -34,7 +35,7 @@ public class JsonHTTPHelper {
         return getJsonResponse(connection);
 
     }
-
+    //phương thức post
     private static void postObject(JsonObject jsonObjectInput, URLConnection connection) {
 
         try {
@@ -46,14 +47,14 @@ public class JsonHTTPHelper {
         }
 
     }
-
+    //get jsson trả về
     private static JsonObject getJsonResponse(URLConnection connection) {
 
         JSONObject jsonObject = getJSONObjectFromConnection(connection);
         return convertJSONObject2JSonObject(jsonObject);
 
     }
-
+    //chuyển JSONObject thành JSonObject
     private static JsonObject convertJSONObject2JSonObject(JSONObject input) {
         if (input != null) {
             return (JsonObject) new JsonParser().parse(input.toString());
@@ -61,7 +62,7 @@ public class JsonHTTPHelper {
         return StaticData.GET_ERROR_OBJECT();
 
     }
-
+    //tạo kết nối đến webservice ứng với phương thức được chọn
     private static URLConnection getHTTPConnection(String strURL, boolean method) {
         URL url = null;
         URLConnection connection = null;
@@ -81,7 +82,7 @@ public class JsonHTTPHelper {
         }
         return connection;
     }
-
+    //get JSONObject ứng với 1 URLConnection
     private static JSONObject getJSONObjectFromConnection(URLConnection connection) {
         JSONObject output = null;
         if(connection!=null){

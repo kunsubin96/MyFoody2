@@ -85,9 +85,11 @@ public class AdapterGridViewAnGi extends BaseAdapter{
             text_viewMonAn.setText(nhaHang.getMonChinh());
             textViewNhaHang.setText(nhaHang.getName());
             textViewDiaChi.setText(nhaHang.getDiaChi());
+            //đưa hình lên
             if (nhaHang.getHinh()!= null) {
                 Glide.with(context).load(nhaHang.getHinh()).into(image_view_angi);
             }
+            //đưa thông tin khác nhà hàng lên bên ăn gì
             if(nhaHang.getInfo()!=null){
                 nameUser.setText(nhaHang.getInfo().getName());
                 ngayDang.setText(nhaHang.getInfo().getDate());
@@ -118,6 +120,7 @@ public class AdapterGridViewAnGi extends BaseAdapter{
 
         return convertView;
     }
+    //tạo sự kiện khi click vào nhà hàng bên tab ăn gì
     public class ItemNhaHang implements  View.OnClickListener{
         NhaHang nhaHang;
         public ItemNhaHang(NhaHang nhaHang){

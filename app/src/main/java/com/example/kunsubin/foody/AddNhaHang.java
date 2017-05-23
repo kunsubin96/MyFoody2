@@ -114,14 +114,17 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_nha_hang);
-
+        //gắn tỉnh thành mặc định hcm
         curProvinceID="tphcm";
+        //lấy dữ liệu tỉnh thành
         tinhThanhList=new ArrayList<>();
+        //lấy dữ liệu quận huyện
         quanHuyenList=new ArrayList<>();
         //get
 
-        //
+        //khởi tạo các view
         initView();
+        //tạo sự kiện cho các view
         initEvent();
         initPopup();
         setDefaultDisplay();
@@ -131,7 +134,7 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
         buildPopup(POPUP_CHOOSE_DISTRICT);
         buildPopup(POPUP_CHOOSE_RESTYPE);
     }
-
+    //map các biên tương ứng khai báo ở trên với các view
     private void initView() {
         back_button_add_place=(LinearLayout)findViewById(R.id.back_button_add_place);
         text_view_done = (TextView) findViewById(R.id.text_view_done);
@@ -155,11 +158,11 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
         frame_layout_add_image = (FrameLayout) findViewById(R.id.frame_layout_add_image);
 
         text_view_photo_count = (TextView) findViewById(R.id.text_view_photo_count);
-
+        //lấy lịch
         final Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
-
+        //mở diaglog chon thời gian mở với đóng cửa cho nhà hàng
         openTimePiker = new TimePickerDialog(this, onOpenTimeSet, hour, minute, true);
         closeTimePiker = new TimePickerDialog(this, onCloseTimeSet, hour, minute, true);
 
@@ -168,25 +171,26 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
         selectedFileAdapter = new GallerySelectedFileAdapter(getApplicationContext(), selectedImages, Type.IMAGESELECTED_INADDPLACE);
         selectedFileAdapter.setiOnClickImage(this);
 
-
+        //set cho RecyclerView dạng gidview với 3 cột
         grid_view_file.setLayoutManager(new GridLayoutManager(this, 3));
         grid_view_file.setAdapter(selectedFileAdapter);
 
     }
-
+    //open Dialog để chọn thời gian mở cửa
     TimePickerDialog.OnTimeSetListener onOpenTimeSet = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             AddNhaHang.this.text_view_open_time.setText(hourOfDay + ":" + minute);
         }
     };
+    //open Dialog để chọn thời gian đóng cửa
     TimePickerDialog.OnTimeSetListener onCloseTimeSet = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             AddNhaHang.this.text_view_close_time.setText(hourOfDay + ":" + minute);
         }
     };
-
+    //tạo sự kiện cho các view
     private void initEvent() {
         back_button_add_place.setOnClickListener(this);
         text_view_choose_province.setOnClickListener(this);
@@ -198,13 +202,15 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
         text_view_done.setOnClickListener(this);
         frame_layout_add_image.setOnClickListener(this);
     }
-
+    //set giá trị ban đầu khi vào màn hình addnhahang
     private void setDefaultDisplay() {
+        //add layout khi thêm số điện thoại
         addLayoutNewPhone();
+        //set tên tỉnh thành mặc định
         text_view_choose_province.setText(StaticData.getTenTinhThanh());
     }
 
-
+    //add layout khi thêm số điện thoại
     private void addLayoutNewPhone() {
         View v = View.inflate(this, R.layout.item_phone_layout, null);
         ImageView image_view_add_phone_number = (ImageView) v.findViewById(R.id.image_view_add_phone_number);
@@ -213,7 +219,7 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
         image_view_add_phone_number.setOnClickListener(new OnClickAddNumber(this.getApplicationContext(), image_view_add_phone_number, v));
         this.linear_layout_phone_number.addView(v);
     }
-
+    //sự kiện khi click thì tạo thêm 1 view để đưa số điện thoại(trường hợp nhiều số điện thoại) hoặc remove 1 số điện thoại
     class OnClickAddNumber implements View.OnClickListener {
         Context context;
         ImageView image_view_add_phone_number;
@@ -224,7 +230,7 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
             this.image_view_add_phone_number = image_view_add_phone_number;
             this.layout = layout;
         }
-
+        //click create or remove
         @Override
         public void onClick(View v) {
             if ((Integer) image_view_add_phone_number.getTag() == 10) {
@@ -242,9 +248,11 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
 
         }
     }
+    //kết quả trả về
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //kết quả trả về bên activity chọn hình trả về
         if (requestCode == 35) {
             if (resultCode == Activity.RESULT_OK) {
                 selectedImages = data.getParcelableArrayListExtra("images");
@@ -254,6 +262,7 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
             }
         }
     }
+    //cập nhật số lượng hình cần up
     private void updateNumofPhoto() {
         if (this.selectedFileAdapter.imageSelected.size() > 0) {
             text_view_photo_count.setText("" + this.selectedFileAdapter.imageSelected.size());
@@ -282,6 +291,7 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
         }
         return list;
     }
+    //get StringBase 64 khi đưa đường dẫn hình trong máy
     public String getStringImage(String path){
         Bitmap myBitmap = BitmapFactory.decodeFile(path);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -290,6 +300,7 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
         String str = Base64.encodeToString(byteArray, Base64.NO_WRAP);
         return str;
     }
+    //lấy nối tất cả các số điện thoại
     private String getAllPhoneNumber() {
         String result = "";
         for (int i = 0; i < this.linear_layout_phone_number.getChildCount(); i++) {
@@ -299,6 +310,7 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
         }
         return result.substring(0, result.length() - 1);
     }
+    //cập nhật loại địa điểm
     private void updateTextResType() {
         this.text_view_res_type.setText("");
         String resType = "";
@@ -313,6 +325,7 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
         resType = resType.substring(0, resType.length() - 2);
         this.text_view_res_type.setText(resType);
     }
+    //show một thông thi ứng mới mess truyền vào
     private void showAlert(String mess) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
@@ -328,7 +341,7 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
 
         alertDialogBuilder.show();
     }
-
+    //cập nhật lại trạng thái khi chọn tỉnh thành, quận huyện, loại địa điểm
     private void buildPopup(int type) {
         if (type == POPUP_CHOOSE_PROVINCE) {
             dialogChooseProvince = new ListItemDialog(this);
@@ -360,7 +373,7 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
         }
 
     }
-
+    //lấy các thông tin liên quan đến nhà hàng cần up đưa vào List<MenuBarItemBean> để chuẩn bị cho việc up
     private List<MenuBarItemBean> getDataDialog(int type) {
         List<MenuBarItemBean> list = new ArrayList<>();
         try {
@@ -369,9 +382,11 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
                 AsynTinhThanh asynTinhThanh=new AsynTinhThanh();
                 tinhThanhList=asynTinhThanh.execute().get();
                 //List<ProvinceBean> provinceBeanList = provinceController.getListProvince();
+                //lấy tỉnh thành
                 for (int i=0;i<tinhThanhList.size();i++) {
                     list.add(new MenuBarItemBean(tinhThanhList.get(i).getMaTinhThanh().trim(), tinhThanhList.get(i).getTenTinhThanh().trim(), "", false));
                 }
+                //set tỉnh thành được chọn thì check đỏ vào
                 list.get(positionSelectedProvince).setSelected(true);
             } else if (type == POPUP_CHOOSE_DISTRICT) {
                 //List<DistrictBean> distrctBeanList = districtController.getListDistrict(this.curProvinceID);
@@ -383,10 +398,11 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
                         quanHuyenList.add(quanHuyens.get(i));
                     }
                 }
+                //lấy quận huyện
                 for (QuanHuyen i : quanHuyenList) {
                     list.add(new MenuBarItemBean(i.getMaQuanHuyen(), i.getTenQuanHuyen(), "", false));
                 }
-            } else if (type == POPUP_CHOOSE_RESTYPE) {
+            } else if (type == POPUP_CHOOSE_RESTYPE) {//lấy loại địa điểm
                 List<MenuBarItemBean> menuBarItemBeanList = new ArrayList<>();
                 AsynDanhMuc asynDanhMuc=new AsynDanhMuc();
                 List<DanhMuc> mucList=asynDanhMuc.execute().get();
@@ -433,6 +449,7 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
         AlertDialog alert = builder.create();
         alert.show();
     }
+    //check dữ liệu đầy đủ thông tin trên nếu chỗ nào chưa đủ thì chỉ vị trí và tiến hành insert nhà hàng
     private void sendData() {
         if (curDistrictID == null || curDistrictID.equals("")) {
             StaticData.shakeView(this.getApplicationContext(), text_view_choose_district);
@@ -460,12 +477,16 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
                 }
             }
         }
+        //insert nhà hàng
         insertNhaHang();
         //JsonObject input = createJsonInput();
        // new PostMethod(input, this.getApplicationContext(), new CallBackUploadNhaHang()).execute("api/restaurant/post");
     }
+    //insert nhà hàng xuống
     public void insertNhaHang(){
+        //tạo uuid nha hàng ngẫu nhiên độ dài 32 kí tự hex(128 bit)
         String ID=UUID.randomUUID().toString();
+        //lấy các thông tin liên quan
         String TenNhaHang=edit_text_name_res.getText().toString().trim();
         String DiaChi=edit_text_address_res.getText().toString().trim();
         String SDT=getAllPhoneNumber().trim();
@@ -479,6 +500,7 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
         Log.d("kiemtrabienID",TinhThanh+"");
         Log.d("kiemtrabienID",QuanHuyen+"");
         Log.d("kiemtrabienID",DanhMucODau+"");
+        //insert hình cho nhà hàng
         AsynInsertNhaHang asynInsertNhaHang=new AsynInsertNhaHang();
 
         try {
@@ -516,21 +538,27 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
             e.printStackTrace();
         }
     }
+    //các sự kiện cho các view
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            //trở về
             case R.id.back_button_add_place:
                 finish();
                 break;
+            //insert nhà hàng
             case R.id.text_view_done:
                 sendData();
                 break;
+            //chọn tỉnh thành
             case R.id.text_view_choose_province:
                 dialogChooseProvince.show();
                 break;
+            //chọn quận huyện
             case R.id.text_view_choose_district:
                 dialogChooseDistrict.show();
                 break;
+            //chọn loại địa điểm
             case R.id.linear_layout_choose_type_res:
                 dialogChooseResType.show();
                 break;
@@ -542,12 +570,15 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
                     startActivityForResult(intentLocation, 1);
                 }*/
                 break;
+            //chọn thời gian mở cửa
             case R.id.text_view_open_time:
                 this.openTimePiker.show();
                 break;
+            //chọn thời gian đóng cửa
             case R.id.text_view_close_time:
                 this.closeTimePiker.show();
                 break;
+            //mở activity để chọn hình cần up
             case R.id.frame_layout_add_image:
                 if (Permission.isReadWritePermission(this)) {
                     Intent intent = new Intent(this, GalleryFolderActivity.class);
@@ -580,7 +611,7 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
             dialogChooseResType.dismiss();
         }
     }
-
+    //cancel diaglog
     class OnCancelDialogClick implements View.OnClickListener {
         Dialog dialog;
 
@@ -601,7 +632,7 @@ public class AddNhaHang extends BaseSlideActivity implements View.OnClickListene
             this.type = type;
             this.adapter = adapter;
         }
-
+        //sự kiện khi click các danh mục tỉnh thành, quận huyện và loại địa điểm
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             if (type != POPUP_CHOOSE_RESTYPE) {
